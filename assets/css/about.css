@@ -1,0 +1,235 @@
+/**
+* Ali Jamil Copyright 2022
+* License: https://bootstrapmade.com/license/
+*/
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+  display: grid;
+  justify-content: center;
+  min-height: 100vh;
+  grid-template-areas: "nav" "main" "footer";
+  grid-template-rows: min-content 1fr min-content;
+  /* grid-auto-columns: minmax(auto, 1340px); */
+  gap: 2rem;
+  font-family: "Open Sans", sans-serif;
+  color: #555555;
+  margin: 15px;
+  background-color: #CDD6E0;
+}
+
+h1 {
+  font-family: "Libre Bodoni", sans-serif;
+  color: #000000;
+}
+
+h2 {
+  font-family: "Montserrat", sans-serif;
+}
+
+h3 {
+  font-family: "Libre Bodoni", sans-serif;
+  /* rotate text upside down (sweetener style) */
+  /* transform: rotate(-180deg); */
+  color: #000000;
+}
+
+h4 {
+  font-family: "Libre Bodoni", sans-serif;
+  /* rotate text upside down (sweetener style) */
+  /* transform: rotate(-180deg); */
+  color: #0b0202;
+}
+
+h5 {
+  font-family: "Open Sans", sans-serif;
+}
+
+h6 {
+  font-family: "Libre Bodoni", sans-serif;
+}
+
+
+/*--------------------------------------------------------------
+# Disable AOS delay on mobile
+--------------------------------------------------------------*/
+@media screen and (max-width: 768px) {
+  [data-aos-delay] {
+    transition-delay: 0 !important;
+  }
+}
+
+
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+header {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--highlight);
+  /* margin-bottom: 15px; */
+  padding: 40px 0;
+}
+
+#header .logo img {
+  padding: 0;
+  margin: 0;
+  max-height: 45px;
+}
+#header .hero-logo {
+  margin-bottom: 30px;
+}
+@media (max-width: 815px) {
+  #header {
+    height: 70px;
+  }
+}
+
+.scrolled-offset {
+  margin-top: 90px;
+}
+@media (max-width: 815px) {
+  .scrolled-offset {
+    margin-top: 90px;
+  }
+} 
+/* button */
+#draw-border {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.btn-readmore {
+  border: 0;
+  background: none;
+  text-transform: uppercase;
+  color: #555555;
+  font-weight: bold;
+  position: relative;
+  outline: none;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+.btn-readmore::before, .btn-readmore::after {
+  box-sizing: inherit;
+  position: absolute;
+  content: '';
+  border: 2px solid transparent;
+  width: 0;
+  height: 0;
+}
+
+.btn-readmore::after {
+  bottom: 0;
+  right: 0;
+}
+
+.btn-readmore::before {
+  top: 0;
+  left: 0;
+}
+
+.btn-readmore:hover::before, .btn-readmore:hover::after {
+  width: 100%;
+  height: 100%;
+}
+
+.btn-readmore:hover::before {
+  border-top-color: #c36ade77;
+  border-right-color: #c36ade77;
+  transition: width 0.3s, height 0.25s ease-out 0.25s;
+}
+
+.btn-readmore:hover::after {
+  border-bottom-color: #65907D;
+  border-left-color: #65907D;
+  transition: border-color 0s ease-out 0.5s, width 0.3s ease-out 0.5s, height 0.3s ease-out .8s;
+}
+
+/* END button */
+
+/*--------------------------------------------------------------
+# "Fab-Fa" Social Media Links
+--------------------------------------------------------------*/
+.fab {
+  padding:.4%;
+  font-size: 25px;
+  text-align: center;
+  text-decoration: none;
+}
+.fab:hover {
+  color:#65907D;
+}
+.fa-instagram {
+  color: #000000;
+  align-items: right;
+}
+.fa-facebook {
+  color: #000000;
+  align-items: right;
+}
+.fa-twitter {
+  color: #000000;
+}
+.fa-youtube {
+  color: #000000;
+}
+.fa-linkedin {
+  color: #000000;
+}
+.fa-envelope {
+  color: #000000;
+}
+
+
+
+/*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+/**
+* Desktop Navigation 
+*/
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+
+#footer {
+  height: 190px;
+  background: #f7ebdb;
+  color: #FFFFFF;
+  font-size: 14px;
+  position: relative;
+}
+#footer::before {
+  position: absolute;
+  background: #f4d6b4;
+  z-index: 1;
+}
+
+#footer .footer-logo {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#footer .copyright {
+  color: #000000;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+}
+#footer .privacy {
+  text-align: center;
+  font-size: 13px;
+  padding-top: 5px;
+}
