@@ -3,9 +3,9 @@ const showEmailResult = async (e) => {
     const result = document.getElementById("result");
     let response = await getEmailResult();
     if (response.status == 200) {
-      result.innerHTML = "Email Successfully Sent";
+      result.innerHTML = "Your email was successfully sent";
     } else {
-      result.innerHTML = "Sorry, your email was not sent.";
+      result.innerHTML = "Sorry, your email was not sent";
     }
   };
   
