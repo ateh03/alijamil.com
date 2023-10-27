@@ -366,7 +366,7 @@ img + p, .img-gallery + p {
 # Subscribe 
 --------------------------------------------------------------*/
 .subscribe {
-    height: 650px;
+    height: 80%;
     background:#aec6a5;
     --background-theme: #aec6a5;
     padding: 70px 0;
@@ -374,9 +374,9 @@ img + p, .img-gallery + p {
   
   .subscribe .container {
     height: 80%;
-    width: 70%;
+    width: 55%;
   
-    margin-top: 45px;
+    margin-top: 8%;
     margin-left: auto;
     margin-right: auto;
   
@@ -393,6 +393,11 @@ img + p, .img-gallery + p {
   }
   .subscribe h2 {
     font-size: 30px;
+    font-weight: 300;
+    color: FFFFFF;
+  }
+  .subscribe h3 {
+    font-size: 40px;
     font-weight: 300;
     color: FFFFFF;
   }
@@ -446,7 +451,7 @@ img + p, .img-gallery + p {
   }
 
 
-  /*--------------------------------------------------------------
+/*--------------------------------------------------------------
 # Social Media Links "Fab-Fa" 
 --------------------------------------------------------------*/
 .fab {
@@ -519,17 +524,28 @@ form button{
     margin-left: 7%;
 }
 
+input {
+  font-family: "Univers Pro 75 Black";
+  font-size: medium;
+}
+
 select {
   border: 6px solid transparent;
   border-color: #fff transparent transparent transparent;
-  font-family: "Nova Round";
-}
-
-.subForm select {
-  font-style: "Libre Bodoni";
+  font-family: "Univers Pro 75 Black";
+  font-size: medium;
 }
 
 .subscribe .container .section-title {
   justify-content: center;
   text-align: center;
+}
+
+.section-title {
+  justify-content: center;
+  text-align: center;
+}
+
+form .alignment {
+  font-size: large;
 }
