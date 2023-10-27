@@ -25,15 +25,16 @@ html {
 }
 
 body {
-    display: grid;
+    /* display: grid; */
     color: #555555;
-    justify-content: center;
-    min-height: 100vh;
-    grid-template-areas: "nav" "main" "footer";
-    grid-template-rows: min-content 1fr min-content;
-    grid-auto-columns: minmax(auto, 900px);
-    gap: 1rem;
-    margin: 15px;
+    /* justify-content: center; */
+    /* min-height: 100vh; */
+    /* grid-template-areas: "nav" "main" "footer";
+    grid-template-rows: min-content 1fr min-content; */
+    /* grid-auto-columns: minmax(auto, 900px); */
+    /* gap: 1rem; */
+    margin: auto;
+    width: 100%;
 }
 
 code, pre {
@@ -117,6 +118,7 @@ img.display {
   margin-left: auto;
   margin-right: auto;
   width: 80%;
+  border: 10px solid #b0d1ed;
 }
 
 .about2Image {
@@ -472,9 +474,46 @@ img + p, .img-gallery + p {
   }
 
 
+
+
+  .main-content div{
+    justify-content: center;
+    margin-top: 8%;
+    margin-bottom: 5%;
+}
+
   .testersss {
     display: flex;
     background-color: #3C4A3E;
     padding: 5%;
     flex-flow: row wrap;
+  }
+
+  @media only screen and (min-width: 768px) {
+    .flex-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+    }
+  }
+
+/* Form */
+form input{
+  width: 200px;
+}
+form textarea {
+  min-height: 100px;
+  width: 200px;
+}
+form label {
+  display: block;
+}
+
+    /* Form */
+    form {
+      margin-left: 40%;
+  }
+  form button{
+      margin-left: 7%;
   }

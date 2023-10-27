@@ -3,14 +3,14 @@ const showEmailResult = async (e) => {
     const result = document.getElementById("result");
     let response = await getEmailResult();
     if (response.status == 200) {
-      result.innerHTML = "Your email was successfully sent";
+      result.innerHTML = "You're now subscribed to: Ali Jamil.";
     } else {
-      result.innerHTML = "Sorry, your email was not sent";
+      result.innerHTML = "Sorry, there was an error in signing up.";
     }
   };
   
   const getEmailResult = async (e) => {
-    const form = document.getElementById("contact-form");
+    const form = document.getElementById("subscribe-form");
     const formData = new FormData(form);
     const object = Object.fromEntries(formData);
     const json = JSON.stringify(object);
@@ -30,10 +30,10 @@ const showEmailResult = async (e) => {
     } catch (error) {
       console.log(error);
       document.getElementById("result").innerHTML =
-        "Sorry your email couldn't be sent";
+        "Sorry, your email could not be sent.";
     }
   };
   
 window.onload = () => {
-    document.getElementById("contact-form").onsubmit = showEmailResult;
+    document.getElementById("subscribe-form").onsubmit = showEmailResult;
 }
