@@ -31,7 +31,7 @@ body {
     /* min-height: 100vh; */
     /* grid-template-areas: "nav" "main" "footer";
     grid-template-rows: min-content 1fr min-content; */
-    /* grid-auto-columns: minmax(auto, 900px); */
+    grid-auto-columns: minmax(auto, 900px);
     /* gap: 1rem; */
     margin: auto;
     width: 100%;
@@ -72,6 +72,10 @@ header {
     border-bottom: 2px solid var(--highlight);
     /* margin-bottom: 15px; */
     padding: 20px 0;
+}
+
+.tabs {
+  word-spacing: 1ch;
 }
 
 a, a:visited {
@@ -502,18 +506,30 @@ img + p, .img-gallery + p {
 form input{
   width: 200px;
 }
-form textarea {
-  min-height: 100px;
-  width: 200px;
-}
+
 form label {
   display: block;
 }
 
-    /* Form */
-    form {
-      margin-left: 40%;
-  }
-  form button{
-      margin-left: 7%;
-  }
+/* Form */
+form {
+    margin-left: 40%;
+}
+form button{
+    margin-left: 7%;
+}
+
+select {
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+  font-family: "Nova Round";
+}
+
+.subForm select {
+  font-style: "Libre Bodoni";
+}
+
+.subscribe .container .section-title {
+  justify-content: center;
+  text-align: center;
+}

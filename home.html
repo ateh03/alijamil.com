@@ -26,11 +26,10 @@
 <body>
     <header>
         <a href="index.html">Ali Jamil</a>
-        <div style="word-spacing: 1ch">
+        <div class="tabs">
             <a href="about">About</a>
             <a href="portfolio">Portfolio</a> 
             <a href="subscribe.html">Subscribe</a>
-            <!-- <a href="leadership.html">Leadership</a> -->
         </div>
     </header>
     <div>
@@ -38,6 +37,7 @@
         <div class="flex-container">
             <center><img class="aboutImage" src="assets/img/about.jpg"></center>
         </div>
+
         <div>
           <h1>Ali Jamil</h1>
           <p>I'm Ali Jamil, and I'm a self-proclaimed multi-hyphenate – I'm a writer, developer, current web intern, aspiring database admin and overall tech enthusiast. My pronouns are he/him. 
@@ -162,7 +162,6 @@
       <div class="section-title">
           <h3>Subscribe</h3>
       </div>
-  Email form
   <!-- <form method="post" role="form" class="email-mailing-form" onSubmit="return validateForm();">
       <div style="display: flex;">
         <div class="col-md-6 form-group">Email<span style="color: #ce82d4;">*</span></label><br/>
@@ -193,28 +192,28 @@
         value="6054d1a7-683c-49cd-8fd8-d763c7299278"
         />
 
+        <!-- <p>
+          <label for="name">Name:</label>
+          <input
+              id="name"
+              type="text"
+              placeholder="Email Address (Required)"
+              name="name"
+              data-error-text="This field is required."
+              required
+          />
+        </p> -->
         <p>
-        <label for="name">Name:</label>
-        <input
-            id="name"
-            type="text"
+          <label for="email">Email:</label>
+          <input 
+            id="email" 
+            type="email" 
             placeholder="Email Address (Required)"
-            name="name"
+            name="email" 
             data-error-text="This field is required."
-            required
-        />
+            required />
         </p>
-        <p>
-        <label for="email">Email:</label>
-        <input 
-          id="email" 
-          type="email" 
-          placeholder="Email Address (Required)"
-          name="email" 
-          data-error-text="This field is required."
-          required />
-        </p>
-        Choose Country*
+        <label for="country">Choose Country:</label>
         <p>
         <select placeholder="Country (Required)" 
         class="btn-country" 
