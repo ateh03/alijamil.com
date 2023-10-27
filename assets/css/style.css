@@ -117,6 +117,10 @@ img.display {
     max-height: 85vh;
 }
 
+/*--------------------------------------------------------------
+# About Section
+--------------------------------------------------------------*/
+
 .aboutImage {
   display: block;
   margin-left: auto;
@@ -126,15 +130,21 @@ img.display {
 }
 
 .about2Image {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
-  }
-
-.bipanel {
-    
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
 }
+
+.main-content div{
+  justify-content: center;
+  margin-top: 8%;
+  margin-bottom: 5%;
+}
+
+/*--------------------------------------------------------------
+#  Section
+--------------------------------------------------------------*/
 .bipanel > .left {
     float: left;
 }
@@ -428,6 +438,7 @@ img + p, .img-gallery + p {
     border-radius: 0px;
     color: #000000;
     background-color: transparent;
+ 
     
     padding: 10px;
     margin: 15px;
@@ -451,53 +462,6 @@ img + p, .img-gallery + p {
   }
 
 
-/*--------------------------------------------------------------
-# Social Media Links "Fab-Fa" 
---------------------------------------------------------------*/
-.fab {
-    padding:.4%;
-    font-size: 25px;
-    text-align: center;
-    text-decoration: none;
-  }
-  .fab:hover {
-    color:#65907D;
-  }
-  .fa-instagram {
-    color: #000000;
-  }
-  .fa-facebook {
-    color: #000000;
-  }
-  .fa-twitter {
-    color: #000000;
-  }
-  .fa-youtube {
-    color: #000000;
-  }
-  .fa-linkedin {
-    color: #000000;
-  }
-  .fa-envelope {
-    color: #000000;
-  }
-
-
-
-
-  .main-content div{
-    justify-content: center;
-    margin-top: 8%;
-    margin-bottom: 5%;
-}
-
-  .testersss {
-    display: flex;
-    background-color: #3C4A3E;
-    padding: 5%;
-    flex-flow: row wrap;
-  }
-
   @media only screen and (min-width: 768px) {
     .flex-container {
       display: flex;
@@ -509,7 +473,7 @@ img + p, .img-gallery + p {
 
 /* Form */
 form input{
-  width: 200px;
+  width: 65%;
 }
 
 form label {
@@ -518,10 +482,7 @@ form label {
 
 /* Form */
 form {
-    margin-left: 40%;
-}
-form button{
-    margin-left: 7%;
+    margin-left: 0%;
 }
 
 input {
@@ -534,6 +495,7 @@ select {
   border-color: #fff transparent transparent transparent;
   font-family: "Univers Pro 75 Black";
   font-size: medium;
+  width: 68%;
 }
 
 .subscribe .container .section-title {
@@ -546,6 +508,45 @@ select {
   text-align: center;
 }
 
-form .alignment {
-  font-size: large;
+
+.email-input {
+  
+  text-align: center;
+}
+
+.country-input {
+  
+  text-align: center;
+}
+
+
+/*--------------------------------------------------------------
+# Social Media Links "Fab-Fa" 
+--------------------------------------------------------------*/
+.fab {
+  padding:.4%;
+  font-size: 25px;
+  text-align: center;
+  text-decoration: none;
+}
+.fab:hover {
+  color:#65907D;
+}
+.fa-instagram {
+  color: #000000;
+}
+.fa-facebook {
+  color: #000000;
+}
+.fa-twitter {
+  color: #000000;
+}
+.fa-youtube {
+  color: #000000;
+}
+.fa-linkedin {
+  color: #000000;
+}
+.fa-envelope {
+  color: #000000;
 }
