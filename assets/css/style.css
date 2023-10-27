@@ -72,6 +72,9 @@ header {
     border-bottom: 2px solid var(--highlight);
     /* margin-bottom: 15px; */
     padding: 20px 0;
+
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 .tabs {
@@ -143,7 +146,8 @@ img.display {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 80%;
+  width: 60%;
+  
   border: 10px solid #8AA39D;
 }
 
@@ -384,7 +388,7 @@ img + p, .img-gallery + p {
   }
   /* END button */
 
-  /*--------------------------------------------------------------
+/*--------------------------------------------------------------
 # Subscribe 
 --------------------------------------------------------------*/
 .subscribe {
@@ -522,13 +526,13 @@ select {
 
 
 .email-input {
-  
-  text-align: center;
+  margin-left: 30%;
+  text-align: left;
 }
 
 .country-input {
-  
-  text-align: center;
+  margin-left: 30%;
+  text-align: left;
 }
 
 
