@@ -317,6 +317,8 @@ img + p, .img-gallery + p {
     padding: 10px 20px;
     box-sizing: border-box;
     left: 39%;
+
+    
   }
   
   .btn-contact::before, .btn-contact::after {
