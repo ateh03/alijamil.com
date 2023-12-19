@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Portfolio - Ali Jamil</title>
-    <link rel="STYLESHEET" href="assets/css/style.css">
     <script src="image-preview.js"></script>
 
     <meta charset="utf-8">
@@ -22,27 +21,65 @@
 
 <body>
     <header>
-        <a href="./home">Ali Jamil</a>
+        <a href="home.html"><h2>ali jamil</h2></a>
         <div style="word-spacing: 1ch">
-            <a href="about">About</a>
-            <a href="portfolio" class="current">Portfolio</a> 
+            <a href="about.html">About</a>
+            <a href="portfolio.html" class="current">Portfolio</a> 
             <a href="subscribe.html">Subscribe</a>
         </div>
     </header>
     <div>
-      <ol>
-        <li>
-          <a href="https://www.alijamil.com">alijamil.com</a></strong> - this very portfolio website was created by me. Taking the better part of seven months to complete, three concepts for alijamil.com exist, v1 modeled after the hit album "Sweetener".
-          The final product you are perusing today is v3. All front-end, back-end and UI/UX was coded by me, and was an absolute blast to create. 
-        </li>
-        <br>
-        <li>
-          <a href="https://ateh03.github.io/alijamil-gld/index.html" target="_blank">GLD ePortfolio</a></strong> - this ePortfolio required for USC's Graduation with Leadership Distinction highlights concepts I've learned in the classroom and how I've applied them beyond the 
-          classroom during my collegiate years. Includes a Leadership section, where I detail an approach to mitigating racial bias in AI/ML systems, especially FRT.
-        </li>
-      </ol>
-      <p>Further portfolio projects will have a tenative upload date. Subscribe to be updated as projects rollout!<br><br>-Ali</p>
-    </div>
+      <section class="hero">
+        <div class="projectHero">
+          <h2><i>Projects</i></h2>
+          <p>AliJamil.com is a personal portfolio website meticulously crafted by myself over a period of seven months. This site has undergone several conceptual evolutions, with the first version (v1) drawing inspiration from the aesthetic and thematic elements of the popular music album '<a href="positions/index.html">Positions</a>'.</p>
+          <ol>
+            <li>
+              <strong><a href="https://github.com/ateh03/thepalateapp/" target="_blank">Palate</a></strong> - a cutting-edge culinary app and capstone group's flagship product, revolutionizes cooking experiences for chefs and food enthusiasts alike.
+            </li>
+            <br>
+            <li>
+              <strong><a href="https://github.com/ateh03/codeObfuscation.git" target="_blank">JCU Code Obfuscator</a></strong> - a .NET and C# project that combines data anonymization techniques with secure storage of login credentials and PII in a mySQL database.
+            </li>
+            <br>
+            <li>
+              <a href="https://ateh03.github.io/alijamil-gld/index.html" target="_blank"><strong>GLD ePortfolio</strong></a></strong> - this ePortfolio required for USC's Graduation with Leadership Distinction highlights concepts I've learned in the classroom and how I've applied them beyond the 
+              classroom during my collegiate years. Includes a Leadership section, where I detail an approach to mitigating racial bias in AI/ML systems, especially FRT.
+            </li>
+          </ol>
+        </div>
+      </div>
+   
+      <div class="project1">
+          <img class="projectImage" src="assets/img/palate.png">
+          <h3>Palate v1 <span class="header-link">(<a href="https://www.youtube.com/watch?v=5OxBmqI8kH0" target="_blank">Demo</a> &sdot; <a href="https://github.com/ateh03/thepalateapp/" target="_blank">GitHub</a>)</span></h3>
+          <span class="subtitle">Slated for February 26, 2024 Release</span>
+          <p>Introducing Palate, the ultimate culinary companion designed to revolutionize your kitchen experience and my capstone group's flagship product. Whether you're a seasoned chef, an aspiring cook, a foodie or someone looking for inspiration, Palate is your gateway to an endless culinary adventure, featuring over a million recipes. Palate was built in <a href="https://reactnative.dev">React Native</a>, node.js and Ruby.</p>
+      </div>
+      <div class="project3">
+          <img class="projectImage" src="assets/img/obfuscate.png">
+          <h3>Code Obfuscation - Jamil Credit Union <span class="header-link">(<a href="https://youtu.be/L--EVU8ojHs" target="_blank">Demo</a> &sdot; <a href="https://github.com/ateh03/codeObfuscation.git" target="_blank">GitHub</a>)</span></h3>
+          <span class="subtitle">December 12, 2023</span>
+          <p>The JCU's data anonymization system is a project built by me using C#, .NET and mySQL demonstrating secure data storage practices in a database. It encrypts user-inputted information, ensuring an impenetrable shield of protection in both online and offline databases. This program demonstrates code obfuscaton at a database level, setting a new standard in data protection and privacy.</p>
+      </div>
+      <div class="project2">
+        <img class="projectImage" src="assets/img/gld.jpg">
+        <h3>GLD ePortfolio Website <span class="header-link">(<a href="https://ateh03.github.io/alijamil-gld/index.html" target="_blank">Visit</a> &sdot; <a href="https://github.com/ateh03/alijamil-gld.git" target="_blank">GitHub</a>)</span></h3>
+        <span class="subtitle">October 20, 2023</span>
+        <p>Required for USC's Graduation with Leadership Distinction Professional & Civic Engagement pathway is the ePortfolio. Highlighting concepts I've learned in the classroom and how I applied them beyond to my everyday life during my collegiate years, this project brought forth depe introspection in how the technical skills I've honed impacted me. The portfolio includes a Leadership section, where I detail an approach to mitigating racial bias in AI/ML systems, especially FRT, and outline my goal to introduce equal instead of equitable AI systems through project management. Built in HTML/CSS.</p>
+      </div>
+      <h2><i>Papers</i></h2>
+      <div class="papers">        
+              <ol>
+                  <li>
+                      <strong><a href="https://drive.google.com/file/d/16N6OhagcoeGovL-bEJBKYE37zTAVd4h4/view?usp=sharing" target="_blank">Case of the Killer Robot</a></strong> - A case report solely written by me exploring the complex nexus of ethics and computing.</a>
+                    </li>
+                  <li>
+                      <strong><a href="https://drive.google.com/file/d/1OJ-tUUAoR1CdpSsk4bwx6yv0IMyanyeE/view?usp=sharing" target="_blank">PerkConnects - Aftermath Analysis</a></strong> - A comprehensive technical report on SCDEW's Microsoft Attack Simulator campaign.</a>
+                  </li>
+              </ol>
+      </div>
+    </section>
 
     <!-- ======= Footer ======= -->
     <footer id="footer">
