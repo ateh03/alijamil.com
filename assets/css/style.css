@@ -417,23 +417,31 @@ img + p, .img-gallery + p {
 # Subscribe 
 --------------------------------------------------------------*/
 .subscribe {
-  height: 80%;
+  height: 90%;
   background:#860000;
   padding: 70px 0;
 }
   
 .subscribe .container {
-  height: 80%;
+  /* height: 80%;
   width: 55%;
-  
   margin-top: 8%;
   margin-left: auto;
   margin-right: auto;
-  
   float: initial;
   background: #ffffff;
   padding: 20px;
+  border-radius: 2px; */
+
+  width: 80%; /* Adjust to 100% for better responsiveness */
+  height: 78%;
+  max-width: 800px; /* Set a max-width for larger screens */
+  margin: 8% auto; /* Center the container */
+
+  background: #ffffff;
+  padding: 20px;
   border-radius: 2px;
+  box-sizing: border-box;
 }
   
   .subscribe h1 {
@@ -474,6 +482,12 @@ img + p, .img-gallery + p {
     size: 6000px;
     padding-bottom: 8px;
   }
+
+  #subscribe-form .button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%; /* Ensure the container takes full width */
+}
   
   .subscribe .btn-subscribe {
     height: 100%;
@@ -489,6 +503,15 @@ img + p, .img-gallery + p {
     font-weight: 400;
     opacity: 1;
     transition: 0s;
+
+    justify-content: center;
+
+    min-width: 100px; /* Adjust as needed */
+    padding: 10px 20px; /* Use padding for spacing */
+    font-size: 16px; /* Adjust font size as needed */
+    white-space: nowrap; /* Prevents text wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
   }
   
   .subscribe .btn-subscribe:hover {
@@ -498,6 +521,28 @@ img + p, .img-gallery + p {
     opacity: 1;
     transition: 0s;
   }
+
+  /* Media Query for smaller screens */
+@media (max-width: 600px) {
+  .subscribe .btn-subscribe {
+      padding: 10px 15px; /* Adjust padding for smaller screens */
+      font-size: 14px; /* Adjust font size for smaller screens */
+  }
+}
+
+.checkbox-container {
+  display: flex;
+  justify-content: center; /* Center the contents horizontally */
+  align-items: center;     /* Align the contents vertically */
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-right: 10px; /* Space between the checkbox and the label */
+}
+
+.checkbox-container label {
+  margin: 0; /* Remove any default margin */
+}
   
   input[type=checkbox] {
     accent-color: #FFCB00;
