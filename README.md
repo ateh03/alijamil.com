@@ -18,3 +18,5 @@ Technologies Used:
 - CSS
 - JavaScript
 - Various Font Awesome icons (fab fa icons)
+
+Lasted Updated: Dec. 30 2024 - Happy new year
