@@ -10,26 +10,37 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+@font-face {
+  font-family: "Monster";
+  src: url("../fonts/MonsterFriendFore.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Eusexua";
+  src: url("/assets/fonts/OBGEUSEXUA.ttf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   /*--background-theme: #191919;*/
-  --background-theme: #860000;
+  --background-theme: #cf8cbc;
 }
 
 body {
-    font-family: "Helvetica", sans-serif;
-    color: #FFCB00;
+    font-family: "Open Sans", sans-serif;
+    color: #000000;
     margin: 0px;
-    background-color: #860000;
+    background-color: #cf8cbc;
   }
   
   h1 {
-    font-family: "Helvetica", sans-serif;
-    font-style: italic;
-    font-weight: bold;
-    color: #ffffff;
-
+    font-family: "Monster", sans-serif;
+    
+    color: #000000;
     font-size: 50px;
-    font-weight: 900;
   }
   
   h2 {
@@ -140,7 +151,7 @@ body {
   #hero {
     width: 100%;
     height: 100vh;
-    background: #860000;
+    background: #cf8cbc;
     /* #e3c29e */
     position: relative;
     padding: 0;
