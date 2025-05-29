@@ -65,37 +65,43 @@ section {
 .project {
   display: flex;
   flex-direction: column;
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
   background: #fdfdfd;
   border: 1px solid #ddd;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  padding: 1.5rem;
+  padding: 1.25rem;
+}
+
+.project-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+
+.project-header h2 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.project-header .meta {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.25rem;
 }
 
 .project img {
   max-width: 100%;
   height: auto;
   object-fit: contain;
-  border-radius: 8px;
+  border-radius: 6px;
   margin-bottom: 1rem;
 }
 
-.project-info h2 {
-  font-size: 1.4rem;
-  margin: 0 0 0.5rem 0;
-}
-
-.project-info .meta {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 0.75rem;
-}
-
 .project-info p {
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 0.95rem;
+  line-height: 1.5;
   margin-bottom: 0.75rem;
 }
 
@@ -109,6 +115,54 @@ section {
   color: #c882a2;
 }
 
+/* === CAROUSEL FOR PALATE + NEXUS === */
+.palate-carousel, .nexus-carousel {
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.palate-carousel-track, .nexus-carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.palate-carousel-slide, .nexus-carousel-slide {
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+.palate-carousel-slide img, .nexus-carousel-slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.palate-carousel-btn, .nexus-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  border-radius: 6px;
+}
+
+.palate-carousel-btn.prev, .nexus-carousel-btn.prev {
+  left: 10px;
+}
+
+.palate-carousel-btn.next, .nexus-carousel-btn.next {
+  right: 10px;
+}
+
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   .container {
@@ -117,5 +171,17 @@ section {
 
   .project {
     padding: 1.25rem 1rem;
+  }
+
+  .project-header h2 {
+    font-size: 1rem;
+  }
+
+  .project img {
+    margin-bottom: 0.75rem;
+  }
+
+  .project-info p {
+    font-size: 0.9rem;
   }
 }
