@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ali Jamil · Creative</title>
+  <link rel="stylesheet" href="assets/css/creative.css"/>
+</head>
+
+<body>
+      <header>
+    <nav>
+      <h1><a href="home.html">ALI JAMIL</a></h1>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="resume.html">Resume</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="creative.html" class="current">Creative</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="container">
+
+<section>
+    <div class="creative-block">
+        <img src="assets/img/alizine/alizine8.jpg" alt="Editorial Shot 1">
+
+        <section class="video-block">
+<video autoplay loop muted playsinline class="animated-photo" preload="auto">
+  <source src="assets/img/alizine.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+</section>
+        <div class="description">
+          <h2>Modeling Portfolio</h2>
+          <p>Editorial, commercial, and lifestyle modeling work. I approach visual storytelling with the same intentionality as product design — framing identity, aesthetics, and emotion.</p>
+          <a href="#">View Full Portfolio</a>
+        </div>
+      </div> 
+  <h2>2025 Q2 Digitals</h2>
+  <div class="carousel-wrapper">
+    <button class="carousel-btn prev">&#10094;</button>
+    <div class="carousel-track-container">
+      <ul class="carousel-track">
+        <li class="carousel-slide"><img src="assets/img/digitals/digital1.jpeg" alt="Digital 1"></li>
+        <li class="carousel-slide"><img src="assets/img/digitals/digital2.JPG" alt="Digital 2"></li>
+        <li class="carousel-slide"><img src="assets/img/digitals/digital3.JPG" alt="Digital 3"></li>
+        <li class="carousel-slide"><img src="assets/img/digitals/digital4.JPG" alt="Digital 4"></li>
+      </ul>
+    </div>
+    <button class="carousel-btn next">&#10095;</button>
+  </div>
+</section>
+    <section>
+
+  <h2>#ALIZINE: Summer Series "Car Wash"</h2>
+  <div class="carousel-wrapper">
+    <button class="carousel-btn prev">&#10094;</button>
+    <div class="carousel-track-container">
+      <ul class="carousel-track">
+        <li class="carousel-slide"><img src="assets/img/alizine/alizine3.jpg" alt="SummerSeries1"></li>
+        <li class="carousel-slide"><img src="assets/img/alizine/alizine2.jpg" alt="SummerSeries2"></li>
+        <li class="carousel-slide"><img src="assets/img/alizine/alizine.jpg" alt="SummerSeries3"></li>
+        <li class="carousel-slide"><img src="assets/img/alizine/alizine4.jpg" alt="SummerSeries4"></li>
+        <li class="carousel-slide"><img src="assets/img/alizine/alizine5.jpg" alt="SummerSeries5"></li>
+        <li class="carousel-slide"><img src="assets/img/alizine/alizine6.jpg" alt="SummerSeries6"></li>
+        <li class="carousel-slide"><img src="assets/img/alizine/alizine7.jpg" alt="SummerSeries7"></li>
+        <li class="carousel-slide"><img src="assets/img/alizine/alizine8.jpg" alt="SummerSeries8"></li>
+        <li class="carousel-slide"><img src="assets/img/alizine/alizine9.jpg" alt="SummerSeries9"></li>
+      </ul>
+    </div>
+    <button class="carousel-btn next">&#10095;</button>
+  </div>
+
+      <div class="creative-block">
+        <img src="assets/img/alizine/alizine9.jpg" alt="Creative Work Sample">
+        <div class="description">
+          <h2>Brand Direction</h2>
+          <p>Creative direction and personal branding for early-stage products. Every frame, layout, and design choice should tell a story.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const carousels = document.querySelectorAll('.carousel-wrapper');
+
+  carousels.forEach(wrapper => {
+    const track = wrapper.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    const nextButton = wrapper.querySelector('.carousel-btn.next');
+    const prevButton = wrapper.querySelector('.carousel-btn.prev');
+    let currentSlide = 0;
+
+    function updateSlide(position) {
+      const slideWidth = slides[0].getBoundingClientRect().width;
+      track.style.transform = `translateX(-${position * slideWidth}px)`;
+    }
+
+    nextButton.addEventListener('click', () => {
+      currentSlide = (currentSlide + 1) % slides.length;
+      updateSlide(currentSlide);
+    });
+
+    prevButton.addEventListener('click', () => {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      updateSlide(currentSlide);
+    });
+
+    window.addEventListener('resize', () => updateSlide(currentSlide));
+  });
+});
+</script>
+
+</body>
+</html>

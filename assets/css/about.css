@@ -1,221 +1,186 @@
-/**
-* Ali Jamil Copyright 2022
-* License: https://bootstrapmade.com/license/
-*/
-
-/*--------------------------------------------------------------
-# General
---------------------------------------------------------------*/
+/* === GLOBAL RESETS === */
 body {
-  display: grid;
-  justify-content: center;
-  min-height: 100vh;
-  grid-template-areas: "nav" "main" "footer";
-  grid-template-rows: min-content 1fr min-content;
-  /* grid-auto-columns: minmax(auto, 1340px); */
-  gap: 2rem;
-  font-family: "Open Sans", sans-serif;
-  color: #555555;
-  margin: 15px;
-  background-color: #ead1dc;
-}
-
-h1 {
-  font-family: "Libre Bodoni", sans-serif;
-  color: #000000;
-}
-
-h2 {
-  font-family: "Montserrat", sans-serif;
-}
-
-h3 {
-  font-family: "Libre Bodoni", sans-serif;
-  /* rotate text upside down (sweetener style) */
-  /* transform: rotate(-180deg); */
-  color: #000000;
-}
-
-h4 {
-  font-family: "Libre Bodoni", sans-serif;
-  /* rotate text upside down (sweetener style) */
-  /* transform: rotate(-180deg); */
-  color: #0b0202;
-}
-
-h5 {
-  font-family: "Open Sans", sans-serif;
-}
-
-h6 {
-  font-family: "Libre Bodoni", sans-serif;
-}
-
-
-/*--------------------------------------------------------------
-# Disable AOS delay on mobile
---------------------------------------------------------------*/
-@media screen and (max-width: 768px) {
-  [data-aos-delay] {
-    transition-delay: 0 !important;
-  }
-}
-
-
-/*--------------------------------------------------------------
-# Header
---------------------------------------------------------------*/
-/*--------------------------------------------------------------
-# Header
---------------------------------------------------------------*/
-header {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  border-bottom: 2px solid var(--highlight);
-  /* margin-bottom: 15px; */
-  padding: 40px 0;
-}
-
-#header .logo img {
-  padding: 0;
   margin: 0;
-  max-height: 45px;
-}
-#header .hero-logo {
-  margin-bottom: 30px;
-}
-@media (max-width: 815px) {
-  #header {
-    height: 70px;
-  }
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f3d4dfbb;
+  color: #111;
 }
 
-.scrolled-offset {
-  margin-top: 90px;
+h1, h2, h3 {
+  font-weight: 700;
 }
-@media (max-width: 815px) {
-  .scrolled-offset {
-    margin-top: 90px;
-  }
-} 
-/* button */
-#draw-border {
+
+/* === NAVIGATION === */
+nav {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
+  padding: 0.25rem 1.25rem;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
 }
 
-.btn-readmore {
-  border: 0;
-  background: none;
+nav h1 a {
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: #000;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #444;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  color: #555555;
+}
+
+nav ul li a:hover,
+nav ul li a.current {
+  color: #dea3bd;
+}
+
+/* === PAGE WRAPPER === */
+.main-wrapper {
+  max-width: 860px;
+  margin: 3rem auto;
+  background: #fff;
+  border-radius: 0px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  padding: 5.5rem 2.5rem 2.5rem 2.5rem;
+  display: block;
+}
+
+.bio-card {
+  display: block;
+  text-align: left;
+}
+
+.headshot {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  float: left;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
+}
+
+.bio-content {
+  overflow: hidden;
+}
+
+.bio-card h2 {
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+  font-size: 1.75rem;
   font-weight: bold;
-  position: relative;
-  outline: none;
-  padding: 10px 20px;
-  box-sizing: border-box;
 }
 
-.btn-readmore::before, .btn-readmore::after {
-  box-sizing: inherit;
-  position: absolute;
-  content: '';
-  border: 2px solid transparent;
-  width: 0;
-  height: 0;
+.bio-card .email {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #dea3bd;
 }
 
-.btn-readmore::after {
-  bottom: 0;
-  right: 0;
+.bio-card .about h3 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: #444;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
 }
 
-.btn-readmore::before {
-  top: 0;
-  left: 0;
+.bio-card .about p {
+  font-size: 1rem;
+  color: #222;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
 }
 
-.btn-readmore:hover::before, .btn-readmore:hover::after {
-  width: 100%;
-  height: 100%;
+.bio-card .about ul {
+  padding-left: 1.25rem;
 }
 
-.btn-readmore:hover::before {
-  border-top-color: #c36ade77;
-  border-right-color: #c36ade77;
-  transition: width 0.3s, height 0.25s ease-out 0.25s;
+.bio-card .about ul li {
+  font-size: 1rem;
+  color: #222;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
 }
 
-.btn-readmore:hover::after {
-  border-bottom-color: #65907D;
-  border-left-color: #65907D;
-  transition: border-color 0s ease-out 0.5s, width 0.3s ease-out 0.5s, height 0.3s ease-out .8s;
+.bio-card .btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #dea3bd;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
 }
 
-/* END button */
-
-/*--------------------------------------------------------------
-# "Fab-Fa" Social Media Links
---------------------------------------------------------------*/
-.fab {
-  padding:.4%;
-  font-size: 25px;
+.socials {
+  margin-top: 1.5rem;
   text-align: center;
+}
+
+.socials a {
+  margin-right: 1rem;
+  font-size: 1.2rem;
+  color: #000;
+  transition: color 0.3s ease;
   text-decoration: none;
 }
-.fab:hover {
-  color:#65907D;
-}
-.fa-instagram {
-  color: #000000;
-  align-items: right;
-}
-.fa-facebook {
-  color: #000000;
-  align-items: right;
-}
-.fa-twitter {
-  color: #000000;
-}
-.fa-youtube {
-  color: #000000;
-}
-.fa-linkedin {
-  color: #000000;
-}
-.fa-envelope {
-  color: #000000;
+
+.socials a:hover {
+  color: #dea3bd;
 }
 
+.contact-box {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+}
 
+.contact-box h3 {
+  text-transform: uppercase;
+  font-size: 1rem;
+  color: #444;
+}
 
-/*--------------------------------------------------------------
-# Navigation Menu
---------------------------------------------------------------*/
-/**
-* Desktop Navigation 
-*/
+.contact-box p {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
 
-/*--------------------------------------------------------------
-# Footer
---------------------------------------------------------------*/
+.contact-box a {
+  color: #0366d6;
+  text-decoration: none;
+}
 
+.contact-box a:hover {
+  color: #dea3bd;
+  text-decoration: underline;
+}
+
+/* === FOOTER === */
 #footer {
-  height: 190px;
-  background: #f7ebdb;
-  color: #FFFFFF;
+  height: auto;
+  background: #00000000;
+  color: #000000;
   font-size: 14px;
   position: relative;
-}
-#footer::before {
-  position: absolute;
-  background: #f4d6b4;
-  z-index: 1;
+  padding: 20px;
+  text-align: center;
 }
 
 #footer .footer-logo {
@@ -224,12 +189,51 @@ header {
 }
 
 #footer .copyright {
-  color: #000000;
   font-family: "Poppins", sans-serif;
   text-align: center;
+  font-size: 0.9rem;
 }
+
 #footer .privacy {
   text-align: center;
   font-size: 13px;
-  padding-top: 5px;
+  margin-top: 0.5rem;
+}
+
+#footer a {
+  font-size: 1.2rem;
+  color: #000;
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+
+#footer a:hover {
+  color: #dea3bd;
+}
+
+/* === RESPONSIVE BREAKPOINT === */
+@media (max-width: 768px) {
+  .main-wrapper {
+    padding: 1.5rem 1rem;
+  }
+
+  .headshot {
+    float: none;
+    display: block;
+    margin: 0 auto 1rem auto;
+  }
+
+  .bio-card {
+    text-align: center;
+  }
+
+  .bio-card .email,
+  .bio-card .about {
+    text-align: center;
+  }
+
+  #footer a {
+    display: inline-block;
+    margin: 0.25rem;
+  }
 }
