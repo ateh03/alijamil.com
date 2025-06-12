@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ali Jamil · Resume</title>
-  <link rel="stylesheet" href="assets/css/projects.css" />
+  <link rel="stylesheet" href="assets/css/resume.css" />
 </head>
 <body>
   <header>
@@ -38,7 +38,6 @@
       <div class="resume-entry">
         <h3>TomKin Outreach <span class="role">– IT Project Manager</span></h3>
         <p class="meta">October 2024 – June 2025</p>
-        <p class="desc">TomKin Outreach is a nonprofit focused on empowering under-resourced youth across the Southeast through educational and mentorship programs.</p>
         <ul>
           <li>Spearheaded the design and development of organizational websites via WordPress.</li>
           <li>Managed cross-functional teams across the US and Africa.</li>
@@ -69,7 +68,6 @@
       <div class="resume-entry">
         <h3>SCDEW <span class="role">– Cybersecurity Analyst Intern</span></h3>
         <p class="meta">October 2022 – March 2023</p>
-        <p class="desc">The South Carolina Department of Employment and Workforce is the state agency responsible for unemployment insurance, workforce development programs, and connecting job seekers with employers in South Carolina.</p>
         <ul>
           <li>Completed the inaugural SCDEW cybersecurity internship program.</li>
           <li>Designed and deployed an agency-wide Microsoft anti-phishing simulation.</li>
@@ -79,74 +77,70 @@
     </section>
 
     <section class="resume-section">
-
-        <div class="carousel-wrapper">
-  <button class="carousel-btn prev">&#10094;</button>
-  <div class="carousel-track-container">
-    <ul class="carousel-track">
-      <li class="carousel-slide"><img src="assets/img/PitchNight1.jpg" alt="Speaking at ColaStarts 1" /></li>
-      <li class="carousel-slide"><img src="assets/img/PitchNight2.jpg" alt="Speaking at ColaStarts 2" /></li>
-      <li class="carousel-slide"><img src="assets/img/PitchNight4.jpg" alt="Speaking at ColaStarts 3" /></li>
-    </ul>
-  </div>
-  <button class="carousel-btn next">&#10095;</button>
-</div>
       <h2 class="resume-heading">Speaking</h2>
+
+      <div class="carousel-wrapper">
+        <button class="carousel-btn prev">&#10094;</button>
+        <div class="carousel-track-container">
+          <ul class="carousel-track">
+            <li class="carousel-slide"><img src="assets/img/PitchNight1.jpg" alt="Pitch 1" /></li>
+            <li class="carousel-slide"><img src="assets/img/PitchNight2.jpg" alt="Pitch 2" /></li>
+            <li class="carousel-slide"><img src="assets/img/PitchNight4.jpg" alt="Pitch 3" /></li>
+          </ul>
+        </div>
+        <button class="carousel-btn next">&#10095;</button>
+      </div>
+
       <ul>
         <li><a href="https://boydinnovationcenter.org/colastarts" target="_blank">ColaStarts</a> Pitch Night, 2024</li>
-        <li><a href="https://sc.edu/study/colleges_schools/moore/research_and_centers/centers/faber_entrepreneurship_center/proving_ground.php" target="_blank">The Proving Grounds </a>Semi-Finalist (Cip), 2024</li>
+        <li><a href="https://sc.edu/study/colleges_schools/moore/research_and_centers/centers/faber_entrepreneurship_center/proving_ground.php" target="_blank">The Proving Grounds</a> Semi-Finalist (Cip), 2024</li>
       </ul>
     </section>
 
     <section class="resume-section">
       <h2 class="resume-heading">Selected Courses</h2>
-<p class="courses"> 
-    <a href="https://cse.sc.edu/class/215" target="_blank">CSCE 215:UNIX/Linux Fundamentals</a> · 
-    <a href="https://cse.sc.edu/class/350" target="_blank">CSCE 350:Data Structures and Algorithms</a> ·
-    <a href="https://cse.sc.edu/class/390" target="_blank">CSCE 390:Professional Issues in Modern Computing & Engineering</a> · 
-    <a href="https://cse.sc.edu/class/520" target="_blank">CSCE 520:Database System Design</a> · 
-    <a href="https://cse.sc.edu/class/522" target="_blank">CSCE 522:Information Security Principles</a> · 
-    <a href="https://academicbulletins.sc.edu/undergraduate/course-descriptions/encp/" target="_blank">ENCP 530:Tech Feasibility Analysis</a> ·
-    <a href="https://academicbulletins.sc.edu/undergraduate/course-descriptions/encp/" target="_blank">ENCP 533:Legal Aspects of Engineering</a> ·
-    <a href="https://academicbulletins.sc.edu/undergraduate/course-descriptions/encp/" target="_blank">ENCP 535:Developing & Launching New Ventures</a> ·
-    <a href="https://academicbulletins.sc.edu/undergraduate/course-descriptions/encp/" target="_blank">ENCP 536:Innovation and New Venture Analysis</a> ·
-    <a href="https://cse.sc.edu/class/587" target="_blank">CSCE 587:Big Data Analytics</a> · 
-    <a href="https://academicbulletins.sc.edu/graduate/course-descriptions/ibus/" target="_blank">IBUS 735:Intentional Mergers & Acquisitions</a> · 
-    <a href="https://academicbulletins.sc.edu/graduate/course-descriptions/encp/" target="_blank">ENCP 789:Project Management</a>
-  </p>
+      <p class="courses">
+        CSCE 215: UNIX/Linux Fundamentals ·
+        CSCE 350: Data Structures ·
+        CSCE 522: Info Security ·
+        ENCP 530: Feasibility ·
+        ENCP 535: Launching Ventures ·
+        CSCE 587: Big Data ·
+        IBUS 735: Mergers & more
+      </p>
     </section>
   </main>
 
   <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const carousels = document.querySelectorAll('.carousel-wrapper');
+    document.addEventListener("DOMContentLoaded", function () {
+      const carousels = document.querySelectorAll('.carousel-wrapper');
 
-  carousels.forEach(wrapper => {
-    const track = wrapper.querySelector('.carousel-track');
-    const slides = Array.from(track.children);
-    const nextButton = wrapper.querySelector('.carousel-btn.next');
-    const prevButton = wrapper.querySelector('.carousel-btn.prev');
-    let currentSlide = 0;
+      carousels.forEach(wrapper => {
+        const track = wrapper.querySelector('.carousel-track');
+        const slides = Array.from(track.children);
+        const nextButton = wrapper.querySelector('.carousel-btn.next');
+        const prevButton = wrapper.querySelector('.carousel-btn.prev');
+        let currentSlide = 0;
 
-    function updateSlide(position) {
-      const slideWidth = slides[0].getBoundingClientRect().width;
-      track.style.transform = `translateX(-${position * slideWidth}px)`;
-    }
+        function updateSlide(position) {
+          const slideWidth = slides[0].getBoundingClientRect().width;
+          track.style.transform = `translateX(-${position * slideWidth}px)`;
+        }
 
-    nextButton.addEventListener('click', () => {
-      currentSlide = (currentSlide + 1) % slides.length;
-      updateSlide(currentSlide);
+        nextButton.addEventListener('click', () => {
+          currentSlide = (currentSlide + 1) % slides.length;
+          updateSlide(currentSlide);
+        });
+
+        prevButton.addEventListener('click', () => {
+          currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+          updateSlide(currentSlide);
+        });
+
+        window.addEventListener('resize', () => updateSlide(currentSlide));
+        updateSlide(0);
+      });
     });
-
-    prevButton.addEventListener('click', () => {
-      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-      updateSlide(currentSlide);
-    });
-
-    window.addEventListener('resize', () => updateSlide(currentSlide));
-  });
-});
-</script>
-
+  </script>
 </body>
 </html>
