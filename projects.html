@@ -5,7 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ali Jamil · Projects</title>
   <link rel="stylesheet" href="assets/css/projects.css"/>
+  <style>
+    .carousel-slide img {
+      max-width: 100%;
+      max-height: 540px;
+      width: auto;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      margin: 0 auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    .nexus-carousel .carousel-slide img {
+      max-width: 90%;
+      max-height: 540px;
+      object-fit: contain;
+      margin: 0 auto;
+    }
+  </style>
 </head>
+
 <body>
   <header>
     <nav>
@@ -52,7 +72,7 @@
         </div>
       </div>
 
-      <!-- NEXUS DATING APP -->
+      <!-- NEXUS -->
       <div class="project">
         <div class="project-header">
           <h2>Nexus Dating App</h2>
@@ -75,7 +95,7 @@
         </div>
       </div>
 
-      <!-- ETHICAL WEB SCRAPER -->
+      <!-- ETHICAL SCRAPER -->
       <div class="project">
         <div class="project-header">
           <h2>Ethical Web Scraper</h2>
@@ -88,30 +108,27 @@
         </div>
       </div>
 
-<!-- PALATE -->
-<div class="project">
-  <div class="project-header">
-    <h2>Palate</h2>
-    <p class="meta">April, 2024</p>
-  </div>
-
-  <div class="carousel palate-carousel">
-    <button class="carousel-btn prev">&#10094;</button>
-    <div class="carousel-track">
-      <div class="carousel-slide"><img src="assets/img/projects/palate/palate.png" alt="Palate Cover"></div>
-      <div class="carousel-slide"><img src="assets/img/projects/palate/palate1.png" alt="Palate Screen 1"></div>
-      <div class="carousel-slide"><img src="assets/img/projects/palate/palate2.png" alt="Palate Screen 2"></div>
-      <div class="carousel-slide"><img src="assets/img/projects/palate/palate3.png" alt="Palate Screen 3"></div>
-    </div>
-    <button class="carousel-btn next">&#10095;</button>
-  </div>
-
-  <div class="project-info">
-    <p>Palate is our capstone computing final project. It queries a database of over 2 million recipes to match users with meals based on the ingredients in their kitchen. Streamlines decision-making for chefs, foodies, or anyone stuck on what to cook.</p>
-    <a href="https://www.youtube.com/watch?v=FBrBIvwInbQ" target="_blank">View Demo</a>
-  </div>
-</div>
-
+      <!-- PALATE -->
+      <div class="project">
+        <div class="project-header">
+          <h2>Palate</h2>
+          <p class="meta">April, 2024</p>
+        </div>
+        <div class="carousel palate-carousel">
+          <button class="carousel-btn prev">&#10094;</button>
+          <div class="carousel-track">
+            <div class="carousel-slide"><img src="assets/img/projects/palate/palate.png" alt="Palate Cover"></div>
+            <div class="carousel-slide"><img src="assets/img/projects/palate/palate1.png" alt="Palate 1"></div>
+            <div class="carousel-slide"><img src="assets/img/projects/palate/palate2.png" alt="Palate 2"></div>
+            <div class="carousel-slide"><img src="assets/img/projects/palate/palate3.png" alt="Palate 3"></div>
+          </div>
+          <button class="carousel-btn next">&#10095;</button>
+        </div>
+        <div class="project-info">
+          <p>Palate is our capstone computing final project. It queries a database of over 2 million recipes to match users with meals based on the ingredients in their kitchen. Streamlines decision-making for chefs, foodies, or anyone stuck on what to cook.</p>
+          <a href="https://www.youtube.com/watch?v=FBrBIvwInbQ" target="_blank">View Demo</a>
+        </div>
+      </div>
 
       <!-- WRD -->
       <div class="project">
@@ -167,6 +184,7 @@
         });
 
         window.addEventListener("resize", () => updateSlide(current));
+        updateSlide(0);
       });
     });
   </script>
