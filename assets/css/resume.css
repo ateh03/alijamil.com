@@ -11,7 +11,6 @@ body {
   background: #f7dce5;
   color: #181818;
   min-height: 100vh;
-  padding: 0 0.75rem; /* 👈 Key change: creates outer buffer on small screens */
 }
 
 /* === NAVIGATION === */
@@ -178,8 +177,10 @@ ul li {
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   .container {
+    margin: 2rem 1rem; /* 👈 Adds left/right breathing room for background reveal */
     padding: 1.25rem;
   }
+}
 
   .resume-heading {
     font-size: 1.1rem;
