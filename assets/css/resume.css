@@ -11,9 +11,10 @@ body {
   background: #f7dce5;
   color: #181818;
   min-height: 100vh;
+  padding: 0 0.75rem; /* 👈 Key change: creates outer buffer on small screens */
 }
 
-/* === NAVIGATION (Exact Copy from Creative) === */
+/* === NAVIGATION === */
 nav {
   display: flex;
   justify-content: space-between;
