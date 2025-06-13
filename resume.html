@@ -143,5 +143,12 @@
       });
     });
   </script>
+  <script>
+  const path = window.location.pathname;
+  if (path.includes("about")) document.querySelector(".about-link")?.classList.add("current");
+  else if (path.includes("resume")) document.querySelector(".resume-link")?.classList.add("current");
+  else if (path.includes("projects")) document.querySelector(".projects-link")?.classList.add("current");
+  else if (path.includes("creative")) document.querySelector(".creative-link")?.classList.add("current");
+</script>
 </body>
 </html>
