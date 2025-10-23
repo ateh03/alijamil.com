@@ -68,7 +68,7 @@ h3 {
 
 
 
-header {
+header:not(.site-header) {
     font-size: 30px;
     display: flex;
     align-items: center;
@@ -92,11 +92,11 @@ a, a:visited {
     transition: color 0.1s linear;
 }
 
-header h2 {
+header:not(.site-header) h2 {
   font-style: italic;
 }
 
-header a {
+header:not(.site-header) a {
     text-decoration: none;
 }
 

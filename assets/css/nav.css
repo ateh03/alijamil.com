@@ -1,14 +1,19 @@
 /* === GLOBAL NAVIGATION === */
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 2rem;
+.site-header {
   background: #fff;
   border-bottom: 1px solid #e9e9e9;
 }
 
-nav h1 a {
+.site-header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.site-header nav h1 a {
   font-size: 1.1rem;
   letter-spacing: 1px;
   font-weight: 800;
@@ -16,7 +21,7 @@ nav h1 a {
   text-decoration: none;
 }
 
-nav ul {
+.site-header nav ul {
   display: flex;
   gap: 2rem;
   margin: 0;
@@ -24,7 +29,7 @@ nav ul {
   list-style: none;
 }
 
-nav ul li a {
+.site-header nav ul li a {
   font-size: 0.89rem;
   color: #444;
   letter-spacing: 1px;
@@ -35,8 +40,16 @@ nav ul li a {
   text-decoration: none;
 }
 
-nav ul li a.current,
-nav ul li a:hover {
+.site-header nav ul li a.current,
+.site-header nav ul li a:hover {
   color: #dea3bd;
   background: #f7dce5;
+}
+
+@media (max-width: 768px) {
+  .site-header nav {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+  }
 }
