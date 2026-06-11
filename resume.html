@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ali Jamil | Resume</title>
+  <meta name="description" content="Ali Jamil resume." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #efefed;
+      --panel: #f7f7f5;
+      --text: #171717;
+      --muted: #6f6f5b;
+      --line: #cfcfc8;
+      --mocha: #8a6f57;
+      --max: 1180px;
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    .shell { width: min(92%, var(--max)); margin: 0 auto; }
+
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(239,239,237,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    nav {
+      width: min(94%, var(--max));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+      gap: 20px;
+    }
+    .brand {
+      font-size: 0.95rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .nav-links, .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-links a, .nav-right a {
+      font-size: 0.95rem;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover, .nav-right a:hover { color: var(--mocha); }
+    .social-row { display: flex; gap: 18px; align-items: center; }
+    .social-link {
+      width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center;
+      color: var(--muted); transition: transform 0.2s ease, color 0.2s ease;
+    }
+    .social-link:hover { color: var(--mocha); transform: translateY(-1px); }
+    .social-link svg { width: 20px; height: 20px; fill: currentColor; }
+
+    .hero {
+      padding: 56px 0 24px;
+    }
+    .eyebrow {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: clamp(3rem, 8vw, 5.6rem);
+      line-height: 0.94;
+      letter-spacing: -0.06em;
+      margin-bottom: 14px;
+    }
+    .hero p {
+      color: var(--muted);
+      max-width: 760px;
+      font-size: 1.05rem;
+    }
+
+    .resume-wrap {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 22px;
+      padding: 14px 0 40px;
+    }
+    .panel {
+      background: rgba(255,255,255,0.52);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: var(--radius);
+      padding: 26px;
+    }
+    .section + .section { margin-top: 26px; }
+    .section-title {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .line { height: 1px; background: rgba(0,0,0,0.08); margin: 12px 0 18px; }
+    .item + .item { margin-top: 18px; }
+    .item h3 {
+      font-size: 1.08rem;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .item .meta {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .item p, .item li {
+      color: var(--text);
+      font-size: 0.98rem;
+    }
+    ul { padding-left: 18px; }
+    li + li { margin-top: 6px; }
+
+    .big-stat {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      margin-bottom: 8px;
+    }
+    .muted { color: var(--muted); }
+
+    footer {
+      padding: 0 0 38px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 900px) {
+      .resume-wrap { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 780px) {
+      nav { flex-direction: column; align-items: flex-start; }
+      .nav-links, .nav-right { flex-wrap: wrap; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-wrap">
+    <nav>
+      <a href="index.html" class="brand">Ali Jamil</a>
+      <div class="nav-links">
+        <a href="resume.html">Resume</a>
+        <a href="projects.html">Projects</a>
+        <a href="creative.html">Creative</a>
+      </div>
+      <div class="nav-right">
+        <div class="social-row" aria-label="Social links">
+          <a class="social-link" href="https://www.linkedin.com/in/alitehranie/" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.11 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7 0h3.84v2.19h.06c.53-1.01 1.84-2.19 3.79-2.19 4.05 0 4.8 2.67 4.8 6.14V24h-4v-7.79c0-1.86-.03-4.25-2.59-4.25-2.59 0-2.99 2.02-2.99 4.12V24h-4V8z"/></svg></a>
+          <a class="social-link" href="#" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2H21l-6.56 7.497L22.154 22h-6.037l-4.728-6.184L5.98 22H3.22l7.016-8.014L1.846 2H8.04l4.274 5.646L18.244 2zm-1.06 18.174h1.528L7.21 3.73H5.57l11.615 16.443z"/></svg></a>
+          <a class="social-link" href="https://github.com/ateh03" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5A12 12 0 0 0 8.21 23.9c.6.12.82-.26.82-.58v-2.06c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.21.08 1.85 1.24 1.85 1.24 1.07 1.84 2.8 1.3 3.49.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.39 1.24-3.23-.12-.31-.54-1.54.12-3.22 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0 1 12 6.32c1.02 0 2.05.14 3.01.42 2.28-1.55 3.29-1.23 3.29-1.23.67 1.68.25 2.91.13 3.22.77.84 1.23 1.92 1.23 3.23 0 4.61-2.8 5.62-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.83.58A12 12 0 0 0 12 .5z"/></svg></a>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow">Resume</div>
+      <h2>Resume & Work Experience</h2>
+    </section>
+
+    <section class="resume-wrap">
+      <aside class="panel">
+        <div class="section">
+          <div class="section-title">Snapshot</div>
+          <div class="big-stat">Data analyst focused on public sector analytics.</div>
+          <p class="muted">The intersection of public sector analytics and innovation strategy is how I turn my vocation into my avocation!</p>
+        </div>
+
+        <div class="section">
+          <div class="line"></div>
+          <div class="section-title">Education</div>
+          <div class="item">
+            <h3>M.S. in Technology Innovation & Entrepreneurial Engineering</h3>
+            <div class="meta">University of South Carolina</div>
+          </div>
+          <div class="item">
+            <h3>B.S. in Computer Information Systems</h3>
+            <div class="meta">University of South Carolina</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="line"></div>
+          <div class="section-title">Speaking</div>
+          <div class="item">
+            <h3>ColaStarts Pitch Night</h3>
+            <div class="meta">2024</div>
+          </div>
+          <div class="item">
+            <h3>The Proving Grounds Semi-Finalist</h3>
+            <div class="meta">2024</div>
+          </div>
+        </div>
+      </aside>
+
+      <section class="panel">
+        <div class="section">
+          <div class="section-title">Experience</div>
+          <div class="item">
+            <h3>State of South Carolina - Data Validation Specialist</h3>
+            <div class="meta">November 2025 – Present</div>
+                <p>The South Carolina Commission for the Blind is a statewide agency that provides vocational rehabilitation to individuals who are visually impaired.</p>
+                <p><br>I support data validation, reporting and analytics for our programs, working with internal stakeholders to maintain accurate datasets used for federal reporting.</p>
+          </div>
+          <div class="item">
+            <h3>SCDEW - Wage Data Analyst</h3>
+            <div class="meta">January 2024 – December 2024</div>
+                <p>The South Carolina Department of Employment and Workforce administers economic data reporting across the state.</p>
+                <p><br>Led development of a statewide wage records dashboard integrating employment outcomes with technical college data, coordinating closely with the Bureau of Labor Statistics.</p>
+          </div>
+          <div class="item">
+            <h3>Darla Moore School of Business - Marketing Intern</h3>
+            <div class="meta">August 2023 – May 2024</div>
+                <p>The Darla Moore School of Business is the University of South Carolina’s business school.</p>
+                <p><br>Maintained and improved web content systems for the school’s public facing site while implementing SEO best practices.</p>
+          </div>
+          <div class="item">
+            <h3>SCDEW - Cybersecurity Analyst Intern</h3>
+            <div class="meta">October 2022 – March 2023</div>
+                <p>Supported enterprise security operations and helped deploy the agency’s first org-wide phishing simulation campaign to strengthen cyber awareness.</p>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="line"></div>
+          <div class="section-title">Selected Courses</div>
+          <div class="item">
+            <p>CSCE 215 · UNIX/Linux Fundamentals · CSCE 350 · Data Structures · CSCE 522 · Info Security · ENCP 530 · Feasibility · ENCP 535 · Launching Ventures · CSCE 587 · Big Data · IBUS 735 · Mergers & Acquisitions</p>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <footer>
+      <p>© 2026 Ali Jamil.</p>
+    </footer>
+  </main>
+</body>
+</html>
