@@ -3,11 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ali Jamil | Creative</title>
-  <meta name="description" content="Ali Jamil creative portfolio." />
+  <title>Ali Jamil | Modeling</title>
+  <meta name="description" content="Ali Jamil: commercial and editorial model based in Los Angeles. Comp card, stats and selected looks." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="/assets/img/favicon/site.webmanifest">
+  <meta name="theme-color" content="#171717">
   <style>
     :root {
       --bg: #f5eee9;
@@ -88,7 +95,7 @@
     }
     .hero-media {
       min-height: 720px;
-      border-radius: 30px;
+      border-radius: 0;
       overflow: hidden;
       position: relative;
       background:
@@ -189,8 +196,8 @@
       gap: 14px;
     }
     .comp-shot {
-      aspect-ratio: 4 / 5;
-      border-radius: 18px;
+      aspect-ratio: 1 / 1;
+      border-radius: 0;
       overflow: hidden;
       background: #ddd center/cover no-repeat;
       position: relative;
@@ -260,8 +267,8 @@
       gap: 14px;
     }
     .gallery-tile {
-      min-height: 320px;
-      border-radius: 22px;
+      aspect-ratio: 1 / 1;
+      border-radius: 0;
       overflow: hidden;
       background: #ddd center/cover no-repeat;
       position: relative;
@@ -301,6 +308,37 @@
       .info-row { grid-template-columns: 1fr; gap: 6px; }
       h1 { font-size: 3.6rem; }
     }
+
+    /* ---------- Click-to-enlarge photos ---------- */
+    .zoomable { cursor: zoom-in; transition: transform .25s ease, box-shadow .25s ease; }
+    .zoomable:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(0,0,0,.14); }
+    .zoomable:focus-visible { outline: 2px solid #171717; outline-offset: 3px; }
+    .lightbox {
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(18,18,18,.92);
+      display: none; align-items: center; justify-content: center;
+      padding: 56px 72px;
+    }
+    .lightbox.open { display: flex; animation: lb-in .2s ease; }
+    @keyframes lb-in { from { opacity: 0; } to { opacity: 1; } }
+    .lightbox img {
+      max-width: 100%; max-height: 100%;
+      object-fit: contain; border-radius: 0;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      cursor: zoom-out;
+    }
+    .lb-btn {
+      position: absolute; width: 46px; height: 46px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.08);
+      color: #fff; font-size: 1.4rem; line-height: 1; cursor: pointer;
+      display: grid; place-items: center;
+    }
+    .lb-btn:hover { background: rgba(255,255,255,.18); }
+    .lb-close { top: 18px; right: 18px; }
+    .lb-prev { left: 16px; top: 50%; transform: translateY(-50%); }
+    .lb-next { right: 16px; top: 50%; transform: translateY(-50%); }
+    .lb-count { position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; color: rgba(255,255,255,.7); font-size: .85rem; letter-spacing: .08em; }
+    @media (max-width: 700px) { .lightbox { padding: 64px 12px; } .lb-prev, .lb-next { top: auto; bottom: 10px; transform: none; } }
   </style>
 </head>
 <body>
@@ -310,7 +348,7 @@
       <div class="nav-links">
         <a href="resume.html">Resume</a>
         <a href="projects.html">Projects</a>
-        <a href="creative.html">Creative</a>
+        <a href="creative.html" aria-current="page">Modeling</a>
       </div>
       <div class="nav-right">
         <div class="social-row" aria-label="Social links">
@@ -329,22 +367,22 @@
         <div class="hero-media"></div>
         <div class="hero-copy">
           <div>
-            <div class="eyebrow">Electronic Press Kit</div>
-            <h1>Editorial Photography</h1>    
+            <div class="eyebrow">Comp Card</div>
+            <h1>Editorial Photography</h1>
           </div>
-          <!--<div class="stats">
+          <div class="stats">
             <div class="stat">
-              <div class="label">Focus</div>
-              <div class="value">Print, commercial, editorial, and campaign-facing work.</div>
+              <div class="label">Height</div>
+              <div class="value">5'6.5"</div>
             </div>
             <div class="stat">
-              <div class="label">Image</div>
-              <div class="value">Clean beauty, fashion, polished lifestyle, and high-gloss visuals.</div>
+              <div class="label">Based</div>
+              <div class="value">Los Angeles / open to travel</div>
             </div>
             <div class="stat">
-              <div class="label">Use</div>
-              <div class="value">Portfolio, model overview, media page, or digital comp.</div>
-            </div> -->
+              <div class="label">Work</div>
+              <div class="value">Print, commercial and editorial</div>
+            </div>
           </div>
         </div>
       </div>
@@ -382,22 +420,34 @@
               <div class="value">5'6.5"</div>
             </div>
             <div class="info-row">
-              <div class="label">Sizes</div>
-              <div class="value">Dress, shoe, bust, waist, hips, hair, eyes</div>
+              <div class="label">Chest</div>
+              <div class="value">33"</div>
             </div>
             <div class="info-row">
-              <div class="label">Booking</div>
-              <div class="value">Add management, agency, or direct contact info here</div>
+              <div class="label">Waist</div>
+              <div class="value">29"</div>
+            </div>
+            <div class="info-row">
+              <div class="label">Shoe</div>
+              <div class="value">9 US</div>
+            </div>
+            <div class="info-row">
+              <div class="label">Eyes</div>
+              <div class="value">Brown</div>
+            </div>
+            <div class="info-row">
+              <div class="label">Hair</div>
+              <div class="value">Black</div>
             </div>
           </div>
         </aside>
 
         <section class="panel">
-          <div class="mini-title">Creative Bio</div>
+          <div class="mini-title">About</div>
           <div class="bio">
-            <p>Use this area like a polished model EPK intro. It can read more elevated than a normal About page and should feel like something a casting team or creative director could scan quickly.</p>
-            <p>You can position yourself around fashion, commercial, branding, lifestyle, beauty, nightlife, travel, or campaign work depending on the direction you want to emphasize. This section can also mention your visual identity, the kinds of shoots you want, and the tone of your brand.</p>
-            <p>Because this page is meant to feel valid and tea, the styling leans more polished comp-card than startup website. It should support photos first, then give just enough detail to sell the image.</p>
+            <p>I'm a commercial and editorial model based in Los Angeles and open to travel.</p>
+            <p>I grew up as a military kid in Germany, Japan and Bahrain. Moving every few years taught me to walk into a new room, read it fast and get comfortable. That carries straight onto set.</p>
+            <p>During the week I work with data, deep in the database. I bring that same focus to set: I show up prepared and I take direction well. I'm looking for print, commercial, lifestyle and campaign work.</p>
           </div>
         </section>
       </div>
@@ -406,6 +456,9 @@
         <div class="gallery-tile" style="background-image:url('assets/img/alizine/alizine8.jpg');"></div>
         <div class="gallery-tile" style="background-image:url('assets/img/alizine/alizine3.jpg');"></div>
         <div class="gallery-tile" style="background-image:url('assets/img/alizine/alizine11.jpg');"></div>
+        <div class="gallery-tile" style="background-image:url('assets/img/digitals/grad-stairs.jpg'); background-position:center 55%;"></div>
+        <div class="gallery-tile" style="background-image:url('assets/img/digitals/grad-wall.jpg'); background-position:center 45%;"></div>
+        <div class="gallery-tile" style="background-image:url('assets/img/digitals/grad-bench.jpg'); background-position:center 50%;"></div>
       </div>
     </section>
 
@@ -413,5 +466,77 @@
       <p>© 2026 Ali Jamil.</p>
     </footer>
   </main>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="lb-btn lb-close" type="button" aria-label="Close">&times;</button>
+    <button class="lb-btn lb-prev" type="button" aria-label="Previous photo">&#8249;</button>
+    <img alt="">
+    <button class="lb-btn lb-next" type="button" aria-label="Next photo">&#8250;</button>
+    <div class="lb-count"></div>
+  </div>
+
+  <script>
+    // Click any modeling photo to view it large. Arrow keys move, Esc closes.
+    (function () {
+      var tiles = Array.prototype.slice.call(document.querySelectorAll(".hero-media, .comp-shot, .gallery-tile"));
+      var box = document.getElementById("lightbox");
+      var img = box.querySelector("img");
+      var count = box.querySelector(".lb-count");
+      var current = 0, lastFocus = null;
+
+      function urlOf(el) {
+        var bg = getComputedStyle(el).backgroundImage || "";
+        var all = bg.match(/url\(["']?([^"')]+)["']?\)/g);
+        if (!all) return null;
+        return all[all.length - 1].replace(/^url\(["']?|["']?\)$/g, "");
+      }
+      var urls = tiles.map(urlOf);
+
+      tiles.forEach(function (el, i) {
+        if (!urls[i]) return;
+        el.classList.add("zoomable");
+        el.setAttribute("tabindex", "0");
+        el.setAttribute("role", "button");
+        el.setAttribute("aria-label", "View photo " + (i + 1) + " larger");
+        el.addEventListener("click", function () { open(i); });
+        el.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(i); }
+        });
+      });
+
+      function show(i) {
+        var n = urls.length;
+        current = (i + n) % n;
+        if (!urls[current]) return show(current + 1);
+        img.src = urls[current];
+        img.alt = "Ali Jamil, modeling photo " + (current + 1) + " of " + n;
+        count.textContent = (current + 1) + " / " + n;
+      }
+      function open(i) {
+        lastFocus = document.activeElement;
+        show(i);
+        box.classList.add("open");
+        document.body.style.overflow = "hidden";
+        box.querySelector(".lb-close").focus();
+      }
+      function close() {
+        box.classList.remove("open");
+        document.body.style.overflow = "";
+        if (lastFocus) lastFocus.focus();
+      }
+
+      box.querySelector(".lb-close").addEventListener("click", close);
+      box.querySelector(".lb-prev").addEventListener("click", function (e) { e.stopPropagation(); show(current - 1); });
+      box.querySelector(".lb-next").addEventListener("click", function (e) { e.stopPropagation(); show(current + 1); });
+      box.addEventListener("click", function (e) { if (e.target === box || e.target === img) close(); });
+      document.addEventListener("keydown", function (e) {
+        if (!box.classList.contains("open")) return;
+        if (e.key === "Escape") close();
+        if (e.key === "ArrowRight") show(current + 1);
+        if (e.key === "ArrowLeft") show(current - 1);
+      });
+    })();
+  </script>
+  <script src="assets/js/snow.js" defer></script>
 </body>
 </html>

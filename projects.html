@@ -1,302 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ali Jamil | Projects</title>
-  <meta name="description" content="Ali Jamil | Projects, speaking, and papers." />
+  <meta name="description" content="Ventures, code projects and speaking by Ali Jamil.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="/assets/img/favicon/site.webmanifest">
+  <meta name="theme-color" content="#171717">
   <style>
-    :root {
-      --bg: #efefed;
-      --panel: #f7f7f5;
-      --text: #171717;
-      --muted: #6f6f5b;
-      --line: #cfcfc8;
-      --accent: #d7c1a6;
-      --mocha: #8a6f57;
-      --max: 1320px;
-      --radius: 22px;
+    /* ================= Carousel ================= */
+    .carousel { position: relative; }
+    .track {
+      display: flex; gap: 36px;
+      overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+      list-style: none; margin: 0; padding: 0 0 12px;
+      scrollbar-width: none;
+    }
+    .track::-webkit-scrollbar { display: none; }
+    .track.centered { justify-content: center; }
+    .item { flex: 0 0 calc((100% - 108px) / 4); min-width: 230px; scroll-snap-align: start; }
+
+    .arrow {
+      position: absolute; top: 40%; transform: translateY(-50%); z-index: 3;
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1px solid var(--line); background: #fff; color: var(--ink);
+      display: grid; place-items: center; cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,.08);
+    }
+    .arrow:hover { background: var(--surface); }
+    .arrow svg { width: 18px; height: 18px; }
+    .arrow.prev { left: -14px; }
+    .arrow.next { right: -14px; }
+    .arrow[hidden] { display: none; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; min-height: 26px; margin-bottom: 4px; }
+    .chip {
+      font-size: .72rem; font-weight: 500; line-height: 1;
+      padding: 6px 11px; border-radius: 999px;
+      background: var(--card); border: 1px solid var(--line); color: var(--muted);
+    }
+    .item-meta {
+      font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--muted); margin: 14px 0 4px;
+    }
+    .item-title {
+      font-family: var(--display); font-weight: 700; font-size: 1.45rem;
+      letter-spacing: -.03em; line-height: 1.1; margin: 0 0 8px;
+    }
+    .item-desc { font-size: .92rem; color: var(--muted); margin: 0 0 12px; }
+    .item-link {
+      font-size: .88rem; font-weight: 500; text-decoration: none;
+      border-bottom: 1px solid var(--ink); padding-bottom: 1px;
+    }
+    .item-link:hover { color: var(--muted); border-color: var(--muted); }
+    .cta { text-align: center; margin-top: 28px; margin-bottom: 40px; }
+
+    /* ================= Merch objects ================= */
+    .stage { position: relative; aspect-ratio: 1 / 1; display: grid; place-items: center; perspective: 900px; }
+    .shadow { box-shadow: 0 18px 30px rgba(0,0,0,.18); }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Vinyl LP */
+    .vinyl { position: relative; width: 60%; aspect-ratio: 1; transform: translateX(-16%); }
+    .vinyl .sleeve { position: absolute; inset: 0; z-index: 2; background: var(--img) var(--pos, center)/cover, #d9d6d1; }
+    .vinyl .sleeve::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(120deg, rgba(255,255,255,.25), transparent 40%);
+    }
+    .disc-wrap {
+      position: absolute; inset: 3%; z-index: 1;
+      transform: translateX(34%); transition: transform .8s cubic-bezier(.2,.8,.2,1);
+    }
+    .item:hover .disc-wrap, .item:focus-within .disc-wrap { transform: translateX(52%); }
+    .disc {
+      position: relative; width: 100%; height: 100%; border-radius: 50%;
+      background:
+        repeating-radial-gradient(circle, rgba(255,255,255,.06) 0 1px, transparent 1px 3px),
+        conic-gradient(from 30deg, #111, #2c2c2c, #111, #262626, #111);
+      box-shadow: 0 10px 22px rgba(0,0,0,.25);
+      animation: spin 9s linear infinite;
+    }
+    .disc::after {
+      content: ""; position: absolute; inset: 35%; border-radius: 50%;
+      background: radial-gradient(circle, var(--bg) 0 7%, transparent 8%), var(--img) var(--pos, center)/cover;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+
+    /* Picture disc */
+    .picdisc {
+      position: relative; width: 74%; aspect-ratio: 1; border-radius: 50%;
+      background: var(--img) var(--pos, center)/cover, #cfcbc5;
+      animation: spin 16s linear infinite;
+      box-shadow: inset 0 0 0 5px rgba(255,255,255,.35);
+    }
+    .picdisc::before {
+      content: ""; position: absolute; inset: 0; border-radius: 50%;
+      background:
+        repeating-radial-gradient(circle, rgba(255,255,255,.08) 0 1px, transparent 1px 4px),
+        conic-gradient(from 0deg, transparent, rgba(255,255,255,.25), transparent 30%, transparent 50%, rgba(255,255,255,.2), transparent 80%);
+    }
+    .picdisc::after { content: ""; position: absolute; inset: 47.5%; border-radius: 50%; background: var(--bg); }
+
+    /* Cassette */
+    .cassette {
+      position: relative; width: 84%; aspect-ratio: 1.58;
+      background: linear-gradient(160deg, #2e2e2e, #141414);
+      border-radius: 9px; padding: 5% 5% 0; transform: rotate(-5deg);
+    }
+    .cass-label {
+      position: relative; height: 66%; border-radius: 4px; padding: 2% 5%;
+      background: linear-gradient(#f3efe6 0 36%, #161616 36% 38.5%, #f3efe6 38.5%);
+      font-family: var(--hand); color: var(--ink);
+    }
+    .cass-label .side { font-family: var(--sans); font-weight: 700; font-size: .72rem; margin-right: 6px; }
+    .cass-label .title { font-size: 1.15rem; }
+    .cass-window {
+      position: absolute; left: 20%; right: 20%; bottom: 10%; height: 44%;
+      background: #1c1c1c; border-radius: 40px;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 9%;
+    }
+    .reel {
+      height: 72%; aspect-ratio: 1; border-radius: 50%;
+      background:
+        radial-gradient(circle, #1c1c1c 0 26%, transparent 27%),
+        repeating-conic-gradient(#fff 0 20deg, #cfcfcf 20deg 40deg);
+      animation: spin 3s linear infinite;
+    }
+    .cass-foot {
+      position: absolute; left: 20%; right: 20%; bottom: 0; height: 17%;
+      background: #1c1c1c; clip-path: polygon(7% 0, 93% 0, 100% 100%, 0 100%);
     }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.45;
+    /* Polaroid stack */
+    .polaroids { position: relative; width: 58%; aspect-ratio: .86; }
+    .polaroid {
+      position: absolute; inset: 0; margin: 0; background: #fff; padding: 7% 7% 24%;
+      box-shadow: 0 12px 24px rgba(0,0,0,.15);
+      transition: transform .6s cubic-bezier(.2,.8,.2,1);
+    }
+    .polaroid .photo { width: 100%; aspect-ratio: 1; background: var(--img) var(--pos, center)/cover, #ccc; filter: sepia(.25) saturate(.85); }
+    .polaroid.back { transform: rotate(8deg) translate(12%, -4%); }
+    .polaroid.front { transform: rotate(-4deg); }
+    .item:hover .polaroid.back { transform: rotate(13deg) translate(24%, -6%); }
+    .item:hover .polaroid.front { transform: rotate(-8deg) translate(-8%, 2%); }
+    .polaroid figcaption { position: absolute; left: 0; right: 0; bottom: 6%; text-align: center; font-family: var(--hand); font-size: 1.3rem; }
+    .polaroid.front::before {
+      content: ""; position: absolute; top: -4%; left: 36%; width: 28%; height: 8%;
+      background: rgba(225,216,198,.85); transform: rotate(-4deg);
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    /* Lenticular card */
+    .lenticular {
+      position: relative; width: 62%; aspect-ratio: 1;
+      outline: 8px solid #fff;
+      animation: wobble 4.5s ease-in-out infinite alternate;
     }
-
-    img {
-      max-width: 100%;
-      display: block;
+    .lent-a, .lent-b { position: absolute; inset: 0; background: var(--img) var(--pos, center)/cover, #bbb; }
+    .lent-b {
+      filter: blur(5px) grayscale(1) contrast(1.15);
+      -webkit-mask: repeating-linear-gradient(90deg, #000 0 4px, rgba(0,0,0,.8) 4px 6px);
+              mask: repeating-linear-gradient(90deg, #000 0 4px, rgba(0,0,0,.8) 4px 6px);
+      animation: lent-flip 4.5s ease-in-out infinite alternate;
     }
-
-    .shell {
-      width: min(94%, var(--max));
-      margin: 0 auto;
+    .lent-b .bar { position: absolute; left: 14%; height: 9%; background: #111; }
+    .lent-b .bar.b1 { top: 30%; right: 14%; }
+    .lent-b .bar.b2 { top: 52%; right: 34%; }
+    .lent-sheen {
+      position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen;
+      background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.12) 0 1px, transparent 1px 4px),
+        linear-gradient(105deg, transparent 30%, rgba(255,255,255,.6) 45%, rgba(214,206,240,.4) 52%, rgba(190,215,240,.35) 58%, transparent 68%);
+      background-size: auto, 260% 100%;
+      animation: sheen 4.5s ease-in-out infinite alternate;
     }
+    @keyframes wobble { from { transform: rotateY(-13deg) rotateX(2deg); } to { transform: rotateY(13deg) rotateX(-2deg); } }
+    @keyframes lent-flip { 0%, 38% { opacity: 0; } 62%, 100% { opacity: 1; } }
+    @keyframes sheen { from { background-position: 0 0, 100% 0; } to { background-position: 0 0, 0% 0; } }
+    .lenticular.manual, .lenticular.manual .lent-b, .lenticular.manual .lent-sheen { animation: none; }
+    .lenticular.manual { transform: rotateY(calc(var(--x) * 15deg)); }
+    .lenticular.manual .lent-b { opacity: var(--p); }
+    .lenticular.manual .lent-sheen { background-position: 0 0, calc(100% - var(--p) * 100%) 0; }
 
-    .nav-wrap {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(239,239,237,0.92);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(0,0,0,0.05);
+    /* Event ticket */
+    .ticket-wrap { width: 94%; filter: drop-shadow(0 12px 16px rgba(0,0,0,.15)); animation: float 6s ease-in-out infinite; }
+    @keyframes float {
+      0%, 100% { transform: rotate(-4deg) translateY(0); }
+      50%      { transform: rotate(-4deg) translateY(-8px); }
     }
-
-    nav {
-      width: min(94%, var(--max));
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 0;
-      gap: 20px;
+    .ticket {
+      display: flex; aspect-ratio: 2.3; background: #fff;
+      -webkit-mask:
+        radial-gradient(circle at 78% 0, transparent 11px, #000 12px) top / 100% 51% no-repeat,
+        radial-gradient(circle at 78% 100%, transparent 11px, #000 12px) bottom / 100% 51% no-repeat;
+              mask:
+        radial-gradient(circle at 78% 0, transparent 11px, #000 12px) top / 100% 51% no-repeat,
+        radial-gradient(circle at 78% 100%, transparent 11px, #000 12px) bottom / 100% 51% no-repeat;
     }
+    .t-photo { width: 32%; background: var(--img) var(--pos, center)/cover, #d0ccc6; }
+    .t-main { width: 46%; padding: 4% 5%; display: flex; flex-direction: column; justify-content: center; gap: 3px; }
+    .t-admit { font-size: .58rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--soft); }
+    .t-event { font-family: var(--display); font-weight: 700; font-size: 1.02rem; letter-spacing: -.02em; line-height: 1.1; }
+    .t-meta { font-size: .64rem; color: var(--muted); }
+    .t-stub { width: 22%; border-left: 2px dashed var(--line); background: var(--surface); display: grid; place-items: center; }
+    .t-stub span { writing-mode: vertical-rl; font-size: .6rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
 
-    .brand {
-      font-size: 0.95rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      font-weight: 700;
+    /* Lanyard badge */
+    .lanyard {
+      align-self: start; width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center;
+      transform-origin: 50% 0; animation: swing 4s ease-in-out infinite alternate;
     }
-
-    .nav-links,
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 28px;
+    @keyframes swing { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
+    .strap { width: 16%; height: 18%; background: linear-gradient(90deg, #111, #3a3a3a 50%, #111); clip-path: polygon(0 0, 100% 0, 64% 100%, 36% 100%); }
+    .clip { width: 7%; height: 4%; background: #b9b6b1; border-radius: 3px; margin-top: -1px; }
+    .badge {
+      position: relative; width: 50%; margin-top: -1px;
+      background: #fff; border-radius: 10px; overflow: hidden; text-align: center;
+      box-shadow: 0 14px 26px rgba(0,0,0,.15); padding-bottom: 7%;
     }
-
-    .nav-links a,
-    .nav-right a {
-      font-size: 0.95rem;
-      color: var(--muted);
-      transition: color 0.2s ease;
+    .badge-head {
+      position: relative; background: var(--ink); color: #fff;
+      font-size: .54rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+      padding: 16% 6% 6%;
     }
-
-    .nav-links a:hover,
-    .nav-right a:hover {
-      color: var(--mocha);
+    .badge-head::before {
+      content: ""; position: absolute; top: 7px; left: 50%; transform: translateX(-50%);
+      width: 26%; height: 5px; border-radius: 3px; background: var(--bg);
     }
+    .badge-photo { width: 56%; aspect-ratio: 1; margin: 10% auto 6%; border-radius: 50%; background: var(--img) var(--pos, center)/cover, #d0ccc6; }
+    .badge-role { font-family: var(--display); font-weight: 700; font-size: 1.05rem; letter-spacing: -.02em; line-height: 1.1; }
+    .badge-meta { font-size: .58rem; font-weight: 600; color: var(--soft); letter-spacing: .12em; text-transform: uppercase; }
 
-    .social-row {
-      display: flex;
-      gap: 18px;
-      align-items: center;
+
+    /* Hover swap: merch fades out, full photo fades in */
+    .reveal {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: 0; transform: scale(.97); pointer-events: none;
+      transition: opacity .45s ease, transform .45s ease;
     }
+    .reveal img { width: 100%; height: auto; max-height: 100%; object-fit: contain; border-radius: 14px; box-shadow: 0 14px 28px rgba(0,0,0,.14); }
+    .has-reveal .stage > :not(.reveal) { transition: opacity .35s ease, transform .45s ease; }
+    .has-reveal:hover .reveal, .has-reveal .stage:focus .reveal, .has-reveal:focus-within .reveal { opacity: 1; transform: none; }
+    .has-reveal:hover .stage > :not(.reveal), .has-reveal .stage:focus > :not(.reveal), .has-reveal:focus-within .stage > :not(.reveal) { opacity: 0; transform: scale(.94); }
+    .stage:focus { outline: none; }
+    .stage:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 14px; }
+    .section-block + .section-block { margin-top: 28px; }
+    .stage.is-link { cursor: pointer; }
 
-    .social-link {
-      width: 22px;
-      height: 22px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      transition: transform 0.2s ease, color 0.2s ease;
-    }
-
-    .social-link:hover {
-      color: var(--mocha);
-      transform: translateY(-1px);
-    }
-
-    .social-link svg {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
-    }
-
-    .page-hero {
-      padding: 56px 0 26px;
-    }
-
-    .kicker {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--muted);
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-
-    .page-hero h1 {
-      font-size: clamp(3.2rem, 8vw, 6.6rem);
-      line-height: 0.95;
-      letter-spacing: -0.06em;
-      margin-bottom: 14px;
-    }
-
-    .page-hero p {
-      max-width: 760px;
-      color: var(--muted);
-      font-size: 1.05rem;
-    }
-
-    .section-block {
-      padding: 22px 0 10px;
-    }
-
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 22px;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      padding-bottom: 16px;
-    }
-
-    .section-head h2 {
-      font-size: clamp(1.7rem, 3vw, 2.8rem);
-      letter-spacing: -0.05em;
-    }
-
-    .section-head p {
-      max-width: 620px;
-      color: var(--muted);
-    }
-
-    .cards {
-      display: grid;
-      gap: 18px;
-    }
-
-    .project-card {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 24px;
-      background: rgba(255,255,255,0.5);
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: var(--radius);
-      padding: 24px;
-      overflow: hidden;
-    }
-
-    .project-media {
-      min-height: 360px;
-      border-radius: 18px;
-      overflow: hidden;
-      background: #ddd center/cover no-repeat;
-      position: relative;
-    }
-
-    .project-media::after {
-      
-      position: absolute;
-      left: 14px;
-      bottom: 14px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      letter-spacing: 0.04em;
-      background: rgba(255,255,255,0.82);
-      color: #333;
-    }
-
-    .project-copy {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .project-meta {
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .project-copy h3 {
-      font-size: clamp(1.8rem, 3.2vw, 3rem);
-      line-height: 0.98;
-      letter-spacing: -0.05em;
-      margin-bottom: 12px;
-    }
-
-    .project-copy p {
-      color: var(--text);
-      font-size: 1rem;
-      line-height: 1.65;
-      margin-bottom: 14px;
-    }
-
-    .project-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 6px;
-    }
-
-    .pill-link {
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(0,0,0,0.1);
-      background: rgba(255,255,255,0.72);
-      color: var(--muted);
-      font-size: 0.92rem;
-      transition: color 0.2s ease, border-color 0.2s ease;
-    }
-
-    .pill-link:hover {
-      color: var(--mocha);
-      border-color: rgba(0,0,0,0.16);
-    }
-
-    footer {
-      padding: 22px 0 40px;
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    @media (max-width: 980px) {
-      .project-card {
-        grid-template-columns: 1fr;
-      }
-
-      .project-media {
-        min-height: 280px;
-      }
-    }
-
-    @media (max-width: 780px) {
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .nav-links,
-      .nav-right {
-        flex-wrap: wrap;
-        gap: 14px;
-      }
+    @media (max-width: 1000px) { .item { flex-basis: calc((100% - 36px) / 2); } }
+    @media (max-width: 600px) {
+      .track { gap: 20px; }
+      .item { flex-basis: 80%; }
+      .arrow { display: none; }
     }
   </style>
 </head>
 <body>
+
   <div class="nav-wrap">
     <nav>
       <a href="index.html" class="brand">Ali Jamil</a>
       <div class="nav-links">
         <a href="resume.html">Resume</a>
-        <a href="projects.html">Projects</a>
-        <a href="creative.html">Creative</a>
+        <a href="projects.html" aria-current="page">Projects</a>
+        <a href="creative.html">Modeling</a>
       </div>
       <div class="nav-right">
         <div class="social-row" aria-label="Social links">
@@ -316,162 +292,249 @@
 
   <main class="shell">
     <section class="page-hero">
-      <div class="kicker">Selected Work</div>
-      <h1>Projects,<br>speaking and papers.</h1>
+      <p class="kicker">Selected work</p>
+      <h1>Ventures, code<br>and speaking.</h1>
     </section>
 
-    <section class="section-block">
+    <section class="section-block" aria-labelledby="ventures-title">
       <div class="section-head">
-        <h2>Projects</h2>
-        <p>Startup work, product concepts, dashboards and personal builds.</p>
+        <h2 id="ventures-title">Ventures</h2>
+        <p>Startups I founded or co-founded.</p>
       </div>
-      <div class="cards">
-        <article class="project-card">
-          <div class="project-media" style="background-image:url('assets/img/projects/nexus/nexusdating.jpg')"></div>
-          <div class="project-copy">
-            <div class="project-meta">Co-Founder · 2024–2025</div>
-            <h3>Nexus Dating App</h3>
-            <p>An immersive matchmaking app combining 2D mobile gaming with AI-powered social discovery. Features dynamic profile encounters, archetype reveals, and a gamified slay-or-stay mechanic.</p>
-            <div class="project-links">
-              <a class="pill-link" href="#">Case Study</a>
-              <a class="pill-link" href="#">Deck</a>
-            </div>
-          </div>
-        </article>
 
-        <article class="project-card">
-          <div class="project-media" style="background-image:url('assets/img/web-scraping.png')"></div>
-          <div class="project-copy">
-            <div class="project-meta">Python · 2024</div>
-            <h3>Ethical Web Scraper</h3>
-            <p>A Python-based tool for extracting structured data from public websites while following ethical and legal scraping practices. Features annotated fields and adjustable selectors to fine-tune output.</p>
-            <div class="project-links">
-              <a class="pill-link" href="#">GitHub</a>
-            </div>
-          </div>
-        </article>
+      <div class="carousel">
+        <button class="arrow prev" type="button" aria-label="Previous ventures">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
 
-        <article class="project-card">
-          <div class="project-media" style="background-image:url('assets/img/projects/palate/palate.jpg')"></div>
-          <div class="project-copy">
-            <div class="project-meta">Capstone · 2024</div>
-            <h3>Palate</h3>
-            <p>A recipe-matching platform that queries a large recipe database to connect users with meals based on ingredients already in their kitchen. Designed for quick decision-making and discovery.</p>
-            <div class="project-links">
-              <a class="pill-link" href="https://www.youtube.com/watch?v=FBrBIvwInbQ">View Demo</a>
+        <ul class="track">
+          <li class="item">
+            <div class="chips"><span class="chip">Featured</span><span class="chip">Startup</span></div>
+            <div class="stage">
+              <div class="vinyl" style="--img:url('assets/img/merch/nexus.jpg'); --pos: 62% 50%">
+                <div class="disc-wrap"><div class="disc"></div></div>
+                <div class="sleeve shadow" role="img" aria-label="Nexus shown as a vinyl record sleeve"></div>
+              </div>
             </div>
-          </div>
-        </article>
+            <p class="item-meta">Co-founder · 2024–2025</p>
+            <h3 class="item-title">Nexus</h3>
+            <p class="item-desc">A dating app built around a 2D mobile game, with archetype reveals and a slay-or-stay mechanic. Led a team of three and ran discovery with 100+ Gen Z users.</p>
+            <!-- TODO: <a class="item-link" href="#">Read the post-mortem</a> -->
+          </li>
+          <li class="item">
+            <div class="chips"><span class="chip">Startup</span><span class="chip">Archived</span></div>
+            <div class="stage">
+              <div class="polaroids" role="img" aria-label="CIP shown as a stack of polaroid photos">
+                <figure class="polaroid back" style="--img:url('assets/img/merch/cip.jpg'); --pos: 6% 50%"><div class="photo"></div></figure>
+                <figure class="polaroid front" style="--img:url('assets/img/merch/cip.jpg'); --pos: 74% 50%"><div class="photo"></div><figcaption>cip, '23</figcaption></figure>
+              </div>
+            </div>
+            <p class="item-meta">Founder · 2023</p>
+            <h3 class="item-title">CIP</h3>
+            <p class="item-desc">On-demand beverage delivery. Went through the ColaStarts pre-accelerator and interviewed 50+ customers before shutting it down over logistics and regulatory barriers.</p>
+          </li>
+        </ul>
 
-        <article class="project-card">
-          <div class="project-media" style="background-image:url('assets/img/projections-cover.png')"></div>
-          <div class="project-copy">
-            <div class="project-meta">SCDEW · 2024</div>
-            <h3>Wage Records Dashboard</h3>
-            <p>A statewide dashboard initiative built to modernize labor market reporting and help stakeholders interpret wage data more clearly across public sector systems.</p>
-            <div class="project-links">
-              <a class="pill-link" href="#">Overview</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <div class="project-media" style="background-image:url('assets/img/projects/cip.png')"></div>
-          <div class="project-copy">
-            <div class="project-meta">Founder · 2023</div>
-            <h3>CIP</h3>
-            <p>A mobile beverage delivery startup focused on convenience and pregame culture. Completed a pre-accelerator, earned traction through customer discovery, and was later sunset due to logistical and legal barriers.</p>
-            <div class="project-links">
-              <a class="pill-link" href="#">Pitch Story</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <div class="project-media" style="background-image:url('assets/img/Anonymizer.jpg')"></div>
-          <div class="project-copy">
-            <div class="project-meta">Personal Project · 2023</div>
-            <h3>Data Anonymizer</h3>
-            <p>A C#-built data anonymization and obfuscation suite designed to conceal sensitive information and make readable logic significantly harder to inspect.</p>
-            <div class="project-links">
-              <a class="pill-link" href="#">View Demo</a>
-              <a class="pill-link" href="#">GitHub</a>
-            </div>
-          </div>
-        </article>
+        <button class="arrow next" type="button" aria-label="Next ventures">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
       </div>
     </section>
 
-    <section class="section-block">
+    <section class="section-block" aria-labelledby="code-title">
       <div class="section-head">
-        <h2>Speaking</h2>
-        <p>Public-facing presentations and rooms where I’ve presented ideas live.</p>
+        <h2 id="code-title">Code projects</h2>
+        <p>Dashboards, apps and tools I built.</p>
       </div>
-      <div class="cards">
-        <article class="project-card">
-          <div class="project-media" style="background-image:url('assets/img/PitchNight1.jpg')"></div>
-          <div class="project-copy">
-            <div class="project-meta">ColaStarts · 2024</div>
-            <h3>ColaStarts Pitch Night</h3>
-            <p>Presented founder work live in a startup setting, sharing the venture story, market opportunity, and product concept in front of an audience.</p>
-            <div class="project-links">
-              <a class="pill-link" href="">Event</a>
-              <a class="pill-link" href="https://www.postandcourier.com/columbia/business/growco-columbia-sc-boyd-innovation-center-five-points/article_39ded252-0d51-11ef-81f6-2bf418e81ffe.html">Press</a>
-            </div>
-          </div>
-        </article>
 
-        <article class="project-card">
-          <div class="project-media" style="background-image:url('assets/img/ProvingGround.jpeg')"></div>
-          <div class="project-copy">
-            <div class="project-meta">Competition · 2024</div>
-            <h3>The Proving Grounds</h3>
-            <p>Advanced as a semi-finalist while pitching venture concepts in a more formal competition environment focused on entrepreneurial storytelling and execution.</p>
-            <div class="project-links">
-              <a class="pill-link" href="https://sc.edu/study/colleges_schools/moore/research_and_centers/centers/faber_entrepreneurship_center/proving_ground.php">Competition</a>
+      <div class="carousel">
+        <button class="arrow prev" type="button" aria-label="Previous code projects">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+
+        <ul class="track">
+          <li class="item">
+            <div class="chips"><span class="chip">Public sector</span><span class="chip">Dashboard</span></div>
+            <div class="stage">
+              <div class="picdisc shadow" style="--img:url('assets/img/merch/SCDEW\ Logo.webp'); --pos: 50% 50%" role="img" aria-label="Wage Records Dashboard shown as a spinning picture disc"></div>
             </div>
-          </div>
-        </article>
+            <p class="item-meta">SC Dept. of Employment and Workforce · 2024</p>
+            <h3 class="item-title">Wage Records Dashboard</h3>
+            <p class="item-desc">Statewide dashboard linking employment outcomes with technical college data, built in coordination with the Bureau of Labor Statistics.</p>
+          </li>
+          <li class="item">
+            <div class="chips"><span class="chip">Capstone</span><span class="chip">Demo</span></div>
+            <div class="stage">
+              <div class="picdisc shadow" style="--img:url('assets/img/merch/palate.jpg'); --pos: 50% 50%" role="img" aria-label="Palate shown as a picture disc"></div>
+            </div>
+            <p class="item-meta">Capstone · 2024</p>
+            <h3 class="item-title">Palate</h3>
+            <p class="item-desc">A recipe matcher that suggests meals from the ingredients you already have.</p>
+            <a class="item-link" href="https://www.youtube.com/watch?v=FBrBIvwInbQ" target="_blank" rel="noopener">Watch demo</a>
+          </li>
+          <li class="item">
+            <div class="chips"><span class="chip">C#</span><span class="chip">Security</span></div>
+            <div class="stage">
+              <div class="lenticular shadow" style="--img:url('assets/img/merch/anonymizer.jpg'); --pos: 88% 50%" role="img" aria-label="Data Anonymizer shown as a lenticular card that shifts between a clear and a redacted image">
+                <div class="lent-a"></div>
+                <div class="lent-b"><span class="bar b1"></span><span class="bar b2"></span></div>
+                <div class="lent-sheen"></div>
+              </div>
+            </div>
+            <p class="item-meta">Personal project · 2023</p>
+            <h3 class="item-title">Data Anonymizer</h3>
+            <p class="item-desc">A C# obfuscation suite that hides sensitive logic and secrets in source code so it is harder to inspect.</p>
+            <!-- TODO: <a class="item-link" href="https://github.com/ateh03/REPO">GitHub</a> -->
+          </li>
+          <li class="item">
+            <div class="chips"><span class="chip">Python</span><span class="chip">Data collection</span></div>
+            <div class="stage">
+              <div class="cassette shadow" role="img" aria-label="Ethical Web Scraper shown as a cassette tape">
+                <div class="cass-label">
+                  <span class="side">A</span><span class="title">scraper.py</span>
+                  <div class="cass-window"><span class="reel"></span><span class="reel"></span></div>
+                </div>
+                <div class="cass-foot"></div>
+              </div>
+            </div>
+            <p class="item-meta">Personal project · 2024</p>
+            <h3 class="item-title">Ethical Web Scraper</h3>
+            <p class="item-desc">Pulls structured data from public websites within ethical and legal limits. Adjustable selectors let you tune the output.</p>
+            <!-- TODO: <a class="item-link" href="https://github.com/ateh03/REPO">GitHub</a> -->
+          </li>
+        </ul>
+
+        <button class="arrow next" type="button" aria-label="Next code projects">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
       </div>
+
+      <div class="cta"><a class="pill-link" href="https://github.com/ateh03" target="_blank" rel="noopener">More on GitHub</a></div>
     </section>
-<!--
-    <section class="section-block">
+
+    <section class="section-block" aria-labelledby="speaking-title">
       <div class="section-head">
-        <h2>Papers</h2>
-        <p>Writing, research, and longer-form thinking that complements the build side.</p>
+        <h2 id="speaking-title">Speaking</h2>
+        <p>Live pitches and competitions. Hover for the photo.</p>
       </div>
-      <div class="cards">
-        <article class="project-card">
-          <div class="project-media" style="background-image:url('https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1400&q=80');"></div>
-          <div class="project-copy">
-            <div class="project-meta">Research / Writing</div>
-            <h3>Paper Title Placeholder</h3>
-            <p>Add a paper, academic write-up, article, or op-ed here. This section is partitioned separately so your writing can sit beside projects and speaking without getting lost.</p>
-            <div class="project-links">
-              <a class="pill-link" href="#">Read Paper</a>
-              <a class="pill-link" href="#">PDF</a>
-            </div>
-          </div>
-        </article>
 
-        <article class="project-card">
-          <div class="project-media" style="background-image:url('https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1400&q=80');"></div>
-          <div class="project-copy">
-            <div class="project-meta">Essay / Analysis</div>
-            <h3>Another Writing Sample</h3>
-            <p>Use this slot for another paper, a published article, a class essay, or any strong long-form sample you want recruiters or collaborators to read.</p>
-            <div class="project-links">
-              <a class="pill-link" href="#">Read More</a>
+      <div class="carousel">
+        <button class="arrow prev" type="button" aria-label="Previous talks">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+
+        <ul class="track">
+          <li class="item has-reveal">
+            <div class="chips"><span class="chip">Pitch</span><span class="chip">Press</span></div>
+            <div class="stage" tabindex="0">
+              <div class="ticket-wrap">
+                <div class="ticket" style="--img:url('assets/img/merch/pitch-night.jpg'); --pos: 70% 40%" role="img" aria-label="ColaStarts Pitch Night shown as an event ticket">
+                  <div class="t-photo"></div>
+                  <div class="t-main">
+                    <span class="t-admit">Admit one</span>
+                    <span class="t-event">ColaStarts Pitch Night</span>
+                    <span class="t-meta">Columbia, SC · 2024</span>
+                  </div>
+                  <div class="t-stub"><span>No. 0024</span></div>
+                </div>
+              </div>
+              <div class="reveal"><img src="assets/img/merch/pitch-night.jpg" alt="Ali presenting at ColaStarts Pitch Night" loading="lazy"></div>
             </div>
-          </div>
-        </article>
+            <p class="item-meta">ColaStarts · 2024</p>
+            <h3 class="item-title">ColaStarts Pitch Night</h3>
+            <p class="item-desc">Pitched LIQ, my on-demand beverage delivery startup, live to founders and investors. Covered the market, the product and the revenue model.</p>
+            <a class="item-link" href="https://www.postandcourier.com/columbia/business/growco-columbia-sc-boyd-innovation-center-five-points/article_39ded252-0d51-11ef-81f6-2bf418e81ffe.html" target="_blank" rel="noopener">Press coverage</a>
+          </li>
+          <li class="item has-reveal">
+            <div class="chips"><span class="chip">Competition</span><span class="chip">Semi-finalist</span></div>
+            <div class="stage" tabindex="0">
+              <div class="lanyard" role="img" aria-label="The Proving Grounds shown as a semi-finalist lanyard badge">
+                <div class="strap"></div><div class="clip"></div>
+                <div class="badge" style="--img:url('assets/img/merch/proving-grounds.jpg'); --pos: 38% 45%">
+                  <div class="badge-head">The Proving Grounds</div>
+                  <div class="badge-photo"></div>
+                  <div class="badge-role">Semi-finalist</div>
+                  <div class="badge-meta">USC · 2024</div>
+                </div>
+              </div>
+              <div class="reveal"><img src="assets/img/merch/proving-grounds.jpg" alt="Ali pitching at The Proving Grounds" loading="lazy"></div>
+            </div>
+            <p class="item-meta">Pitch competition · 2024</p>
+            <h3 class="item-title">The Proving Grounds</h3>
+            <p class="item-desc">Semi-finalist in the Faber Entrepreneurship Center's venture pitch competition at USC.</p>
+            <a class="item-link" href="https://sc.edu/study/colleges_schools/moore/research_and_centers/centers/faber_entrepreneurship_center/proving_ground.php" target="_blank" rel="noopener">About the competition</a>
+          </li>
+        </ul>
+
+        <button class="arrow next" type="button" aria-label="Next talks">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
       </div>
     </section>
-    -->
 
     <footer>
-      <p>© 2026 Ali Jamil.</p>
+      <p>&copy; 2026 Ali Jamil.</p>
     </footer>
   </main>
+
+  <script>
+    // Carousels: page-at-a-time arrows, hidden at the ends, centered on the merch
+    document.querySelectorAll(".carousel").forEach(function (carousel) {
+      var track = carousel.querySelector(".track");
+      var prev = carousel.querySelector(".prev");
+      var next = carousel.querySelector(".next");
+
+      function step() {
+        var item = track.querySelector(".item");
+        var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+        var perView = Math.max(1, Math.floor((track.clientWidth + gap) / (item.offsetWidth + gap)));
+        return perView * (item.offsetWidth + gap);
+      }
+      function update() {
+        var stage = track.querySelector(".stage");
+        if (stage) prev.style.top = next.style.top = (stage.offsetTop + stage.offsetHeight / 2) + "px";
+        var max = track.scrollWidth - track.clientWidth;
+        var overflow = max > 4;
+        prev.hidden = !overflow || track.scrollLeft <= 4;
+        next.hidden = !overflow || track.scrollLeft >= max - 4;
+        track.classList.toggle("centered", !overflow);
+      }
+      prev.addEventListener("click", function () { track.scrollBy({ left: -step() }); });
+      next.addEventListener("click", function () { track.scrollBy({ left: step() }); });
+      track.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    });
+
+    // Clicking a merch graphic opens the same link as the card's text link
+    document.querySelectorAll(".item").forEach(function (item) {
+      var link = item.querySelector(".item-link");
+      var stage = item.querySelector(".stage");
+      if (!link || !stage) return;
+      stage.classList.add("is-link");
+      stage.setAttribute("title", link.textContent.trim());
+      stage.addEventListener("click", function () {
+        if (link.target === "_blank") window.open(link.href, "_blank", "noopener");
+        else window.location.href = link.href;
+      });
+      stage.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") stage.click();
+      });
+    });
+
+    // Lenticular: auto-wobbles, follows the cursor on hover
+    document.querySelectorAll(".lenticular").forEach(function (card) {
+      var stage = card.closest(".stage");
+      stage.addEventListener("pointermove", function (e) {
+        var r = stage.getBoundingClientRect();
+        var x = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width) * 2 - 1));
+        card.classList.add("manual");
+        card.style.setProperty("--x", x.toFixed(3));
+        card.style.setProperty("--p", ((x + 1) / 2).toFixed(3));
+      });
+      stage.addEventListener("pointerleave", function () { card.classList.remove("manual"); });
+    });
+  </script>
+  <script src="assets/js/snow.js" defer></script>
 </body>
 </html>

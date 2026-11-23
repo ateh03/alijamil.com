@@ -4,10 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ali Jamil</title>
-  <meta name="description" content="Ali Jamil | Data, innovation, startups, and digital strategy." />
+  <meta name="description" content="Ali Jamil | Data, innovation, startups and digital strategy." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="/assets/img/favicon/site.webmanifest">
+  <meta name="theme-color" content="#171717">
   <style>
     :root {
       --bg: #efefed;
@@ -256,10 +263,24 @@
     }
 
     .gallery-left {
+      background: #2a2a2a;
+      overflow: hidden;
+    }
+    /* Rotating pitch night photos (crossfade every 6s) */
+    .slides { position: absolute; inset: 0; z-index: 0; }
+    .slide {
+      position: absolute; inset: 0;
+      background-size: cover; background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    .slide.active { opacity: 1; }
+    .slides::after {
+      content: ""; position: absolute; inset: 0;
       background:
         linear-gradient(rgba(0,0,0,0.22), rgba(0,0,0,0.18)),
-        radial-gradient(circle at 25% 20%, rgba(255,255,255,0.22), transparent 18%),
-        url('assets/img/PitchNight2.jpg') center 30% / cover;
+        linear-gradient(to top, rgba(0,0,0,0.45), transparent 55%),
+        radial-gradient(circle at 25% 20%, rgba(255,255,255,0.18), transparent 18%);
     }
 
     .gallery-right {
@@ -451,7 +472,7 @@
       <div class="nav-links">
         <a href="resume.html">Resume</a>
         <a href="projects.html">Projects</a>
-        <a href="creative.html">Creative</a>
+        <a href="creative.html">Modeling</a>
       </div>
       <div class="nav-right">
         <div class="social-row" aria-label="Social links">
@@ -494,9 +515,16 @@
     <section id="projects" style="padding-top: 8px;">
       <div class="gallery-grid">
         <article class="gallery-left grain">
+          <div class="slides" aria-hidden="true">
+            <div class="slide active" style="background-image:url('assets/img/pitchnight/group-1.jpg'); background-position:center 30%"></div>
+            <div class="slide" style="background-image:url('assets/img/pitchnight/stage-closeup.jpg'); background-position:center 60%"></div>
+            <div class="slide" style="background-image:url('assets/img/pitchnight/group-2.jpg'); background-position:center 25%"></div>
+            <div class="slide" style="background-image:url('assets/img/pitchnight/stage-revenue.jpg'); background-position:65% 40%"></div>
+            <div class="slide" style="background-image:url('assets/img/pitchnight/stage-wide.jpg'); background-position:60% 40%"></div>
+          </div>
           <div class="gallery-nav">
             <a href="projects.html">Projects</a>
-            <a href="creative.html">Creative</a>
+            <a href="creative.html">Modeling</a>
           </div>
           <div class="gallery-caption">
             <div class="kicker">Featured Work</div>
@@ -506,7 +534,7 @@
         </article>
         <article class="gallery-right grain">
           <div class="gallery-caption">
-            <div class="kicker">Creative</div>
+            <div class="kicker">Modeling</div>
             <h2>Editorial photographs.</h2>
             <p>Portraits and creative work.</p>
           </div>
@@ -518,5 +546,20 @@
       <p>© 2026 Ali Jamil.</p>
     </footer>
   </main>
+  <script>
+    // Homepage: rotate the pitch night photos every 6 seconds
+    (function () {
+      var slides = document.querySelectorAll(".slides .slide");
+      if (slides.length < 2) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      var i = 0;
+      setInterval(function () {
+        slides[i].classList.remove("active");
+        i = (i + 1) % slides.length;
+        slides[i].classList.add("active");
+      }, 3500);
+    })();
+  </script>
+  <script src="assets/js/snow.js" defer></script>
 </body>
 </html>
