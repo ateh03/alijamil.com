@@ -80,6 +80,16 @@ nav {
 .section-head h2 { font-size: clamp(1.7rem, 3vw, 2.8rem); letter-spacing: -.05em; }
 .section-head p { max-width: 620px; color: var(--muted); }
 
+/* Text links: dark gray on hover, everywhere on the site */
+body main a:not(.pill-link):not(.archive-card):not(.brand):hover,
+body .item-link:hover,
+body .crumbs a:hover,
+body .maker-links a:hover {
+  color: #2e2e2e;
+  border-color: #2e2e2e;
+  text-decoration-color: #2e2e2e;
+}
+
 /* ---------- Buttons ---------- */
 .pill-link {
   display: inline-flex; align-items: center; gap: 8px;
