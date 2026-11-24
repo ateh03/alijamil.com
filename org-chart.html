@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ali Jamil | Diva Records Org Chart</title>
+  <meta name="description" content="An interactive org chart Ali Jamil vibe coded, restaged as Diva Records Inc. with pop divas in every seat.">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="assets/img/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="assets/img/favicon/site.webmanifest">
+  <meta name="theme-color" content="#171717">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <style>
+    :root {
+      --chart-line: #c9c7c1;
+      --chart-card: #ffffff;
+      --chart-border: #e2e0db;
+      --vacant: #a83246;
+    }
+
+    .skip-link {
+      position: absolute; left: -9999px; top: 0; z-index: 2000;
+      background: var(--ink); color: #fff; padding: 10px 16px;
+    }
+    .skip-link:focus { left: 0; }
+
+    .chart-hero { display: flex; align-items: end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .chip {
+      font-size: .74rem; font-weight: 600; padding: 6px 12px; border-radius: 999px;
+      background: #fff; border: 1px solid var(--line-strong); color: var(--ink);
+    }
+    .chip.vibe { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .stat-box { text-align: right; }
+    .stat-box strong { display: block; font-size: 2.2rem; letter-spacing: -.04em; line-height: 1; }
+    .stat-box span { color: var(--muted); font-size: .9rem; }
+    .back-link { display: inline-block; margin-bottom: 18px; color: var(--muted); font-size: .92rem; }
+    .back-link:hover { color: var(--mocha); }
+
+    /* ---- Toolbar ---- */
+    .chart-tools {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+      margin: 26px 0 12px;
+    }
+    .view-toggle, .zoom-tools { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .tool-btn {
+      font: inherit; font-size: .88rem; padding: 8px 14px; border-radius: 999px;
+      border: 1px solid var(--line-strong); background: #fff; color: var(--ink); cursor: pointer;
+    }
+    .tool-btn:hover { background: var(--surface); }
+    .tool-btn[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .zoom-tools .tool-btn { width: 36px; height: 36px; padding: 0; font-size: 1.1rem; display: grid; place-items: center; }
+    .zoom-tools .tool-btn.wide { width: auto; padding: 0 14px; font-size: .88rem; }
+    .zoom-pct { min-width: 48px; text-align: center; color: var(--muted); font-size: .85rem; }
+    .search {
+      font: inherit; font-size: .9rem; padding: 8px 14px; border-radius: 999px; min-width: 220px;
+      border: 1px solid var(--line-strong); background: #fff; color: var(--ink);
+    }
+    .view-note { font-size: .86rem; color: var(--muted); margin: 0 0 12px; max-width: 760px; }
+
+    /* ---- Full tree ---- */
+    .tree-viewport {
+      width: 100%; overflow: auto; background: #fff;
+      border: 1px solid var(--chart-border); border-radius: 18px;
+      height: min(78vh, 780px); cursor: grab;
+    }
+    .tree-viewport.dragging { cursor: grabbing; user-select: none; }
+    .tree-canvas { position: relative; transform-origin: top left; }
+    .tree-canvas svg.connectors { position: absolute; top: 0; left: 0; pointer-events: none; }
+    .tnode {
+      position: absolute; width: 160px; background: var(--chart-card);
+      border: 1px solid var(--chart-border); border-radius: 10px; overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,.04);
+      transition: box-shadow .2s ease, outline-color .2s ease;
+      outline: 3px solid transparent; outline-offset: 2px;
+    }
+    .tnode.hit { outline-color: #ff69be; box-shadow: 0 6px 20px rgba(255,105,190,.35); }
+    .group-head {
+      padding: 5px 9px 4px; color: #fff; font-size: 10px; font-weight: 600; letter-spacing: .02em;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .person-row { display: flex; align-items: center; gap: 8px; padding: 8px 9px; }
+    .person-row > div { min-width: 0; flex: 1; overflow: hidden; }
+    .p-title { font-size: 9px; color: var(--muted); margin: 0 0 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .p-name { font-size: 12px; font-weight: 700; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .p-name.vacant { color: var(--vacant); font-style: italic; font-weight: 600; }
+    .p-name.open { color: var(--muted); font-style: italic; font-weight: 600; }
+
+    .avatar {
+      border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; overflow: hidden;
+      color: #fff; font-weight: 700; letter-spacing: .02em;
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ---- Accessible list view ---- */
+    .crumbline { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin: 6px 0 18px; }
+    .crumb {
+      font: inherit; font-size: .82rem; padding: 6px 13px; border-radius: 999px; cursor: pointer;
+      background: #fff; border: 1px solid var(--line-strong); color: var(--ink);
+    }
+    .crumb.current { background: var(--ink); color: #fff; border-color: var(--ink); cursor: default; }
+    .crumb-sep { color: var(--soft); }
+    .current-head {
+      display: flex; align-items: center; gap: 16px; background: var(--ink); color: #fff;
+      border-radius: 16px; padding: 16px 20px; margin-bottom: 20px;
+    }
+    .current-head .c-title { font-size: .8rem; color: #cfcfc8; margin: 0 0 2px; }
+    .current-head .c-name { font-size: 1.2rem; font-weight: 700; margin: 0; }
+    .current-head .c-sub { font-size: .78rem; color: #b5b5ad; margin: 2px 0 0; }
+    #sectionLabel { font-size: .9rem; color: var(--muted); margin: 0 0 10px; font-weight: 600; }
+    ul.stations { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    @media (max-width: 980px) { ul.stations { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { ul.stations { grid-template-columns: 1fr; } }
+    .station-btn {
+      width: 100%; text-align: left; background: #fff; border: 1px solid var(--chart-border);
+      border-radius: 12px; padding: 0; font: inherit; cursor: pointer; display: block; overflow: hidden;
+    }
+    .station-btn:disabled { cursor: default; }
+    .station-btn:not(:disabled):hover { border-color: var(--ink); }
+    .station-btn .p-title, .station-btn .p-name { white-space: normal; }
+    .station-btn .p-title { font-size: .72rem; }
+    .station-btn .p-name { font-size: .92rem; }
+    .station-foot { padding: 0 11px 10px; font-size: .72rem; color: var(--muted); }
+
+
+    /* ---------- App layout (full-screen, like a standalone game page) ---------- */
+    body.app { min-height: 100vh; }
+    .app-shell { width: min(96%, 1600px); margin: 0 auto; padding: 18px 0 24px; display: flex; flex-direction: column; min-height: 100vh; }
+    .app-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }
+    .app-head .chips { margin-bottom: 8px; }
+    .app-head h1 { font-size: clamp(2rem, 4.4vw, 3.4rem); letter-spacing: -.055em; line-height: .95; margin: 0 0 6px; }
+    .app-sub { margin: 0; color: var(--muted); font-size: .95rem; }
+    .app-sub strong { color: var(--ink); }
+    .app .chart-tools { margin: 0; }
+    .privacy-note { font-size: .8rem; color: var(--muted); margin: 6px 0 10px; }
+    .app #fullTreeView { flex: 1; display: flex; }
+    .app .tree-viewport { flex: 1; height: auto; min-height: 520px; max-height: calc(100vh - 190px); }
+
+    .tnode.editable { cursor: pointer; pointer-events: auto; }
+    .tnode.editable:hover { border-color: var(--ink); box-shadow: 0 6px 16px rgba(0,0,0,.08); }
+    .tnode.editable .avatar { position: relative; }
+    .tnode.editable:hover .avatar::after {
+      content: "+"; position: absolute; inset: 0; display: grid; place-items: center;
+      background: rgba(0,0,0,.55); color: #fff; font-size: 18px; font-weight: 700; border-radius: 50%;
+    }
+    .photo-btn {
+      font: inherit; font-size: .78rem; margin-left: auto; padding: 7px 12px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.35); background: transparent; color: #fff; cursor: pointer;
+    }
+    .photo-btn:hover { background: rgba(255,255,255,.12); }
+    .head-btns { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+    .head-btns .photo-btn { margin-left: 0; }
+
+    .maker-badge {
+      position: fixed; right: 0; bottom: 0; z-index: 900;
+      background: var(--ink); color: #fff; text-align: center;
+      padding: 14px 18px 12px; border-radius: 18px 0 0 0; max-width: 240px;
+      box-shadow: 0 -6px 24px rgba(0,0,0,.15);
+    }
+    .maker-badge p { margin: 0; font-size: .88rem; }
+    .maker-links { margin-top: 6px !important; }
+    .maker-links a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    .maker-links a:hover { color: #ff69be; }
+    .maker-fine { margin-top: 6px !important; font-size: .68rem !important; color: #b5b5ad; }
+    @media (max-width: 700px) { .maker-badge { position: static; border-radius: 14px; max-width: none; margin: 16px auto; width: 96%; } }
+
+    /* =====================================================
+       Genrebase theme: black, white, pink-to-purple gradient.
+       Every interactive element gets a visible 2px outline.
+       ===================================================== */
+    :root {
+      --gb-ink: #111111;
+      --gb-pink: #e6317e;
+      --gb-purple: #8b5cf6;
+      --gb-teal: #18b6a3;
+      --gb-grad: linear-gradient(90deg, var(--gb-pink), var(--gb-purple));
+      --gb-soft: #f4f3f6;
+    }
+    body.app {
+      background:
+        radial-gradient(900px 500px at 10% -10%, rgba(230,49,126,.35), transparent 60%),
+        radial-gradient(900px 600px at 100% 110%, rgba(139,92,246,.35), transparent 60%),
+        #141218;
+      color: var(--gb-ink);
+    }
+    .app-shell { padding: 28px 0 120px; }
+
+    /* Window */
+    .window {
+      flex: 1; display: flex; flex-direction: column;
+      background: #fff; border: 2px solid var(--gb-ink);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 30px 80px rgba(0,0,0,.55);
+    }
+    .window-bar {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--gb-ink); color: #fff; padding: 10px 16px;
+      position: relative; font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    }
+    .window-bar::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 3px; background: var(--gb-grad); }
+    .dots { display: flex; gap: 7px; }
+    .dots i { width: 11px; height: 11px; border-radius: 50%; background: #3a3a3a; display: block; }
+    .dots i:first-child { background: var(--gb-pink); }
+    .dots i:nth-child(2) { background: var(--gb-purple); }
+    .window-name { flex: 1; text-transform: none; letter-spacing: .02em; font-weight: 600; opacity: .85; }
+    .window-tag { background: var(--gb-grad); padding: 3px 9px; font-size: .66rem; }
+    .window-body { padding: 22px 24px 20px; display: flex; flex-direction: column; flex: 1; }
+
+    /* Header */
+    .app-head h1 { letter-spacing: -.045em; }
+    .grad { background: var(--gb-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .app-sub { color: #444; }
+    .chip { border-radius: 0; border: 1.5px solid var(--gb-ink); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: .64rem; padding: 5px 9px; background: #fff; }
+    .chip.vibe { background: var(--gb-pink); border-color: var(--gb-pink); color: #fff; }
+
+    /* Every control: square, 2px outline, obvious hover and focus */
+    .tool-btn, .search, .crumb, .photo-btn {
+      border-radius: 0 !important; border: 2px solid var(--gb-ink) !important;
+      font-weight: 700; transition: background .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease;
+    }
+    .tool-btn { background: #fff; color: var(--gb-ink); text-transform: uppercase; letter-spacing: .08em; font-size: .74rem; }
+    .tool-btn:hover, .crumb:not(.current):hover { border-color: var(--gb-pink) !important; color: var(--gb-pink); background: #fff; }
+    .tool-btn[aria-pressed="true"], .crumb.current { background: var(--gb-ink); color: #fff; }
+    .tool-btn[aria-pressed="true"]:hover { color: #fff; background: var(--gb-ink); }
+    .zoom-tools .tool-btn { font-size: 1.1rem; }
+    .zoom-pct { font-weight: 700; color: var(--gb-ink); }
+    .search { font-weight: 500; background: #fff; min-width: 240px; }
+    .search:hover { border-color: var(--gb-pink) !important; }
+    .search:focus { outline: none; border-color: var(--gb-pink) !important; box-shadow: 0 0 0 3px rgba(230,49,126,.25); }
+    #clearPhotos { border-color: var(--gb-pink) !important; color: var(--gb-pink); }
+    #clearPhotos:hover { background: var(--gb-pink); color: #fff; }
+    .tool-btn:focus-visible, .crumb:focus-visible, .photo-btn:focus-visible, .station-btn:focus-visible, .tree-viewport:focus-visible {
+      outline: 3px solid var(--gb-purple); outline-offset: 2px;
+    }
+    .privacy-note { color: #555; border-left: 3px solid var(--gb-pink); padding-left: 10px; }
+
+    /* Chart area */
+    .tree-viewport { border-radius: 0; border: 2px solid var(--gb-ink); background:
+      radial-gradient(circle, #e6e3ea 1px, transparent 1.2px) 0 0 / 22px 22px, #fff; }
+    .tnode { border-radius: 0; border: 1.5px solid #d6d3da; border-left: 4px solid var(--team, var(--gb-pink)); box-shadow: none; }
+    .group-head { background: transparent !important; color: var(--team, var(--gb-pink)) !important; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: 9px; padding: 7px 9px 0; }
+    .tnode.editable:hover { border-color: var(--gb-ink); border-left-color: var(--team, var(--gb-pink)); box-shadow: 4px 4px 0 var(--gb-ink); transform: translate(-2px, -2px); }
+    .tnode { transition: transform .15s ease, box-shadow .15s ease; }
+    .tnode.hit { outline: 3px solid var(--gb-pink); outline-offset: 2px; box-shadow: 0 0 0 6px rgba(230,49,126,.18); }
+    .p-name.open { color: var(--gb-purple); }
+
+    /* List view */
+    .current-head { border-radius: 0; background: var(--gb-ink); position: relative; }
+    .current-head::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--gb-grad); }
+    .photo-btn { border-color: #fff !important; color: #fff; text-transform: uppercase; letter-spacing: .08em; font-size: .68rem; }
+    .photo-btn:hover { background: var(--gb-pink); border-color: var(--gb-pink) !important; }
+    .station-btn { border-radius: 0; border: 2px solid var(--gb-ink); border-left: 5px solid var(--team, var(--gb-pink)); }
+    .station-btn:not(:disabled):hover { box-shadow: 4px 4px 0 var(--gb-ink); transform: translate(-2px, -2px); border-color: var(--gb-ink); }
+    .station-btn:disabled { border-color: #d6d3da; border-left-color: var(--team, var(--gb-pink)); }
+    .station-btn { transition: transform .15s ease, box-shadow .15s ease; }
+    #sectionLabel { text-transform: uppercase; letter-spacing: .12em; color: var(--gb-ink); font-size: .8rem; }
+
+    /* Maker badge */
+    .maker-badge { background: var(--gb-ink); border-radius: 0; border-top: 3px solid transparent; border-image: var(--gb-grad) 1; }
+    .maker-links a { text-decoration-color: var(--gb-pink); }
+    #accessibleView nav { width: auto; margin: 0; padding: 0; display: block; }
+    .station-btn:disabled { color: var(--gb-ink); opacity: 1; }
+    .maker-badge { padding: 10px 16px 9px; max-width: 260px; }
+    .maker-fine { display: none; }
+    .window-body > .app-foot { margin-top: 12px; font-size: .74rem; color: #666; }
+
+    /* ---------- Photo hover: the avatar is its own "change photo" target ---------- */
+    .photo-hit { position: relative; display: inline-flex; border-radius: 50%; cursor: pointer; }
+    .photo-hit .avatar { transition: box-shadow .15s ease; }
+    .photo-hit:hover .avatar, .photo-hit:focus-visible .avatar { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--gb-pink); }
+    .photo-hit:hover::after {
+      content: "Edit"; position: absolute; inset: 0; border-radius: 50%;
+      display: grid; place-items: center; background: rgba(17,17,17,.62); color: #fff;
+      font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+    }
+    .tnode.editable:hover .avatar::after { content: none !important; }
+    .tnode.editable { cursor: pointer; }
+
+    /* ---------- Details popup ---------- */
+    .modal-backdrop {
+      position: fixed; inset: 0; z-index: 3000; background: rgba(20,18,24,.62);
+      display: grid; place-items: center; padding: 20px; backdrop-filter: blur(3px);
+    }
+    .modal {
+      width: min(520px, 100%); max-height: calc(100vh - 40px); overflow: auto;
+      background: #fff; border: 2px solid var(--gb-ink); box-shadow: 10px 10px 0 var(--gb-ink);
+      animation: pop .18s ease;
+    }
+    @keyframes pop { from { transform: translateY(8px) scale(.98); opacity: 0; } to { transform: none; opacity: 1; } }
+    .modal-bar {
+      display: flex; justify-content: space-between; align-items: center; position: relative;
+      background: var(--gb-ink); color: #fff; padding: 9px 12px 9px 16px;
+      font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+    }
+    .modal-bar::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 3px; background: var(--gb-grad); }
+    .modal-close { width: 32px; height: 32px; border: 2px solid #fff; background: transparent; color: #fff; font-size: 1.2rem; line-height: 1; cursor: pointer; }
+    .modal-close:hover { border-color: var(--gb-pink); color: var(--gb-pink); }
+    .modal-top { display: flex; gap: 18px; align-items: center; padding: 24px 22px 14px; }
+    .modal-photo { padding: 0; border: 0; background: none; cursor: pointer; position: relative; border-radius: 50%; flex-shrink: 0; }
+    .modal-photo .avatar { box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--team, var(--gb-pink)); }
+    .modal-photo:hover::after, .modal-photo:focus-visible::after {
+      content: "Change photo"; position: absolute; inset: 0; border-radius: 50%; display: grid; place-items: center;
+      background: rgba(17,17,17,.62); color: #fff; font-size: .62rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; text-align: center;
+    }
+    .modal-photo:disabled { cursor: default; }
+    .modal-photo:disabled::after { content: none !important; }
+    .dm-team { margin: 0 0 4px; font-size: .68rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--team, var(--gb-pink)); }
+    #dmName { font-size: 1.7rem; letter-spacing: -.04em; line-height: 1.05; margin: 0 0 4px; }
+    .dm-title { margin: 0; color: #444; }
+    .dm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 0 22px; border-top: 2px solid var(--gb-ink); }
+    .dm-grid > div { padding: 10px 0; border-bottom: 1px solid #e2dfe6; }
+    .dm-grid > div:nth-child(odd) { padding-right: 12px; }
+    .dm-grid dt { font-size: .64rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #777; margin-bottom: 2px; }
+    .dm-grid dd { margin: 0; font-weight: 600; }
+    .dm-move { margin: 16px 22px 0; }
+    .dm-move label { display: block; font-size: .64rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #777; margin-bottom: 6px; }
+    .dm-move-row { display: flex; gap: 8px; }
+    .dm-move select { flex: 1; font: inherit; padding: 8px 10px; border: 2px solid var(--gb-ink); border-radius: 0; background: #fff; }
+    .dm-move select:hover, .dm-move select:focus { border-color: var(--gb-pink); outline: none; box-shadow: 0 0 0 3px rgba(230,49,126,.2); }
+    .dm-actions { display: flex; gap: 8px; flex-wrap: wrap; padding: 16px 22px 22px; }
+    .tool-btn:disabled { opacity: .4; cursor: not-allowed; }
+    .tool-btn:disabled:hover { border-color: var(--gb-ink) !important; color: var(--gb-ink); }
+
+    /* ---------- Reorganize mode ---------- */
+    .reorg-toggle[aria-pressed="true"] { background: var(--gb-grad) !important; border-color: var(--gb-pink) !important; color: #fff !important; }
+    .reorg-bar {
+      display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+      border: 2px solid var(--gb-pink); background: #fff3f8; padding: 10px 14px; margin-bottom: 10px;
+    }
+    .reorg-bar p { margin: 0; font-size: .86rem; }
+    .reorg-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .reorg-count { font-size: .76rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--gb-pink); }
+    body.reorg-on .tree-viewport { cursor: default; border-color: var(--gb-pink); }
+    body.reorg-on .tnode.movable { cursor: grab; }
+    body.reorg-on .tnode.movable:hover { box-shadow: 4px 4px 0 var(--gb-pink); }
+    .tnode.dragging-src { opacity: .3; }
+    .tnode.drop-ok { outline: 3px solid var(--gb-teal); outline-offset: 2px; box-shadow: 0 0 0 7px rgba(24,182,163,.2); }
+    .tnode.drop-bad { outline: 3px solid #c62828; outline-offset: 2px; cursor: not-allowed; }
+    .drag-ghost {
+      position: fixed; z-index: 4000; pointer-events: none; width: 170px; opacity: .92;
+      transform: rotate(-3deg); box-shadow: 8px 8px 0 var(--gb-ink);
+    }
+    .drag-ghost .tnode { position: static; }
+    .drag-ghost, .drag-ghost * { pointer-events: none !important; }
+    .tnode.just-moved { animation: moved 1.6s ease; }
+    @keyframes moved { 0%, 40% { box-shadow: 0 0 0 8px rgba(230,49,126,.45); } 100% { box-shadow: none; } }
+    [hidden] { display: none !important; }
+    #liveRegion { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .chart-foot { margin-top: 18px; color: var(--muted); font-size: .85rem; max-width: 760px; }
+  </style>
+</head>
+<body class="app">
+<a class="skip-link" href="#mainHeading">Skip to org chart</a>
+
+<main class="app-shell">
+ <div class="window" role="region" aria-label="Diva Records org chart app">
+  <div class="window-bar" aria-hidden="true">
+    <span class="dots"><i></i><i></i><i></i></span>
+    <span class="window-name">diva-records.app</span>
+    <span class="window-tag">Org chart</span>
+  </div>
+  <div class="window-body">
+  <header class="app-head">
+    <div class="app-title">
+      <div class="chips"><span class="chip vibe">Vibe coded</span></div>
+      <h1 id="mainHeading" tabindex="-1">Diva Records <span class="grad">Inc.</span></h1>
+      <p class="app-sub"><strong id="headcount">0</strong> divas on staff. <strong>Click a diva</strong> to see her profile and change her photo, or turn on <strong>Reorganize</strong> to move people around.</p>
+    </div>
+    <div class="chart-tools">
+      <div class="view-toggle" role="group" aria-label="Choose how to view the org chart">
+        <button type="button" class="tool-btn" id="btnFullView" aria-pressed="true">Full chart</button>
+        <button type="button" class="tool-btn" id="btnAccessibleView" aria-pressed="false">Accessible list</button>
+      </div>
+      <input class="search" id="search" type="search" placeholder="Find a diva..." aria-label="Search the org chart by name or title">
+      <div class="zoom-tools" id="zoomTools">
+        <button type="button" class="tool-btn" id="zoomOut" aria-label="Zoom out">&minus;</button>
+        <span class="zoom-pct" id="zoomPct">100%</span>
+        <button type="button" class="tool-btn" id="zoomIn" aria-label="Zoom in">+</button>
+        <button type="button" class="tool-btn wide" id="zoomReset" aria-label="Reset zoom and position">Reset</button>
+      </div>
+      <button type="button" class="tool-btn wide reorg-toggle" id="btnReorg" aria-pressed="false">Reorganize</button>
+      <button type="button" class="tool-btn wide" id="clearPhotos" hidden>Clear my photos</button>
+    </div>
+  </header>
+
+  <p class="privacy-note" id="privacyNote">Photos and org changes stay in this browser tab only. Nothing is uploaded or saved, and everything resets when you refresh or leave.</p>
+
+  <div class="reorg-bar" id="reorgBar" hidden>
+    <p><strong>Reorganize mode.</strong> Drag any diva onto her new manager. Her whole team moves with her. No mouse? Open someone's details and use "Reports to".</p>
+    <div class="reorg-actions">
+      <span class="reorg-count" id="reorgCount">0 changes</span>
+      <button type="button" class="tool-btn wide" id="btnUndo" disabled>Undo</button>
+      <button type="button" class="tool-btn wide" id="btnResetOrg" disabled>Reset org</button>
+      <button type="button" class="tool-btn wide" id="btnExport">Export CSV</button>
+    </div>
+  </div>
+
+  <section id="fullTreeView" aria-label="Full organizational chart, visual view">
+    <div class="tree-viewport" id="treeViewport" tabindex="0" aria-label="Scrollable org chart. Use arrow keys or drag to pan. The accessible list view works with screen readers.">
+      <div class="tree-canvas" id="treeCanvas"></div>
+    </div>
+  </section>
+
+  <section id="accessibleView" hidden aria-label="Org chart, accessible drill-down view">
+    <nav aria-label="Org chart breadcrumb"><div class="crumbline" id="crumbline"></div></nav>
+    <div id="currentHead"></div>
+    <h2 id="sectionLabel">Direct reports</h2>
+    <ul class="stations" id="stations"></ul>
+  </section>
+  <div id="liveRegion" role="status" aria-live="polite"></div>
+  <input type="file" id="photoInput" accept="image/*" hidden>
+
+  <div class="modal-backdrop" id="detailModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="dmName">
+      <div class="modal-bar">
+        <span>Employee profile</span>
+        <button type="button" class="modal-close" id="dmClose" aria-label="Close profile">&times;</button>
+      </div>
+      <div class="modal-top">
+        <button type="button" class="modal-photo" id="dmPhoto" aria-label="Change photo"></button>
+        <div>
+          <p class="dm-team" id="dmTeam"></p>
+          <h2 id="dmName"></h2>
+          <p class="dm-title" id="dmTitle"></p>
+        </div>
+      </div>
+      <dl class="dm-grid">
+        <div><dt>Employee ID</dt><dd id="dmId"></dd></div>
+        <div><dt>Status</dt><dd id="dmStatus"></dd></div>
+        <div><dt>Division</dt><dd id="dmDivision"></dd></div>
+        <div><dt>Team</dt><dd id="dmTeamName"></dd></div>
+        <div><dt>Reports to</dt><dd id="dmManager"></dd></div>
+        <div><dt>Direct reports</dt><dd id="dmReports"></dd></div>
+      </dl>
+      <div class="dm-move" id="dmMoveWrap">
+        <label for="dmMove">Move to a new manager</label>
+        <div class="dm-move-row">
+          <select id="dmMove"></select>
+          <button type="button" class="tool-btn wide" id="dmMoveBtn">Move</button>
+        </div>
+      </div>
+      <div class="dm-actions">
+        <button type="button" class="tool-btn wide" id="dmChangePhoto">Change photo</button>
+        <button type="button" class="tool-btn wide" id="dmViewTeam">View team</button>
+      </div>
+    </div>
+  </div>
+  <p class="app-foot">Parody chart. Roles are made up and no artist is affiliated with this site. Built with plain HTML, CSS and JavaScript.</p>
+  </div>
+ </div>
+</main>
+
+<aside class="maker-badge" aria-label="About this project">
+  <p>Made by Ali Jamil</p>
+  <p class="maker-links"><a href="index.html">alijamil.com</a> &middot; <a href="projects.html">Projects</a> &middot; <a href="https://github.com/ateh03" target="_blank" rel="noopener">GitHub</a></p>
+  <p class="maker-fine">Parody chart. Roles are made up and no artist is affiliated with this site.</p>
+</aside>
+
+<script src="assets/js/diva-org.js"></script>
+<script>
+/* ---------- Build the tree from the flat roster ---------- */
+const ROWS = (window.DIVA_ORG || []).map(r => Object.assign({ children: [] }, r));
+const byId = {};
+ROWS.forEach(r => { byId[r.EmployeeID] = r; });
+let ORG_TREE = null;
+// remember where everyone started, so Reset can put the org back
+ROWS.forEach(r => { r._orig = { ManagerID: r.ManagerID, Division: r.Division, Team: r.Team }; });
+function rebuildTree() {
+  ROWS.forEach(r => { r.children = []; });
+  ORG_TREE = null;
+  ROWS.forEach(r => {
+    if (!r.ManagerID) ORG_TREE = r;
+    else if (byId[r.ManagerID]) byId[r.ManagerID].children.push(r);
+  });
+}
+rebuildTree();
+document.getElementById('headcount').textContent =
+  ROWS.filter(r => r.Name && (r.Status || '').toLowerCase() === 'active').length;
+
+const PHOTO_BASE = 'assets/img/divas/';
+
+/* Photos visitors add live ONLY in this object, in this tab's memory.
+   No uploads, no localStorage, no cookies. Refresh or leave and they're gone. */
+const SESSION_PHOTOS = {};
+const MAX_PHOTO_MB = 15;
+
+function statusOf(n) { return (n.Status || '').toLowerCase(); }
+function vacantLabel(n) { return n.PositionNumber ? `Vacant (Position #${n.PositionNumber})` : 'Vacant'; }
+function displayName(n) {
+  if (statusOf(n) === 'vacant') return vacantLabel(n);
+  if (statusOf(n) === 'open req') return 'Now hiring';
+  return n.Name;
+}
+function nameClass(n) {
+  if (statusOf(n) === 'vacant') return 'vacant';
+  if (statusOf(n) === 'open req') return 'open';
+  return '';
+}
+function initials(str) {
+  if (!str) return '?';
+  return str.replace(/[^\p{L}\p{N}\s.-]/gu, '').split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+}
+// deterministic color per label, so a team or person always gets the same color
+function hashHue(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) h = str.charCodeAt(i) + ((h << 5) - h);
+  return Math.abs(h) % 360;
+}
+const TEAM_PALETTE = ['#e6317e', '#8b5cf6', '#18b6a3', '#f08a24', '#2f7de1', '#c2185b', '#5b3fd1', '#0e9488'];
+function teamColor(str) { return TEAM_PALETTE[hashHue(str) % TEAM_PALETTE.length]; }
+function avatarColor(str) { return TEAM_PALETTE[(hashHue(str) >> 3) % TEAM_PALETTE.length]; }
+
+let uid = 0;
+function emptySeatSVG(size) {
+  const id = 'seat' + (uid++);
+  return `<svg viewBox="0 0 100 100" width="${size}" height="${size}" aria-hidden="true" focusable="false">
+    <defs><clipPath id="${id}"><circle cx="50" cy="50" r="50"/></clipPath></defs>
+    <g clip-path="url(#${id})"><circle cx="50" cy="50" r="50" fill="#e4e2dd"/>
+    <circle cx="50" cy="38" r="18" fill="#b4b1aa"/><path d="M14 100c0-24 16-38 36-38s36 14 36 38" fill="#b4b1aa"/></g></svg>`;
+}
+function avatarHTML(n, size) {
+  const style = `width:${size}px;height:${size}px;font-size:${Math.round(size * 0.36)}px;`;
+  if (SESSION_PHOTOS[n.EmployeeID]) {
+    return `<span class="avatar" style="${style}"><img src="${SESSION_PHOTOS[n.EmployeeID]}" alt="Photo of ${n.Name}, added in this session"></span>`;
+  }
+  if (n.photo) {
+    return `<span class="avatar" style="${style}"><img src="${PHOTO_BASE}${encodeURIComponent(n.EmployeeID)}.jpg" alt="Photo of ${n.Name}"></span>`;
+  }
+  if (!n.Name) {
+    return `<span class="avatar" style="${style}" role="img" aria-label="${displayName(n)}">${emptySeatSVG(size)}</span>`;
+  }
+  return `<span class="avatar" style="${style}background:${avatarColor(n.Name)};" aria-hidden="true">${initials(n.Name)}</span>`;
+}
+
+/* ---------- Accessible drill-down view ---------- */
+let path = ORG_TREE ? [ORG_TREE] : [];
+
+function renderCrumbs() {
+  const el = document.getElementById('crumbline');
+  el.innerHTML = '';
+  path.forEach((node, idx) => {
+    if (idx > 0) {
+      const sep = document.createElement('span');
+      sep.className = 'crumb-sep'; sep.setAttribute('aria-hidden', 'true'); sep.textContent = '›';
+      el.appendChild(sep);
+    }
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'crumb' + (idx === path.length - 1 ? ' current' : '');
+    btn.textContent = idx === 0 ? node.Name : (node.Team || node.Division || node.Name);
+    if (idx === path.length - 1) btn.setAttribute('aria-current', 'location');
+    else btn.addEventListener('click', () => { path = path.slice(0, idx + 1); render(); document.getElementById('mainHeading').focus(); });
+    el.appendChild(btn);
+  });
+}
+
+function renderCurrentHead() {
+  const n = path[path.length - 1];
+  const el = document.getElementById('currentHead');
+  if (!n) { el.innerHTML = ''; return; }
+  const c = n.children.length;
+  el.innerHTML = `<div class="current-head">${avatarHTML(n, 52)}<div>
+    <p class="c-title">${n.Title || ''}</p>
+    <p class="c-name">${displayName(n)}</p>
+    <p class="c-sub">${c} direct report${c === 1 ? '' : 's'}</p></div>
+    <span class="head-btns"><button type="button" class="photo-btn" data-details-for="${n.EmployeeID}">Details</button></span></div>`;
+  el.querySelector('[data-details-for]').addEventListener('click', () => openDetails(n.EmployeeID));
+}
+
+function render() {
+  renderCrumbs();
+  renderCurrentHead();
+  const node = path[path.length - 1];
+  const kids = node ? node.children : [];
+  document.getElementById('sectionLabel').textContent = `Direct reports (${kids.length})`;
+  const list = document.getElementById('stations');
+  list.setAttribute('aria-label', `Direct reports of ${node ? node.Name : ''}, ${kids.length} people`);
+  list.innerHTML = '';
+  kids.forEach(k => {
+    const li = document.createElement('li');
+    const hasKids = k.children.length > 0;
+    const btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'station-btn';
+    btn.style.setProperty('--team', teamColor(k.Team || k.Division || 'x'));
+    if (!hasKids) btn.disabled = true;
+    const group = k.Team || (k.Division !== node.Division ? k.Division : '');
+    let inner = group ? `<div class="group-head" style="background:${teamColor(group)}">${group}</div>` : '';
+    inner += `<div class="person-row">${avatarHTML(k, 38)}<div><p class="p-title">${k.Title || ''}</p><p class="p-name ${nameClass(k)}">${displayName(k)}</p></div></div>`;
+    if (hasKids) inner += `<div class="station-foot">${k.children.length} report${k.children.length === 1 ? '' : 's'}. Press Enter to view.</div>`;
+    btn.innerHTML = inner;
+    btn.setAttribute('aria-label', `${k.Title || ''}, ${displayName(k)}${hasKids ? ', ' + k.children.length + ' direct reports, press Enter to expand' : ''}`);
+    if (hasKids) btn.addEventListener('click', () => {
+      path = [...path, k]; render();
+      document.getElementById('mainHeading').focus();
+      document.getElementById('liveRegion').textContent = `Now viewing ${k.Name}'s team, ${k.children.length} direct reports.`;
+    });
+    li.appendChild(btn); list.appendChild(li);
+  });
+}
+
+/* ---------- Full tree view ---------- */
+const CARD_W = 160, CARD_H = 62, H_GAP = 14, ROW_H = 98;
+const GRID_COLS = 3, GRID_ROW_GAP = 10, FLAT_GROUP_MIN = 4;
+const PAD = CARD_W / 2 + 30;
+let leafCounter = 0;
+
+function computeLayout(node, depth) {
+  node._y = depth * ROW_H;
+  const kids = node.children || [];
+  if (!kids.length) {
+    node._x = leafCounter * (CARD_W + H_GAP); leafCounter++;
+    node._bottomY = node._y + CARD_H;
+    return node._x;
+  }
+  const branchKids = kids.filter(c => c.children.length > 0);
+  const leafKids = kids.filter(c => c.children.length === 0);
+  const childXs = [];
+  let bottomY = node._y + ROW_H + CARD_H;
+  branchKids.forEach(c => { childXs.push(computeLayout(c, depth + 1)); bottomY = Math.max(bottomY, c._bottomY); });
+  node._directLeafKids = [];
+  if (leafKids.length > FLAT_GROUP_MIN) {
+    const cols = Math.min(GRID_COLS, leafKids.length);
+    const start = leafCounter; leafCounter += cols;
+    leafKids.forEach((c, i) => {
+      c._x = (start + (i % cols)) * (CARD_W + H_GAP);
+      c._y = node._y + ROW_H + Math.floor(i / cols) * (CARD_H + GRID_ROW_GAP);
+      c._bottomY = c._y + CARD_H;
+      childXs.push(c._x); node._directLeafKids.push(c); bottomY = Math.max(bottomY, c._bottomY);
+    });
+  } else {
+    leafKids.forEach(c => {
+      c._x = leafCounter * (CARD_W + H_GAP); c._y = node._y + ROW_H; c._bottomY = c._y + CARD_H;
+      leafCounter++; childXs.push(c._x); node._directLeafKids.push(c); bottomY = Math.max(bottomY, c._bottomY);
+    });
+  }
+  node._directBranchKids = branchKids;
+  node._bottomY = bottomY;
+  node._x = (Math.min(...childXs) + Math.max(...childXs)) / 2;
+  return node._x;
+}
+
+function avatarSlot(n, size) {
+  return avatarHTML(n, size);   // photos are only changed from the profile popup
+}
+function cardHTML(n) {
+  const group = n.Team || n.Division || '';
+  let html = group ? `<div class="group-head" style="background:${teamColor(group)}">${group}</div>` : '';
+  html += `<div class="person-row">${avatarSlot(n, 38)}<div><p class="p-title">${n.Title || ''}</p><p class="p-name ${nameClass(n)}">${displayName(n)}</p></div></div>`;
+  return html;
+}
+
+function renderFullTree() {
+  if (!ORG_TREE) return;
+  leafCounter = 0;
+  computeLayout(ORG_TREE, 0);
+  const totalW = leafCounter * (CARD_W + H_GAP) + PAD * 2;
+  const totalH = ORG_TREE._bottomY + PAD;
+  const canvas = document.getElementById('treeCanvas');
+  canvas.style.width = totalW + 'px';
+  canvas.style.height = totalH + 'px';
+  let lines = '';
+  const cards = [];
+  const stroke = 'stroke="#111" stroke-width="1.5"';
+  function place(n, cx, cy) {
+    const edit = ' editable' + (n === ORG_TREE ? '' : ' movable');
+    const tip = ` title="${n.Name ? 'View ' + n.Name + "'s details" : 'View open seat'}"`;
+    const team = teamColor(n.Team || n.Division || 'x');
+    cards.push(`<div class="tnode${edit}" data-id="${n.EmployeeID}"${tip} style="--team:${team};left:${cx - CARD_W / 2}px;top:${cy}px;">${cardHTML(n)}</div>`);
+  }
+  function walk(n) {
+    const cx = n._x + PAD, cy = n._y + 10;
+    place(n, cx, cy);
+    const b = n._directBranchKids || [], l = n._directLeafKids || [];
+    if (!b.length && !l.length) return;
+    const bottom = cy + CARD_H, midY = bottom + (ROW_H - CARD_H) / 2;
+    const xs = b.concat(l).map(c => c._x + PAD);
+    lines += `<line x1="${cx}" y1="${bottom}" x2="${cx}" y2="${midY}" ${stroke}/>`;
+    if (xs.length > 1) lines += `<line x1="${Math.min(...xs)}" y1="${midY}" x2="${Math.max(...xs)}" y2="${midY}" ${stroke}/>`;
+    b.forEach(c => { const x = c._x + PAD; lines += `<line x1="${x}" y1="${midY}" x2="${x}" y2="${c._y + 10}" ${stroke}/>`; walk(c); });
+    l.forEach(c => { const x = c._x + PAD; lines += `<line x1="${x}" y1="${midY}" x2="${x}" y2="${c._y + 10}" ${stroke}/>`; place(c, x, c._y + 10); });
+  }
+  walk(ORG_TREE);
+  canvas.innerHTML = `<svg class="connectors" width="${totalW}" height="${totalH}" aria-hidden="true">${lines}</svg>` + cards.join('');
+}
+
+/* ---------- Zoom (keeps the center of the view in place) ---------- */
+// 130% real scale is shown as "100%" so the chart opens zoomed in
+const BASE_ZOOM = 1.3;
+let zoomLevel = 1;
+const vp = document.getElementById('treeViewport');
+const canvasEl = document.getElementById('treeCanvas');
+function setZoom(z) {
+  z = Math.max(0.35, Math.min(2.6, z));
+  const cx = (vp.scrollLeft + vp.clientWidth / 2) / zoomLevel;
+  const cy = (vp.scrollTop + vp.clientHeight / 2) / zoomLevel;
+  zoomLevel = z;
+  canvasEl.style.zoom = zoomLevel;
+  document.getElementById('zoomPct').textContent = Math.round(zoomLevel / BASE_ZOOM * 100) + '%';
+  vp.scrollLeft = cx * zoomLevel - vp.clientWidth / 2;
+  vp.scrollTop = cy * zoomLevel - vp.clientHeight / 2;
+}
+function centerOnRoot() {
+  vp.scrollLeft = Math.max(0, (canvasEl.offsetWidth * zoomLevel) / 2 - vp.clientWidth / 2);
+  vp.scrollTop = 0;
+}
+document.getElementById('zoomIn').addEventListener('click', () => setZoom(zoomLevel + 0.15 * BASE_ZOOM));
+document.getElementById('zoomOut').addEventListener('click', () => setZoom(zoomLevel - 0.15 * BASE_ZOOM));
+document.getElementById('zoomReset').addEventListener('click', () => { setZoom(BASE_ZOOM); centerOnRoot(); });
+vp.addEventListener('keydown', e => {
+  const s = 60;
+  if (e.key === 'ArrowRight') { vp.scrollLeft += s; e.preventDefault(); }
+  else if (e.key === 'ArrowLeft') { vp.scrollLeft -= s; e.preventDefault(); }
+  else if (e.key === 'ArrowDown') { vp.scrollTop += s; e.preventDefault(); }
+  else if (e.key === 'ArrowUp') { vp.scrollTop -= s; e.preventDefault(); }
+});
+
+/* ---------- Drag to pan (mouse and touch) ---------- */
+(function () {
+  let down = false, sx, sy, sl, st;
+  vp.addEventListener('mousedown', e => { window.__dragMoved = false;
+    if (document.body.classList.contains('reorg-on') && e.target.closest('.tnode.movable')) return;
+    down = true; vp.classList.add('dragging'); sx = e.pageX; sy = e.pageY; sl = vp.scrollLeft; st = vp.scrollTop; });
+  window.addEventListener('mouseup', () => { down = false; vp.classList.remove('dragging'); });
+  vp.addEventListener('mousemove', e => { if (!down) return; e.preventDefault();
+    if (Math.abs(e.pageX - sx) > 4 || Math.abs(e.pageY - sy) > 4) window.__dragMoved = true;
+    vp.scrollLeft = sl - (e.pageX - sx); vp.scrollTop = st - (e.pageY - sy); });
+  vp.addEventListener('touchstart', e => {
+    if (document.body.classList.contains('reorg-on') && e.target.closest('.tnode.movable')) return;
+    const t = e.touches[0]; down = true; sx = t.pageX; sy = t.pageY; sl = vp.scrollLeft; st = vp.scrollTop; }, { passive: true });
+  vp.addEventListener('touchmove', e => { if (!down) return; const t = e.touches[0]; vp.scrollLeft = sl - (t.pageX - sx); vp.scrollTop = st - (t.pageY - sy); }, { passive: true });
+  vp.addEventListener('touchend', () => { down = false; });
+})();
+
+/* ---------- Search: highlight matches and jump to the first one ---------- */
+function highlightMatches() {
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  canvasEl.querySelectorAll('.tnode').forEach(n => n.classList.remove('hit'));
+  if (!q) return [];
+  const hits = ROWS.filter(r => (r.Name + ' ' + r.Title + ' ' + r.Team + ' ' + r.Division).toLowerCase().includes(q));
+  hits.forEach(r => { const el = canvasEl.querySelector(`.tnode[data-id="${r.EmployeeID}"]`); if (el) el.classList.add('hit'); });
+  return hits;
+}
+document.getElementById('search').addEventListener('input', e => {
+  const q = e.target.value.trim();
+  const hits = highlightMatches();
+  if (!q) return;
+  if (hits.length) {
+    if (fullSection.hidden) showFull();
+    const el = canvasEl.querySelector(`.tnode[data-id="${hits[0].EmployeeID}"]`);
+    const x = (el.offsetLeft + CARD_W / 2) * zoomLevel, y = el.offsetTop * zoomLevel;
+    vp.scrollTo({ left: x - vp.clientWidth / 2, top: Math.max(0, y - vp.clientHeight / 3), behavior: 'smooth' });
+    document.getElementById('liveRegion').textContent = `${hits.length} match${hits.length === 1 ? '' : 'es'}. First: ${hits[0].Name || hits[0].Title}.`;
+  } else {
+    document.getElementById('liveRegion').textContent = 'No matches.';
+  }
+});
+
+/* ---------- View toggle ---------- */
+const btnFull = document.getElementById('btnFullView');
+const btnList = document.getElementById('btnAccessibleView');
+const fullSection = document.getElementById('fullTreeView');
+const listSection = document.getElementById('accessibleView');
+const zoomTools = document.getElementById('zoomTools');
+function showFull() {
+  fullSection.hidden = false; listSection.hidden = true; zoomTools.hidden = false;
+  btnFull.setAttribute('aria-pressed', 'true'); btnList.setAttribute('aria-pressed', 'false');
+}
+function showList() {
+  fullSection.hidden = true; listSection.hidden = false; zoomTools.hidden = true;
+  btnFull.setAttribute('aria-pressed', 'false'); btnList.setAttribute('aria-pressed', 'true');
+  document.getElementById('mainHeading').focus();
+}
+btnFull.addEventListener('click', showFull);
+btnList.addEventListener('click', showList);
+
+
+/* ---------- Session-only photos ---------- */
+const photoInput = document.getElementById('photoInput');
+const clearBtn = document.getElementById('clearPhotos');
+let photoTarget = null;
+
+function pickPhoto(id) { photoTarget = id; photoInput.value = ''; photoInput.click(); }
+
+function refreshViews() {
+  const l = vp.scrollLeft, t = vp.scrollTop;
+  renderFullTree(); highlightMatches(); render();
+  vp.scrollLeft = l; vp.scrollTop = t;
+  clearBtn.hidden = Object.keys(SESSION_PHOTOS).length === 0;
+  if (!detailModal.hidden && currentDetail) fillDetails(currentDetail);
+}
+
+photoInput.addEventListener('change', () => {
+  const file = photoInput.files && photoInput.files[0];
+  if (!file || !photoTarget) return;
+  const live = document.getElementById('liveRegion');
+  if (!file.type.startsWith('image/')) { live.textContent = 'That file is not an image.'; return; }
+  if (file.size > MAX_PHOTO_MB * 1024 * 1024) { live.textContent = `Please pick an image under ${MAX_PHOTO_MB} MB.`; return; }
+  if (SESSION_PHOTOS[photoTarget]) URL.revokeObjectURL(SESSION_PHOTOS[photoTarget]);
+  SESSION_PHOTOS[photoTarget] = URL.createObjectURL(file); // local blob: link, never leaves the device
+  refreshViews();
+  live.textContent = `Photo added for ${byId[photoTarget].Name}. It stays in this tab only.`;
+});
+
+canvasEl.addEventListener('click', e => {
+  if (window.__dragMoved) { window.__dragMoved = false; return; }   // a drag isn't a click
+  const card = e.target.closest('.tnode.editable');
+  if (card) openDetails(card.dataset.id);
+});
+
+clearBtn.addEventListener('click', () => {
+  Object.keys(SESSION_PHOTOS).forEach(id => { URL.revokeObjectURL(SESSION_PHOTOS[id]); delete SESSION_PHOTOS[id]; });
+  refreshViews();
+  document.getElementById('liveRegion').textContent = 'Your photos were cleared.';
+});
+window.addEventListener('pagehide', () => { Object.values(SESSION_PHOTOS).forEach(u => URL.revokeObjectURL(u)); });
+
+
+/* ---------- Details popup ---------- */
+const detailModal = document.getElementById('detailModal');
+let currentDetail = null, lastFocusEl = null;
+
+function isDescendant(ancestorId, maybeChildId) {
+  // true if maybeChildId sits anywhere under ancestorId (moving would create a loop)
+  let cur = byId[maybeChildId];
+  while (cur && cur.ManagerID) {
+    if (cur.ManagerID === ancestorId) return true;
+    cur = byId[cur.ManagerID];
+  }
+  return false;
+}
+
+function fillDetails(id) {
+  const n = byId[id];
+  const team = teamColor(n.Team || n.Division || 'x');
+  detailModal.querySelector('.modal').style.setProperty('--team', team);
+  const photoBtn = document.getElementById('dmPhoto');
+  photoBtn.innerHTML = avatarHTML(n, 88);
+  photoBtn.disabled = !n.Name;
+  photoBtn.setAttribute('aria-label', n.Name ? `Change photo of ${n.Name}` : 'Open seat, no photo');
+  document.getElementById('dmTeam').textContent = n.Team || n.Division || '';
+  document.getElementById('dmName').textContent = n.Name || (statusOf(n) === 'vacant' ? 'Vacant seat' : 'Open seat, now hiring');
+  document.getElementById('dmTitle').textContent = n.Title || '';
+  document.getElementById('dmId').textContent = n.EmployeeID + (n.PositionNumber ? ` (Position #${n.PositionNumber})` : '');
+  document.getElementById('dmStatus').textContent = n.Status || 'Active';
+  document.getElementById('dmDivision').textContent = n.Division || '—';
+  document.getElementById('dmTeamName').textContent = n.Team || '—';
+  const mgr = byId[n.ManagerID];
+  document.getElementById('dmManager').textContent = mgr ? `${mgr.Name || 'Open seat'} (${mgr.Title})` : 'Nobody. She runs the place.';
+  document.getElementById('dmReports').textContent = n.children.length;
+  document.getElementById('dmChangePhoto').hidden = !n.Name;
+  document.getElementById('dmViewTeam').hidden = n.children.length === 0;
+
+  // keyboard-friendly way to reorganize: pick a new manager from a list
+  const wrap = document.getElementById('dmMoveWrap');
+  wrap.hidden = n === ORG_TREE;
+  if (n !== ORG_TREE) {
+    const sel = document.getElementById('dmMove');
+    sel.innerHTML = ROWS
+      .filter(r => r !== n && r.Name && !isDescendant(n.EmployeeID, r.EmployeeID))
+      .sort((a, b) => a.Name.localeCompare(b.Name))
+      .map(r => `<option value="${r.EmployeeID}" ${r.EmployeeID === n.ManagerID ? 'selected' : ''}>${r.Name} (${r.Title})</option>`)
+      .join('');
+  }
+}
+
+function openDetails(id) {
+  currentDetail = id;
+  lastFocusEl = document.activeElement;
+  fillDetails(id);
+  detailModal.hidden = false;
+  document.getElementById('dmClose').focus();
+}
+function closeDetails() {
+  detailModal.hidden = true;
+  currentDetail = null;
+  if (lastFocusEl && document.body.contains(lastFocusEl)) lastFocusEl.focus();
+}
+document.getElementById('dmClose').addEventListener('click', closeDetails);
+detailModal.addEventListener('click', e => { if (e.target === detailModal) closeDetails(); });
+document.addEventListener('keydown', e => {
+  if (detailModal.hidden) return;
+  if (e.key === 'Escape') closeDetails();
+  if (e.key === 'Tab') {                       // keep focus inside the popup
+    const f = [...detailModal.querySelectorAll('button:not([disabled]):not([hidden]), select')].filter(el => el.offsetParent);
+    if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { last.focus(); e.preventDefault(); }
+    else if (!e.shiftKey && document.activeElement === last) { first.focus(); e.preventDefault(); }
+  }
+});
+document.getElementById('dmPhoto').addEventListener('click', () => pickPhoto(currentDetail));
+document.getElementById('dmChangePhoto').addEventListener('click', () => pickPhoto(currentDetail));
+document.getElementById('dmViewTeam').addEventListener('click', () => {
+  const n = byId[currentDetail];
+  const chain = []; let cur = n;
+  while (cur) { chain.unshift(cur); cur = byId[cur.ManagerID]; }
+  path = chain;
+  closeDetails(); showList(); render();
+});
+document.getElementById('dmMoveBtn').addEventListener('click', () => {
+  const target = document.getElementById('dmMove').value;
+  if (target && target !== byId[currentDetail].ManagerID) moveTo(currentDetail, target);
+});
+
+/* ---------- Reorganize (session only, like the photos) ---------- */
+const undoStack = [];
+const btnReorg = document.getElementById('btnReorg');
+const reorgBar = document.getElementById('reorgBar');
+
+function updateReorgUI() {
+  const changed = ROWS.filter(r => r.ManagerID !== r._orig.ManagerID).length;
+  document.getElementById('reorgCount').textContent = `${changed} change${changed === 1 ? '' : 's'}`;
+  document.getElementById('btnUndo').disabled = undoStack.length === 0;
+  document.getElementById('btnResetOrg').disabled = changed === 0;
+}
+
+function moveTo(id, newMgrId) {
+  const n = byId[id], mgr = byId[newMgrId];
+  const live = document.getElementById('liveRegion');
+  if (!n || !mgr || n === ORG_TREE || id === newMgrId) return;
+  if (isDescendant(id, newMgrId)) { live.textContent = `Can't move ${n.Name} under someone on her own team.`; return; }
+  undoStack.push({ id, ManagerID: n.ManagerID, Division: n.Division, Team: n.Team });
+  n.ManagerID = newMgrId;
+  n.Division = mgr.Division;              // she joins her new manager's division and team
+  n.Team = mgr.Team || '';
+  rebuildTree();
+  path = [ORG_TREE];
+  refreshViews();
+  updateReorgUI();
+  flashCard(id);
+  live.textContent = `${n.Name || n.Title} now reports to ${mgr.Name}.`;
+}
+
+function flashCard(id) {
+  const el = canvasEl.querySelector(`.tnode[data-id="${id}"]`);
+  if (!el) return;
+  el.classList.add('just-moved');
+  const x = (el.offsetLeft + CARD_W / 2) * zoomLevel, y = el.offsetTop * zoomLevel;
+  vp.scrollTo({ left: x - vp.clientWidth / 2, top: Math.max(0, y - vp.clientHeight / 3), behavior: 'smooth' });
+}
+
+btnReorg.addEventListener('click', () => {
+  const on = btnReorg.getAttribute('aria-pressed') !== 'true';
+  btnReorg.setAttribute('aria-pressed', on);
+  document.body.classList.toggle('reorg-on', on);
+  reorgBar.hidden = !on;
+  if (on) showFull();
+  updateReorgUI();
+});
+document.getElementById('btnUndo').addEventListener('click', () => {
+  const last = undoStack.pop();
+  if (!last) return;
+  Object.assign(byId[last.id], { ManagerID: last.ManagerID, Division: last.Division, Team: last.Team });
+  rebuildTree(); path = [ORG_TREE]; refreshViews(); updateReorgUI(); flashCard(last.id);
+  document.getElementById('liveRegion').textContent = 'Last move undone.';
+});
+document.getElementById('btnResetOrg').addEventListener('click', () => {
+  ROWS.forEach(r => Object.assign(r, r._orig));
+  undoStack.length = 0;
+  rebuildTree(); path = [ORG_TREE]; refreshViews(); updateReorgUI(); centerOnRoot();
+  document.getElementById('liveRegion').textContent = 'Org chart reset to the original structure.';
+});
+document.getElementById('btnExport').addEventListener('click', () => {
+  // downloads to the visitor's own computer; nothing is sent to the site
+  const cols = ['EmployeeID', 'Name', 'Title', 'ManagerID', 'Division', 'Team', 'Status'];
+  const esc = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+  const csv = [cols.join(',')].concat(ROWS.map(r => cols.map(c => esc(r[c])).join(','))).join('\r\n');
+  const url = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv' }));
+  const a = document.createElement('a');
+  a.href = url; a.download = 'diva-records-org.csv';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+
+/* Pointer-based drag and drop: works with a mouse, pen or touch screen */
+(function () {
+  let dragId = null, startX = 0, startY = 0, ghost = null, srcEl = null, targetEl = null, scrollTimer = null;
+  const reorgOn = () => document.body.classList.contains('reorg-on');
+
+  canvasEl.addEventListener('pointerdown', e => {
+    if (!reorgOn() || e.button !== 0) return;
+    const card = e.target.closest('.tnode.movable');
+    if (!card || e.target.closest('.photo-hit')) return;
+    dragId = card.dataset.id; srcEl = card; startX = e.clientX; startY = e.clientY;
+    window.__dragMoved = false;
+    e.preventDefault();
+  });
+
+  window.addEventListener('pointermove', e => {
+    if (!dragId) return;
+    if (!ghost) {
+      if (Math.hypot(e.clientX - startX, e.clientY - startY) < 6) return;
+      window.__dragMoved = true;
+      ghost = document.createElement('div');
+      ghost.className = 'drag-ghost';
+      ghost.innerHTML = srcEl.outerHTML.replace(/data-id="[^"]*"/, '');
+      document.body.appendChild(ghost);
+      srcEl.classList.add('dragging-src');
+    }
+    ghost.style.left = (e.clientX - 85) + 'px';
+    ghost.style.top = (e.clientY - 30) + 'px';
+
+    const under = document.elementFromPoint(e.clientX, e.clientY);
+    const t = under && under.closest('.tnode');
+    if (targetEl && targetEl !== t) targetEl.classList.remove('drop-ok', 'drop-bad');
+    targetEl = (t && t.dataset.id !== dragId) ? t : null;
+    if (targetEl) {
+      const bad = isDescendant(dragId, targetEl.dataset.id);
+      targetEl.classList.toggle('drop-ok', !bad);
+      targetEl.classList.toggle('drop-bad', bad);
+    }
+
+    // auto-scroll when dragging near the edge of the chart
+    const r = vp.getBoundingClientRect(), edge = 50;
+    const dx = e.clientX < r.left + edge ? -14 : e.clientX > r.right - edge ? 14 : 0;
+    const dy = e.clientY < r.top + edge ? -14 : e.clientY > r.bottom - edge ? 14 : 0;
+    clearInterval(scrollTimer);
+    if (dx || dy) scrollTimer = setInterval(() => { vp.scrollLeft += dx; vp.scrollTop += dy; }, 16);
+  });
+
+  function endDrag() {
+    clearInterval(scrollTimer);
+    if (ghost) ghost.remove();
+    if (srcEl) srcEl.classList.remove('dragging-src');
+    if (targetEl) targetEl.classList.remove('drop-ok', 'drop-bad');
+    ghost = null; srcEl = null; targetEl = null; dragId = null;
+  }
+  window.addEventListener('pointerup', () => {
+    if (!dragId) return;
+    const id = dragId, target = targetEl && targetEl.dataset.id, moved = !!ghost;
+    endDrag();
+    if (moved && target) moveTo(id, target);
+  });
+  window.addEventListener('pointercancel', endDrag);
+})();
+
+/* ---------- Start ---------- */
+render();
+renderFullTree();
+setZoom(BASE_ZOOM);
+centerOnRoot();
+</script>
+<script src="assets/js/snow.js" defer></script>
+</body>
+</html>
