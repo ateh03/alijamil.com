@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ali Jamil | Projects</title>
-  <meta name="description" content="Ventures, code projects and speaking by Ali Jamil.">
+  <meta name="description" content="Code projects, dashboards and speaking by Ali Jamil.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -256,6 +256,19 @@
     .section-block + .section-block { margin-top: 28px; }
     .stage.is-link { cursor: pointer; }
 
+    /* Archive teaser: one quiet row linking to the archive page */
+    .archive-card {
+      display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 24px;
+      padding: 22px 26px; margin-bottom: 40px;
+      border: 1px solid var(--line-strong); background: var(--card);
+      transition: border-color .2s ease, transform .2s ease;
+    }
+    .archive-card:hover { border-color: var(--ink); transform: translateY(-2px); }
+    .archive-label { font-weight: 700; letter-spacing: -.02em; font-size: 1.25rem; }
+    .archive-text { color: var(--muted); }
+    .archive-go { font-weight: 600; font-size: .92rem; border-bottom: 1px solid var(--ink); padding-bottom: 1px; }
+    @media (max-width: 700px) { .archive-card { grid-template-columns: 1fr; gap: 8px; } .archive-go { justify-self: start; } }
+
     @media (max-width: 1000px) { .item { flex-basis: calc((100% - 36px) / 2); } }
     @media (max-width: 600px) {
       .track { gap: 20px; }
@@ -293,52 +306,7 @@
   <main class="shell">
     <section class="page-hero">
       <p class="kicker">Selected work</p>
-      <h1>Ventures, code<br>and speaking.</h1>
-    </section>
-
-    <section class="section-block" aria-labelledby="ventures-title">
-      <div class="section-head">
-        <h2 id="ventures-title">Ventures</h2>
-        <p>Startups I founded or co-founded.</p>
-      </div>
-
-      <div class="carousel">
-        <button class="arrow prev" type="button" aria-label="Previous ventures">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg>
-        </button>
-
-        <ul class="track">
-          <li class="item">
-            <div class="chips"><span class="chip">Featured</span><span class="chip">Startup</span></div>
-            <div class="stage">
-              <div class="vinyl" style="--img:url('assets/img/merch/nexus.jpg'); --pos: 62% 50%">
-                <div class="disc-wrap"><div class="disc"></div></div>
-                <div class="sleeve shadow" role="img" aria-label="Nexus shown as a vinyl record sleeve"></div>
-              </div>
-            </div>
-            <p class="item-meta">Co-founder · 2024–2025</p>
-            <h3 class="item-title">Nexus</h3>
-            <p class="item-desc">A dating app built around a 2D mobile game, with archetype reveals and a slay-or-stay mechanic. Led a team of three and ran discovery with 100+ Gen Z users.</p>
-            <!-- TODO: <a class="item-link" href="#">Read the post-mortem</a> -->
-          </li>
-          <li class="item">
-            <div class="chips"><span class="chip">Startup</span><span class="chip">Archived</span></div>
-            <div class="stage">
-              <div class="polaroids" role="img" aria-label="CIP shown as a stack of polaroid photos">
-                <figure class="polaroid back" style="--img:url('assets/img/merch/cip.jpg'); --pos: 6% 50%"><div class="photo"></div></figure>
-                <figure class="polaroid front" style="--img:url('assets/img/merch/cip.jpg'); --pos: 74% 50%"><div class="photo"></div><figcaption>cip, '23</figcaption></figure>
-              </div>
-            </div>
-            <p class="item-meta">Founder · 2023</p>
-            <h3 class="item-title">CIP</h3>
-            <p class="item-desc">On-demand beverage delivery. Went through the ColaStarts pre-accelerator and interviewed 50+ customers before shutting it down over logistics and regulatory barriers.</p>
-          </li>
-        </ul>
-
-        <button class="arrow next" type="button" aria-label="Next ventures">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg>
-        </button>
-      </div>
+      <h1>Code and<br>speaking.</h1>
     </section>
 
     <section class="section-block" aria-labelledby="code-title">
@@ -356,7 +324,7 @@
           <li class="item">
             <div class="chips"><span class="chip">Vibe coded</span><span class="chip">JavaScript</span></div>
             <div class="stage">
-              <div class="picdisc shadow" style="--img:url('assets/img/merch/SCCB-Meta-Image.jpg'); --pos: 50% 50%" role="img" aria-label="Diva Records org chart shown as a spinning picture disc"></div>
+              <div class="picdisc shadow" style="--img:url('assets/img/merch/diva-records.jpg'); --pos: 50% 50%" role="img" aria-label="Diva Records org chart shown as a spinning picture disc"></div>
             </div>
             <p class="item-meta">Intranet tool · 2026</p>
             <h3 class="item-title">Diva Records Org Chart</h3>
@@ -471,6 +439,18 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg>
         </button>
       </div>
+    </section>
+
+    <section class="section-block archive-teaser" aria-labelledby="archive-title">
+      <div class="section-head">
+        <h2 id="archive-title">Archive</h2>
+        <p>Earlier work, kept for the record.</p>
+      </div>
+      <a class="archive-card" href="archive.html">
+        <span class="archive-label">Past ventures</span>
+        <span class="archive-text">Nexus, CIP and my earlier startup work.</span>
+        <span class="archive-go" aria-hidden="true">Browse the archive &rarr;</span>
+      </a>
     </section>
 
     <footer>

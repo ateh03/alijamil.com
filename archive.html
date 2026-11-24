@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ali Jamil | Archive</title>
+  <meta name="description" content="Archived ventures and earlier projects by Ali Jamil.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="/assets/img/favicon/site.webmanifest">
+  <meta name="theme-color" content="#171717">
+  <style>
+    /* ================= Carousel ================= */
+    .carousel { position: relative; }
+    .track {
+      display: flex; gap: 36px;
+      overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+      list-style: none; margin: 0; padding: 0 0 12px;
+      scrollbar-width: none;
+    }
+    .track::-webkit-scrollbar { display: none; }
+    .track.centered { justify-content: center; }
+    .item { flex: 0 0 calc((100% - 108px) / 4); min-width: 230px; scroll-snap-align: start; }
+
+    .arrow {
+      position: absolute; top: 40%; transform: translateY(-50%); z-index: 3;
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1px solid var(--line); background: #fff; color: var(--ink);
+      display: grid; place-items: center; cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,.08);
+    }
+    .arrow:hover { background: var(--surface); }
+    .arrow svg { width: 18px; height: 18px; }
+    .arrow.prev { left: -14px; }
+    .arrow.next { right: -14px; }
+    .arrow[hidden] { display: none; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; min-height: 26px; margin-bottom: 4px; }
+    .chip {
+      font-size: .72rem; font-weight: 500; line-height: 1;
+      padding: 6px 11px; border-radius: 999px;
+      background: var(--card); border: 1px solid var(--line); color: var(--muted);
+    }
+    .item-meta {
+      font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--muted); margin: 14px 0 4px;
+    }
+    .item-title {
+      font-family: var(--display); font-weight: 700; font-size: 1.45rem;
+      letter-spacing: -.03em; line-height: 1.1; margin: 0 0 8px;
+    }
+    .item-desc { font-size: .92rem; color: var(--muted); margin: 0 0 12px; }
+    .item-link {
+      font-size: .88rem; font-weight: 500; text-decoration: none;
+      border-bottom: 1px solid var(--ink); padding-bottom: 1px;
+    }
+    .item-link:hover { color: var(--muted); border-color: var(--muted); }
+    .cta { text-align: center; margin-top: 28px; margin-bottom: 40px; }
+
+    /* ================= Merch objects ================= */
+    .stage { position: relative; aspect-ratio: 1 / 1; display: grid; place-items: center; perspective: 900px; }
+    .shadow { box-shadow: 0 18px 30px rgba(0,0,0,.18); }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Vinyl LP */
+    .vinyl { position: relative; width: 60%; aspect-ratio: 1; transform: translateX(-16%); }
+    .vinyl .sleeve { position: absolute; inset: 0; z-index: 2; background: var(--img) var(--pos, center)/cover, #d9d6d1; }
+    .vinyl .sleeve::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(120deg, rgba(255,255,255,.25), transparent 40%);
+    }
+    .disc-wrap {
+      position: absolute; inset: 3%; z-index: 1;
+      transform: translateX(34%); transition: transform .8s cubic-bezier(.2,.8,.2,1);
+    }
+    .item:hover .disc-wrap, .item:focus-within .disc-wrap { transform: translateX(52%); }
+    .disc {
+      position: relative; width: 100%; height: 100%; border-radius: 50%;
+      background:
+        repeating-radial-gradient(circle, rgba(255,255,255,.06) 0 1px, transparent 1px 3px),
+        conic-gradient(from 30deg, #111, #2c2c2c, #111, #262626, #111);
+      box-shadow: 0 10px 22px rgba(0,0,0,.25);
+      animation: spin 9s linear infinite;
+    }
+    .disc::after {
+      content: ""; position: absolute; inset: 35%; border-radius: 50%;
+      background: radial-gradient(circle, var(--bg) 0 7%, transparent 8%), var(--img) var(--pos, center)/cover;
+    }
+
+
+    /* Picture disc */
+    .picdisc {
+      position: relative; width: 74%; aspect-ratio: 1; border-radius: 50%;
+      background: var(--img) var(--pos, center)/cover, #cfcbc5;
+      animation: spin 16s linear infinite;
+      box-shadow: inset 0 0 0 5px rgba(255,255,255,.35);
+    }
+    .picdisc::before {
+      content: ""; position: absolute; inset: 0; border-radius: 50%;
+      background:
+        repeating-radial-gradient(circle, rgba(255,255,255,.08) 0 1px, transparent 1px 4px),
+        conic-gradient(from 0deg, transparent, rgba(255,255,255,.25), transparent 30%, transparent 50%, rgba(255,255,255,.2), transparent 80%);
+    }
+    .picdisc::after { content: ""; position: absolute; inset: 47.5%; border-radius: 50%; background: var(--bg); }
+
+    /* Cassette */
+    .cassette {
+      position: relative; width: 84%; aspect-ratio: 1.58;
+      background: linear-gradient(160deg, #2e2e2e, #141414);
+      border-radius: 9px; padding: 5% 5% 0; transform: rotate(-5deg);
+    }
+    .cass-label {
+      position: relative; height: 66%; border-radius: 4px; padding: 2% 5%;
+      background: linear-gradient(#f3efe6 0 36%, #161616 36% 38.5%, #f3efe6 38.5%);
+      font-family: var(--hand); color: var(--ink);
+    }
+    .cass-label .side { font-family: var(--sans); font-weight: 700; font-size: .72rem; margin-right: 6px; }
+    .cass-label .title { font-size: 1.15rem; }
+    .cass-window {
+      position: absolute; left: 20%; right: 20%; bottom: 10%; height: 44%;
+      background: #1c1c1c; border-radius: 40px;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 9%;
+    }
+    .reel {
+      height: 72%; aspect-ratio: 1; border-radius: 50%;
+      background:
+        radial-gradient(circle, #1c1c1c 0 26%, transparent 27%),
+        repeating-conic-gradient(#fff 0 20deg, #cfcfcf 20deg 40deg);
+      animation: spin 3s linear infinite;
+    }
+    .cass-foot {
+      position: absolute; left: 20%; right: 20%; bottom: 0; height: 17%;
+      background: #1c1c1c; clip-path: polygon(7% 0, 93% 0, 100% 100%, 0 100%);
+    }
+
+    /* Polaroid stack */
+    .polaroids { position: relative; width: 58%; aspect-ratio: .86; }
+    .polaroid {
+      position: absolute; inset: 0; margin: 0; background: #fff; padding: 7% 7% 24%;
+      box-shadow: 0 12px 24px rgba(0,0,0,.15);
+      transition: transform .6s cubic-bezier(.2,.8,.2,1);
+    }
+    .polaroid .photo { width: 100%; aspect-ratio: 1; background: var(--img) var(--pos, center)/cover, #ccc; filter: sepia(.25) saturate(.85); }
+    .polaroid.back { transform: rotate(8deg) translate(12%, -4%); }
+    .polaroid.front { transform: rotate(-4deg); }
+    .item:hover .polaroid.back { transform: rotate(13deg) translate(24%, -6%); }
+    .item:hover .polaroid.front { transform: rotate(-8deg) translate(-8%, 2%); }
+    .polaroid figcaption { position: absolute; left: 0; right: 0; bottom: 6%; text-align: center; font-family: var(--hand); font-size: 1.3rem; }
+    .polaroid.front::before {
+      content: ""; position: absolute; top: -4%; left: 36%; width: 28%; height: 8%;
+      background: rgba(225,216,198,.85); transform: rotate(-4deg);
+    }
+
+    /* Lenticular card */
+    .lenticular {
+      position: relative; width: 62%; aspect-ratio: 1;
+      outline: 8px solid #fff;
+      animation: wobble 4.5s ease-in-out infinite alternate;
+    }
+    .lent-a, .lent-b { position: absolute; inset: 0; background: var(--img) var(--pos, center)/cover, #bbb; }
+    .lent-b {
+      filter: blur(5px) grayscale(1) contrast(1.15);
+      -webkit-mask: repeating-linear-gradient(90deg, #000 0 4px, rgba(0,0,0,.8) 4px 6px);
+              mask: repeating-linear-gradient(90deg, #000 0 4px, rgba(0,0,0,.8) 4px 6px);
+      animation: lent-flip 4.5s ease-in-out infinite alternate;
+    }
+    .lent-b .bar { position: absolute; left: 14%; height: 9%; background: #111; }
+    .lent-b .bar.b1 { top: 30%; right: 14%; }
+    .lent-b .bar.b2 { top: 52%; right: 34%; }
+    .lent-sheen {
+      position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen;
+      background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.12) 0 1px, transparent 1px 4px),
+        linear-gradient(105deg, transparent 30%, rgba(255,255,255,.6) 45%, rgba(214,206,240,.4) 52%, rgba(190,215,240,.35) 58%, transparent 68%);
+      background-size: auto, 260% 100%;
+      animation: sheen 4.5s ease-in-out infinite alternate;
+    }
+    @keyframes wobble { from { transform: rotateY(-13deg) rotateX(2deg); } to { transform: rotateY(13deg) rotateX(-2deg); } }
+    @keyframes lent-flip { 0%, 38% { opacity: 0; } 62%, 100% { opacity: 1; } }
+    @keyframes sheen { from { background-position: 0 0, 100% 0; } to { background-position: 0 0, 0% 0; } }
+    .lenticular.manual, .lenticular.manual .lent-b, .lenticular.manual .lent-sheen { animation: none; }
+    .lenticular.manual { transform: rotateY(calc(var(--x) * 15deg)); }
+    .lenticular.manual .lent-b { opacity: var(--p); }
+    .lenticular.manual .lent-sheen { background-position: 0 0, calc(100% - var(--p) * 100%) 0; }
+
+    /* Event ticket */
+    .ticket-wrap { width: 94%; filter: drop-shadow(0 12px 16px rgba(0,0,0,.15)); animation: float 6s ease-in-out infinite; }
+    @keyframes float {
+      0%, 100% { transform: rotate(-4deg) translateY(0); }
+      50%      { transform: rotate(-4deg) translateY(-8px); }
+    }
+    .ticket {
+      display: flex; aspect-ratio: 2.3; background: #fff;
+      -webkit-mask:
+        radial-gradient(circle at 78% 0, transparent 11px, #000 12px) top / 100% 51% no-repeat,
+        radial-gradient(circle at 78% 100%, transparent 11px, #000 12px) bottom / 100% 51% no-repeat;
+              mask:
+        radial-gradient(circle at 78% 0, transparent 11px, #000 12px) top / 100% 51% no-repeat,
+        radial-gradient(circle at 78% 100%, transparent 11px, #000 12px) bottom / 100% 51% no-repeat;
+    }
+    .t-photo { width: 32%; background: var(--img) var(--pos, center)/cover, #d0ccc6; }
+    .t-main { width: 46%; padding: 4% 5%; display: flex; flex-direction: column; justify-content: center; gap: 3px; }
+    .t-admit { font-size: .58rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--soft); }
+    .t-event { font-family: var(--display); font-weight: 700; font-size: 1.02rem; letter-spacing: -.02em; line-height: 1.1; }
+    .t-meta { font-size: .64rem; color: var(--muted); }
+    .t-stub { width: 22%; border-left: 2px dashed var(--line); background: var(--surface); display: grid; place-items: center; }
+    .t-stub span { writing-mode: vertical-rl; font-size: .6rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+
+    /* Lanyard badge */
+    .lanyard {
+      align-self: start; width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center;
+      transform-origin: 50% 0; animation: swing 4s ease-in-out infinite alternate;
+    }
+    @keyframes swing { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
+    .strap { width: 16%; height: 18%; background: linear-gradient(90deg, #111, #3a3a3a 50%, #111); clip-path: polygon(0 0, 100% 0, 64% 100%, 36% 100%); }
+    .clip { width: 7%; height: 4%; background: #b9b6b1; border-radius: 3px; margin-top: -1px; }
+    .badge {
+      position: relative; width: 50%; margin-top: -1px;
+      background: #fff; border-radius: 10px; overflow: hidden; text-align: center;
+      box-shadow: 0 14px 26px rgba(0,0,0,.15); padding-bottom: 7%;
+    }
+    .badge-head {
+      position: relative; background: var(--ink); color: #fff;
+      font-size: .54rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+      padding: 16% 6% 6%;
+    }
+    .badge-head::before {
+      content: ""; position: absolute; top: 7px; left: 50%; transform: translateX(-50%);
+      width: 26%; height: 5px; border-radius: 3px; background: var(--bg);
+    }
+    .badge-photo { width: 56%; aspect-ratio: 1; margin: 10% auto 6%; border-radius: 50%; background: var(--img) var(--pos, center)/cover, #d0ccc6; }
+    .badge-role { font-family: var(--display); font-weight: 700; font-size: 1.05rem; letter-spacing: -.02em; line-height: 1.1; }
+    .badge-meta { font-size: .58rem; font-weight: 600; color: var(--soft); letter-spacing: .12em; text-transform: uppercase; }
+
+
+    /* Hover swap: merch fades out, full photo fades in */
+    .reveal {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: 0; transform: scale(.97); pointer-events: none;
+      transition: opacity .45s ease, transform .45s ease;
+    }
+    .reveal img { width: 100%; height: auto; max-height: 100%; object-fit: contain; border-radius: 14px; box-shadow: 0 14px 28px rgba(0,0,0,.14); }
+    .has-reveal .stage > :not(.reveal) { transition: opacity .35s ease, transform .45s ease; }
+    .has-reveal:hover .reveal, .has-reveal .stage:focus .reveal, .has-reveal:focus-within .reveal { opacity: 1; transform: none; }
+    .has-reveal:hover .stage > :not(.reveal), .has-reveal .stage:focus > :not(.reveal), .has-reveal:focus-within .stage > :not(.reveal) { opacity: 0; transform: scale(.94); }
+    .stage:focus { outline: none; }
+    .stage:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 14px; }
+    .section-block + .section-block { margin-top: 28px; }
+    .stage.is-link { cursor: pointer; }
+
+    /* Breadcrumb, like a shop's "home > collection" trail */
+    .crumbs { display: flex; gap: 8px; align-items: center; padding-top: 28px; font-size: .9rem; color: var(--muted); width: auto; justify-content: flex-start; }
+    .crumbs a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+    .crumbs a:hover { color: var(--mocha); }
+    .crumbs + .page-hero { padding-top: 18px; }
+
+    @media (max-width: 1000px) { .item { flex-basis: calc((100% - 36px) / 2); } }
+    @media (max-width: 600px) {
+      .track { gap: 20px; }
+      .item { flex-basis: 80%; }
+      .arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-wrap">
+    <nav>
+      <a href="index.html" class="brand">Ali Jamil</a>
+      <div class="nav-links">
+        <a href="resume.html">Resume</a>
+        <a href="projects.html" aria-current="page">Projects</a>
+        <a href="creative.html">Modeling</a>
+      </div>
+      <div class="nav-right">
+        <div class="social-row" aria-label="Social links">
+          <a class="social-link" href="https://www.linkedin.com/in/alitehranie/" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.11 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7 0h3.84v2.19h.06c.53-1.01 1.84-2.19 3.79-2.19 4.05 0 4.8 2.67 4.8 6.14V24h-4v-7.79c0-1.86-.03-4.25-2.59-4.25-2.59 0-2.99 2.02-2.99 4.12V24h-4V8z"/></svg>
+          </a>
+          <a class="social-link" href="#" aria-label="X">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2H21l-6.56 7.497L22.154 22h-6.037l-4.728-6.184L5.98 22H3.22l7.016-8.014L1.846 2H8.04l4.274 5.646L18.244 2zm-1.06 18.174h1.528L7.21 3.73H5.57l11.615 16.443z"/></svg>
+          </a>
+          <a class="social-link" href="https://github.com/ateh03" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5A12 12 0 0 0 8.21 23.9c.6.12.82-.26.82-.58v-2.06c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.21.08 1.85 1.24 1.85 1.24 1.07 1.84 2.8 1.3 3.49.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.39 1.24-3.23-.12-.31-.54-1.54.12-3.22 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0 1 12 6.32c1.02 0 2.05.14 3.01.42 2.28-1.55 3.29-1.23 3.29-1.23.67 1.68.25 2.91.13 3.22.77.84 1.23 1.92 1.23 3.23 0 4.61-2.8 5.62-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.83.58A12 12 0 0 0 12 .5z"/></svg>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <main class="shell">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="projects.html">Projects</a><span aria-hidden="true">&rsaquo;</span><span aria-current="page">Archive</span>
+    </nav>
+    <section class="page-hero">
+      <p class="kicker">Archive</p>
+      <h1>Past<br>ventures.</h1>
+      <p class="lede">Startups I founded or co-founded. Each one taught me how to talk to users, test an idea fast and pitch it to a room.</p>
+    </section>
+
+    <section class="section-block" aria-labelledby="ventures-title">
+      <div class="section-head">
+        <h2 id="ventures-title">Ventures</h2>
+        <p>Founded or co-founded, 2023 to 2025.</p>
+      </div>
+
+      <div class="carousel">
+        <button class="arrow prev" type="button" aria-label="Previous ventures">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+
+        <ul class="track">
+          <li class="item">
+            <div class="chips"><span class="chip">Featured</span><span class="chip">Startup</span></div>
+            <div class="stage">
+              <div class="vinyl" style="--img:url('assets/img/merch/nexus.jpg'); --pos: 62% 50%">
+                <div class="disc-wrap"><div class="disc"></div></div>
+                <div class="sleeve shadow" role="img" aria-label="Nexus shown as a vinyl record sleeve"></div>
+              </div>
+            </div>
+            <p class="item-meta">Co-founder · 2024–2025</p>
+            <h3 class="item-title">Nexus</h3>
+            <p class="item-desc">A dating app built around a 2D mobile game, with archetype reveals and a slay-or-stay mechanic. Led a team of three and ran discovery with 100+ Gen Z users.</p>
+            <!-- TODO: <a class="item-link" href="#">Read the post-mortem</a> -->
+          </li>
+          <li class="item">
+            <div class="chips"><span class="chip">Startup</span><span class="chip">Archived</span></div>
+            <div class="stage">
+              <div class="polaroids" role="img" aria-label="CIP shown as a stack of polaroid photos">
+                <figure class="polaroid back" style="--img:url('assets/img/merch/cip.jpg'); --pos: 6% 50%"><div class="photo"></div></figure>
+                <figure class="polaroid front" style="--img:url('assets/img/merch/cip.jpg'); --pos: 74% 50%"><div class="photo"></div><figcaption>cip, '23</figcaption></figure>
+              </div>
+            </div>
+            <p class="item-meta">Founder · 2023</p>
+            <h3 class="item-title">CIP</h3>
+            <p class="item-desc">On-demand beverage delivery. Went through the ColaStarts pre-accelerator and interviewed 50+ customers before shutting it down over logistics and regulatory barriers.</p>
+          </li>
+        </ul>
+
+        <button class="arrow next" type="button" aria-label="Next ventures">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <div class="cta"><a class="pill-link" href="projects.html">&larr; Back to current projects</a></div>
+
+    <footer>
+      <p>&copy; 2026 Ali Jamil.</p>
+    </footer>
+  </main>
+
+  <script>
+    // Carousels: page-at-a-time arrows, hidden at the ends, centered on the merch
+    document.querySelectorAll(".carousel").forEach(function (carousel) {
+      var track = carousel.querySelector(".track");
+      var prev = carousel.querySelector(".prev");
+      var next = carousel.querySelector(".next");
+
+      function step() {
+        var item = track.querySelector(".item");
+        var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+        var perView = Math.max(1, Math.floor((track.clientWidth + gap) / (item.offsetWidth + gap)));
+        return perView * (item.offsetWidth + gap);
+      }
+      function update() {
+        var stage = track.querySelector(".stage");
+        if (stage) prev.style.top = next.style.top = (stage.offsetTop + stage.offsetHeight / 2) + "px";
+        var max = track.scrollWidth - track.clientWidth;
+        var overflow = max > 4;
+        prev.hidden = !overflow || track.scrollLeft <= 4;
+        next.hidden = !overflow || track.scrollLeft >= max - 4;
+        track.classList.toggle("centered", !overflow);
+      }
+      prev.addEventListener("click", function () { track.scrollBy({ left: -step() }); });
+      next.addEventListener("click", function () { track.scrollBy({ left: step() }); });
+      track.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    });
+
+    // Clicking a merch graphic opens the same link as the card's text link
+    document.querySelectorAll(".item").forEach(function (item) {
+      var link = item.querySelector(".item-link");
+      var stage = item.querySelector(".stage");
+      if (!link || !stage) return;
+      stage.classList.add("is-link");
+      stage.setAttribute("title", link.textContent.trim());
+      stage.addEventListener("click", function () {
+        if (link.target === "_blank") window.open(link.href, "_blank", "noopener");
+        else window.location.href = link.href;
+      });
+      stage.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") stage.click();
+      });
+    });
+
+    // Lenticular: auto-wobbles, follows the cursor on hover
+    document.querySelectorAll(".lenticular").forEach(function (card) {
+      var stage = card.closest(".stage");
+      stage.addEventListener("pointermove", function (e) {
+        var r = stage.getBoundingClientRect();
+        var x = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width) * 2 - 1));
+        card.classList.add("manual");
+        card.style.setProperty("--x", x.toFixed(3));
+        card.style.setProperty("--p", ((x + 1) / 2).toFixed(3));
+      });
+      stage.addEventListener("pointerleave", function () { card.classList.remove("manual"); });
+    });
+  </script>
+  <script src="assets/js/snow.js" defer></script>
+</body>
+</html>
