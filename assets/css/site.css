@@ -1,0 +1,106 @@
+/* site.css : shared styles for alijamil.com (matches the live nav, colors and type) */
+
+:root {
+  --bg: #efefed;
+  --surface: #f7f7f5;
+  --card: rgba(255, 255, 255, 0.72);
+  --ink: #171717;
+  --muted: #6f6f5b;
+  --soft: #8d8d7c;
+  --line: rgba(0, 0, 0, 0.08);
+  --line-strong: #cfcfc8;
+  --accent: #d7c1a6;
+  --mocha: #8a6f57;
+  --max: 1320px;
+  --radius: 22px;
+  --display: "Inter", system-ui, sans-serif;
+  --sans: "Inter", system-ui, sans-serif;
+  --hand: "Caveat", cursive;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+
+.shell { width: min(94%, var(--max)); margin: 0 auto; }
+
+/* ---------- Nav (same markup as the live site) ---------- */
+.nav-wrap {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(239, 239, 237, 0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+nav {
+  width: min(94%, var(--max)); margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 0; gap: 20px;
+}
+.brand { font-size: .95rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; }
+.nav-links, .nav-right { display: flex; align-items: center; gap: 28px; }
+.nav-links a, .nav-right a { font-size: .95rem; color: var(--muted); transition: color .2s ease; }
+.nav-links a:hover, .nav-right a:hover { color: var(--mocha); }
+.nav-links a[aria-current="page"] { color: var(--ink); }
+.social-row { display: flex; gap: 18px; align-items: center; }
+.social-link {
+  width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center;
+  color: var(--muted); transition: transform .2s ease, color .2s ease;
+}
+.social-link:hover { color: var(--mocha); transform: translateY(-1px); }
+.social-link svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* ---------- Page hero ---------- */
+.page-hero { padding: 56px 0 26px; }
+.kicker {
+  font-size: .8rem; text-transform: uppercase; letter-spacing: .14em;
+  color: var(--muted); font-weight: 700; margin-bottom: 14px;
+}
+.page-hero h1 {
+  font-size: clamp(3.2rem, 8vw, 6.6rem);
+  line-height: .95; letter-spacing: -.06em; margin-bottom: 14px;
+}
+.page-hero .lede { max-width: 760px; color: var(--muted); font-size: 1.05rem; line-height: 1.6; }
+
+/* ---------- Section head ---------- */
+.section-block { padding: 22px 0 10px; }
+.section-head {
+  display: flex; align-items: end; justify-content: space-between; gap: 20px;
+  margin-bottom: 22px; border-bottom: 1px solid var(--line); padding-bottom: 16px;
+}
+.section-head h2 { font-size: clamp(1.7rem, 3vw, 2.8rem); letter-spacing: -.05em; }
+.section-head p { max-width: 620px; color: var(--muted); }
+
+/* ---------- Buttons ---------- */
+.pill-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 14px; border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, .1); background: var(--card);
+  color: var(--muted); font-size: .92rem;
+  transition: color .2s ease, border-color .2s ease;
+}
+.pill-link:hover { color: var(--mocha); border-color: rgba(0, 0, 0, .16); }
+.pill-link.dark { background: var(--ink); color: #fff; border-color: var(--ink); }
+.pill-link.dark:hover { background: #333; color: #fff; }
+
+/* ---------- Footer ---------- */
+footer { padding: 22px 0 40px; color: var(--muted); font-size: .92rem; }
+
+@media (max-width: 780px) {
+  nav { flex-direction: column; align-items: flex-start; }
+  .nav-links, .nav-right { flex-wrap: wrap; gap: 14px; }
+  .section-head { flex-direction: column; align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
