@@ -416,6 +416,12 @@
       stage.addEventListener("pointerleave", function () { card.classList.remove("manual"); });
     });
   </script>
+  <!-- Seasonal effects. Each script checks the date and only runs in its own window.
+       Oct 1 - Oct 31   drip.js    blood drip on homepage graphics (elements with data-drip)
+       Nov 1 - Jan 31   snow.js    falling snow, every page
+       Feb 1 - Feb 15   hearts.js  falling hearts, every page
+       Preview any time: add ?drip=on, ?snow=on or ?hearts=on to the URL. -->
   <script src="assets/js/snow.js" defer></script>
+  <script src="assets/js/hearts.js" defer></script>
 </body>
 </html>
